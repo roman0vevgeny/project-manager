@@ -1,0 +1,70 @@
+.body {
+  @apply flex flex-row py-3 px-3 mx-5 border-1 border-stroke items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden
+  transition-all duration-200 ease-in-out;
+  // max-h-[400px];
+
+  &:hover {
+    @apply shadow-card border-1 border-borderHover;
+  }
+}
+
+.dragging {
+  @apply flex flex-row py-3 px-3 mx-5 border-1 border-borderHover items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
+  transition-all duration-200 ease-in-out;
+  // max-h-[400px];
+}
+
+.bodyChecked {
+  @apply flex flex-row py-3 px-3 mx-5 border-1 border-stroke items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden
+  transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply shadow-card border-1 border-borderHover;
+  }
+}
+
+.checkbox {
+  @apply flex justify-start items-center min-w-[40px] h-full;
+}
+
+.clickable {
+  @apply flex flex-col flex-grow transition-all duration-200 ease-in-out;
+}
+
+.notFavorite {
+  @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2 transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}
+
+.favorite {
+  @apply flex flex-row text-yellowTag bg-yellowTag justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2 transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply opacity-80;
+  }
+}
+
+.devider {
+  @apply flex items-center flex-grow mx-7;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider;
+    content: '';
+  }
+}
+
+.sectionDevider {
+  @apply flex items-center flex-grow my-3;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider;
+    content: '';
+  }
+}

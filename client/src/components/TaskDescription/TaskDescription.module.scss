@@ -1,0 +1,15 @@
+.text {
+  @apply relative text-14 min-w-[200px] pr-2 pt-[0px] mb-[10px] mt-[0px] max-w-[720px] text-gray text-start leading-1.5 flex-grow mr-10 w-full break-words;
+}
+
+.textChecked {
+  @apply text-14 min-w-[200px] pt-[4px] mb-[10px] mt-[5px] max-w-[720px] text-gray text-start leading-1.5 flex-grow mr-10 w-full;
+}
+
+.textH {
+  @apply relative;
+}
+
+.textH a {
+  @apply text-blueTag;
+}

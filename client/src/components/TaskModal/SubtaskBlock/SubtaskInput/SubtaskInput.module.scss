@@ -1,0 +1,39 @@
+.input {
+  @apply flex box-border text-start text-14 font-medium flex-grow mt-1 mr-2 pl-2 pr-7 py-1 bg-mainBg text-gray rounded-[5px] w-[500px] cursor-pointer border-1 border-input;
+
+  &:hover {
+    @apply text-gray box-border;
+
+    &::placeholder {
+      @apply text-gray;
+    }
+  }
+
+  &::placeholder {
+    @apply text-gray;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus cursor-auto border-none pl-[9px] py-[5px] box-border;
+
+    &::placeholder {
+      @apply text-inputFocus;
+    }
+  }
+}
+
+.editBtn {
+  @apply flex flex-row mt-1;
+
+  &:focus {
+    @apply outline-none filter-none;
+  }
+}
+
+.close {
+  @apply box-border pl-[7px] pr-[7px] pt-[6px] pb-[7px] absolute top-[7px] right-[11px] rounded-[3px] text-inputFocus;
+
+  &:hover {
+    @apply bg-inputFocus text-inputFocus;
+  }
+}

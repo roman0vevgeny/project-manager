@@ -1,0 +1,7 @@
+.main {
+  @apply flex justify-center items-center h-[30px] w-[30px] cursor-pointer text-menu rounded-[5px] mx-2 transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-menu text-menu;
+  }
+}

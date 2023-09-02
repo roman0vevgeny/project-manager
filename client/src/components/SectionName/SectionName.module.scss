@@ -1,0 +1,21 @@
+.input {
+  @apply flex flex-row justify-between items-center text-24 font-bold flex-grow mr-2 px-2 bg-mainBg text-task rounded-[5px]
+  transition-all duration-200 ease-in-out;
+
+  &::placeholder {
+    @apply text-placeholder;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus;
+  }
+}
+
+.devider {
+  @apply flex items-center flex-grow;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider transition-all duration-200 ease-in-out;
+    content: '';
+  }
+}

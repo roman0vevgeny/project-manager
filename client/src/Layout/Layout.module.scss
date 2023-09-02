@@ -1,0 +1,12 @@
+.main {
+  @apply flex flex-row;
+}
+
+.nav {
+  @apply min-w-[300px] bg-nav py-10 px-[15px];
+  height: 94.5vh;
+}
+
+.content {
+  @apply flex justify-center w-full py-10;
+}

@@ -1,0 +1,16 @@
+.projects {
+  @apply flex w-[227px] flex-wrap items-start pl-2 py-1 border-1 border-stroke rounded-[5px] max-h-[113px] overflow-y-auto;
+  align-content: flex-start;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}

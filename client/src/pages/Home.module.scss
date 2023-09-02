@@ -1,0 +1,21 @@
+.main {
+  @apply relative h-[calc(100vh-50px)] w-full flex justify-center transition-all duration-200 ease-in-out;
+}
+
+.scrollable {
+  @apply flex flex-col items-center overflow-y-auto h-[calc(100vh-100px)] w-full pb-10 transition-all duration-200 ease-in-out;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-[5px];
+    scroll-behavior: smooth;
+    transition: all 200ms ease-in-out;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-checkboxActive rounded-[5px];
+  }
+}

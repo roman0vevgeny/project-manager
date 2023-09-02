@@ -1,0 +1,28 @@
+.notFavorite {
+  @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}
+
+.favorite {
+  @apply flex flex-row text-yellowTag bg-yellowTag justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply opacity-80;
+  }
+}
+
+.sectionDevider {
+  @apply flex items-center flex-grow my-3;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider;
+    content: '';
+  }
+}

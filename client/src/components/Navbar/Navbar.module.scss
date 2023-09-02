@@ -1,0 +1,42 @@
+.main {
+  @apply relative w-full cursor-pointer overflow-y-auto h-[calc(100vh-90px)] pr-[5px] pb-[20px] transition-all duration-200 ease-in-out;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0 hidden;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}
+
+.tags {
+  @apply flex flex-row flex-wrap justify-start items-center;
+}
+
+.tag {
+  @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}
+
+.sectionDevider {
+  @apply flex items-center flex-grow my-3;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider transition-all duration-200 ease-in-out;
+    content: '';
+  }
+}
+
+.devider {
+  @apply w-full h-[1px] bg-devider sticky top-0;
+}

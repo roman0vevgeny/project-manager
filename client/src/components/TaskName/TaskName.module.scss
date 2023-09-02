@@ -1,0 +1,15 @@
+.text {
+  @apply text-task transition-all duration-200 ease-in-out;
+}
+
+.textChecked {
+  @apply text-gray transition-all duration-200 ease-in-out;
+}
+
+.textBig {
+  @apply min-w-[250px] font-bold pt-[3px]  text-task text-start leading-1.5 flex-grow mr-10 break-words;
+}
+
+.textSmall {
+  @apply min-w-[250px] text-14  pt-[5px] text-task text-start leading-1.5 flex-grow mr-10 break-words;
+}

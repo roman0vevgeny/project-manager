@@ -1,0 +1,26 @@
+.project {
+  @apply flex flex-row items-center w-fit my-[5px] mr-[8px] py-[5px] px-[6px] rounded-[3px] text-13 leading-[11px] cursor-pointer max-h-[19px] bg-gray
+  text-grayHover;
+}
+
+.checked {
+  @apply flex flex-row items-center w-fit mx-2 pt-[7px] pb-[6px] px-[5px] rounded-[3px] text-12 leading-[11px] bg-gray
+  text-grayHover;
+}
+
+.withDelete {
+  @apply flex flex-row items-center w-fit mx-2 pt-[6px] pb-[5px] px-[5px] rounded-[3px] text-12 leading-[11px] cursor-pointer bg-gray
+  text-grayHover;
+}
+
+.svg {
+  @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[3px] cursor-pointer
+  text-grayHover;
+  &:hover {
+    @apply text-tagDelete;
+  }
+}
+
+.folder {
+  @apply ml-[2px] mr-2;
+}

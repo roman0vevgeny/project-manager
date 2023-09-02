@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: url('./fonts//Gilroy-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: url('./fonts/Gilroy-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy-Extrabold';
+  src: url('./fonts/Gilroy-Extrabold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  @apply relative m-0 p-0 bg-mainBg
+  transition-all duration-200 ease-in-out
+  overflow-hidden;
+}
+
+#root {
+  font-family: 'Gilroy-Medium', sans-serif;
+  line-height: 1.5;
+  width: 100%;
+  max-width: none;
+  color-scheme: light dark;
+  padding: 0;
+}
+
+.light {
+  --color-text-gray: #aaaaaa;
+  --color-text-gray-hover: #7c7c7c;
+  --color-bg-gray: #f0f0f0;
+  --color-bg-gray-hover: #dddddd;
+  --color-main: #6e7dff;
+  --color-main-bg: #ffffff;
+  --border-header: #6e7dff;
+  --menu-text: #ffffff;
+  --menu-button-hover: #8e9aff;
+  --navbutton-bg-hover: #eaeaea;
+  --nav-bg: #f4f4f4;
+  --task-text: #484848;
+  --stroke: #e2e2e2;
+  --checkbox-active: #6e7dff;
+  --checkbox--icon-active: #ffffff;
+  --selection: #8e9aff;
+  --input-focus-bg: #ebf0ff;
+  --input-focus-text: #6e7dff;
+  --input-placeholder: #c0c7ff;
+  --color-gray: #e4e4e4;
+  --color-blue: #e5eaff;
+  --color-green: #def1df;
+  --color-red: #ffdbdd;
+  --color-yellow: #f4edad;
+  --color-purple: #ebdafc;
+  --color-sea: #cff3ed;
+  --color-pink: #ffdef9;
+  --color-text-gray-tag: #5b5b5b;
+  --color-text-red-tag: #ac273f;
+  --color-text-green-tag: #339523;
+  --color-text-yellow-tag: #af7927;
+  --color-text-purple-tag: #833fac;
+  --color-text-sea-tag: #228694;
+  --color-text-blue-tag: #5c86ee;
+  --color-text-pink-tag: #bb317d;
+  --image-color: #a8b1ff;
+  --tag-delete: #000000;
+  --calendar-disable: #e6e6e6;
+  --calendar-bg-active: #6e7dff;
+  --calendar-bg-active-text: #ffffff;
+  --bg-scroll: #e9e9e9;
+  --expired: #d8435f;
+  --border-hover: #d8d8d8;
+}
+
+.dark {
+  --color-text-gray: #aaaaaa;
+  --color-text-gray-hover: #aaaaaa;
+  --color-bg-gray: #4f4f4f;
+  --color-bg-gray-hover: #2d2d2d;
+  --color-main: #2d2d2d;
+  --color-main-bg: #373737;
+  --border-header: #4f4f4f;
+  --menu-text: #aeaeae;
+  --menu-button-hover: #3d3d3d;
+  --navbutton-bg-hover: #4f4f4f;
+  --nav-bg: #424242;
+  --task-text: #dcdcdc;
+  --stroke: #616161;
+  --checkbox-active: #737373;
+  --checkbox--icon-active: #dcdcdc;
+  --selection: #3d3d3d;
+  --input-focus-bg: #494949;
+  --input-focus-text: #dcdcdc;
+  --input-placeholder: #868686;
+  --color-gray: #585858;
+  --color-blue: #4a526d;
+  --color-green: #355636;
+  --color-red: #633739;
+  --color-yellow: #58542f;
+  --color-purple: #57446a;
+  --color-sea: #3d675f;
+  --color-pink: #66335d;
+  --color-text-gray-tag: #b9b9b9;
+  --color-text-red-tag: #f07c91;
+  --color-text-green-tag: #64bb56;
+  --color-text-yellow-tag: #e3ad5c;
+  --color-text-purple-tag: #bd8bdc;
+  --color-text-sea-tag: #79c8d3;
+  --color-text-blue-tag: #7fa1f7;
+  --color-text-pink-tag: #dd81b4;
+  --image-color: #585858;
+  --tag-delete: #dcdcdc;
+  --calendar-disable: #636363;
+  --calendar-bg-active: #dcdcdc;
+  --calendar-bg-active-text: #4f4f4f;
+  --bg-scroll: #4b4b4b;
+  --expired: #f07c91;
+  --border-hover: #949494;
+}
+
+.bangle-editor {
+  @apply py-1 px-2 outline-none bg-mainBg text-start leading-1.5 rounded-[5px] cursor-pointer;
+}
+
+.bangle-editor p {
+  color: var(--task-text);
+  font-family: 'Gilroy-Medium', sans-serif;
+  src: url('./fonts/Gilroy-Medium.ttf') format('truetype');
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.4;
+  margin: 0px;
+}
+
+.bangle-editor a {
+  @apply text-blueTag cursor-pointer hover:text-blueTag;
+}
+
+.bangle-editor:focus a {
+  @apply text-purpleTag cursor-pointer hover:text-purpleTag;
+}
+
+.bangle-editor li {
+  @apply text-task;
+}
+
+.bangle-editor:focus li {
+  @apply text-inputFocus;
+}
+
+.bangle-editor:focus p {
+  @apply text-inputFocus;
+}
+
+.bangle-editor:focus {
+  @apply bg-inputFocus cursor-auto;
+}
+
+.bangle-menu {
+  @apply flex items-center text-14 font-normal bg-mainBg text-gray rounded-[10px] py-1 w-fit ml-0 mr-1 px-0;
+}
+
+.bangle-menu > div > .bangle-menu-button {
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+}
+
+.bangle-menu > div > .bangle-menu-button:disabled {
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+}
+
+.bangle-menu > div > .bangle-menu-button:active {
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+}
+
+.bangle-menu-button svg {
+  @apply w-[20px] h-[20px] text-gray hover:text-grayHover;
+}
+
+.bangle-menu > div > .active {
+  @apply bg-grayHover m-0;
+}
+
+.active svg {
+  @apply w-[20px] h-[20px] text-grayHover;
+}

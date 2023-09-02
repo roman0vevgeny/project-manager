@@ -1,0 +1,24 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "parser": "babel"
+      }
+    }
+  ],
+  "prettier.cssEnable": ["css", "less", "sass"],
+  "endOfLine": "auto",
+  "quoteProps": "consistent",
+  "jsxBracketSameLine": true,
+  "objectCurlySpacing": true,
+  "arrowSpacing": true
+}

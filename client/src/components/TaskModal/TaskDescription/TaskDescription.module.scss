@@ -1,0 +1,68 @@
+// @font-face {
+//   font-family: 'Gilroy-Medium';
+//   src: url('../../../fonts/Gilroy-Medium.ttf') format('truetype');
+// }
+
+// .ql-editor {
+//   font-family: 'Gilroy-Medium' !important;
+// }
+
+.slate {
+  @apply flex w-full h-full;
+}
+
+.input {
+  @apply flex text-start text-14 font-medium flex-grow mt-1 mr-2 px-2 py-1 bg-mainBg text-task rounded-[5px] w-[500px] cursor-pointer resize-none;
+
+  &::placeholder {
+    @apply text-gray;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus cursor-auto;
+
+    &::placeholder {
+      @apply text-inputFocus;
+    }
+  }
+}
+
+.inputGray {
+  @apply flex text-start text-14 font-medium flex-grow mt-1 mr-2 px-2 py-1 bg-mainBg text-gray rounded-[5px] w-[500px] cursor-pointer;
+
+  &::placeholder {
+    @apply text-gray;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus cursor-auto;
+  }
+}
+
+.inputChecked {
+  @apply flex text-start text-14 font-medium flex-grow mt-1 mr-2 px-2 py-1 bg-mainBg text-gray rounded-[5px] w-[500px] cursor-pointer;
+
+  &::placeholder {
+    @apply text-gray;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus cursor-auto;
+  }
+}
+
+.editBtn {
+  @apply flex flex-row mt-1;
+
+  &:focus {
+    @apply outline-none filter-none;
+  }
+}
+
+.link {
+  @apply flex flex-row mt-1 text-blue-400;
+
+  &:focus {
+    @apply outline-none filter-none;
+  }
+}

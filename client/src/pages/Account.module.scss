@@ -1,0 +1,40 @@
+.input {
+  @apply flex box-border h-[35px] text-start text-16 font-medium flex-grow mt-1 mr-2 pl-2 pr-8 py-1 bg-mainBg text-task rounded-[5px] w-[500px] cursor-pointer border-1 border-stroke
+  transition-colors duration-200 ease-in-out;
+
+  &:hover {
+    @apply box-border;
+
+    &::placeholder {
+      @apply text-gray;
+    }
+  }
+
+  &::placeholder {
+    @apply text-gray;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus cursor-auto border-none pl-[9px] py-[5px] box-border;
+
+    &::placeholder {
+      @apply text-inputFocus;
+    }
+  }
+}
+
+.editBtn {
+  @apply flex flex-row mt-1 transition-all duration-200 ease-in-out;
+
+  &:focus {
+    @apply outline-none filter-none;
+  }
+}
+
+.close {
+  @apply box-border pl-[7px] pr-[7px] pt-[7px] pb-[7px] absolute top-[9px] right-[13px] rounded-[3px] text-inputFocus;
+
+  &:hover {
+    @apply bg-inputFocus text-inputFocus;
+  }
+}

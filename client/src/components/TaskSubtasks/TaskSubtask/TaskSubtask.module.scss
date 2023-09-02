@@ -1,0 +1,9 @@
+.input {
+  @apply flex text-start text-task text-14 font-medium flex-grow mr-2 py-1 bg-mainBg rounded-[5px] max-w-[430px] cursor-pointer
+  transition-all duration-200 ease-in-out;
+}
+
+.inputChecked {
+  @apply flex text-start text-14 font-medium flex-grow mr-2 py-1 bg-mainBg text-gray rounded-[5px] max-w-[430px] cursor-pointer
+  transition-all duration-200 ease-in-out;
+}

@@ -1,0 +1,23 @@
+.app {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  animation: spin-scale 3s infinite;
+  scrollbar-width: 0px;
+  -ms-overflow-style: none;
+}
+
+@keyframes spin-scale {
+  0% {
+    transform: rotate(0deg) scale(1);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: rotate(0deg) scale(1.5);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    animation-timing-function: ease-in;
+  }
+}

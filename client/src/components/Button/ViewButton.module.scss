@@ -1,0 +1,11 @@
+.button {
+  @apply flex w-[33px] h-[30px] rounded-[5px] text-menu items-center justify-center mx-[5px];
+
+  &:hover {
+    @apply bg-menu;
+  }
+}
+
+.active {
+  @apply bg-menu shadow-button;
+}

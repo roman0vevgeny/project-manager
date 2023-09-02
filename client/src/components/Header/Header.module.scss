@@ -1,0 +1,32 @@
+.main {
+  @apply box-border flex flex-row h-[50px]
+    min-w-[25px] justify-between
+    items-center px-[7px] py-[7px] bg-main
+    font-bold text-gray text-14
+    shadow-sm cursor-pointer
+    transition-all duration-200 ease-in-out;
+}
+
+.button {
+  @apply flex w-[33px] h-[30px] rounded-[5px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-menu transition-all duration-200 ease-in-out;
+  }
+}
+
+.active {
+  @apply bg-menu shadow-button flex w-[33px] h-[30px] rounded-[5px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
+}
+
+.account {
+  @apply flex w-[30px] h-[30px] rounded-full text-menu items-center justify-center mx-[5px] border-1 border-search transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-menu border-none transition-all duration-200 ease-in-out;
+  }
+}
+
+.accountActive {
+  @apply bg-menu rounded-full shadow-button flex w-[30px] h-[30px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
+}

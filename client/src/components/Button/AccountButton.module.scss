@@ -1,0 +1,12 @@
+.main {
+  @apply flex h-[30px] w-[30px] box-border rounded-full bg-main border-1 border-search 
+    items-center mx-2 cursor-pointer text-menu select-none;
+
+  &:hover {
+    @apply bg-menu border-none;
+  }
+}
+
+.text {
+  @apply text-18 font-medium w-full leading-3;
+}

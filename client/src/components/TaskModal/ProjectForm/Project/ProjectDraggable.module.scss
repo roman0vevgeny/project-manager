@@ -1,0 +1,18 @@
+.withDelete {
+  @apply flex flex-row items-center w-full py-[7px] px-[25px] rounded-[3px] text-14 leading-[11px] cursor-pointer bg-mainBg 
+  text-gray transition-all duration-200 ease-in-out;
+  &:hover {
+    @apply bg-gray text-grayHover;
+  }
+}
+
+.svg {
+  @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[3px] cursor-pointer;
+  &:hover {
+    @apply text-tagDelete;
+  }
+}
+
+.folder {
+  @apply ml-[2px] mr-2;
+}

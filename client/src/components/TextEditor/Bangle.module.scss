@@ -1,0 +1,15 @@
+.main {
+  @apply w-[500px] text-14 text-start space-y-1 pb-1;
+
+  &:focus {
+    @apply bg-mainBg;
+  }
+}
+
+.button {
+  @apply flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover pt-[3px] pb-[2px] px-2;
+}
+
+.buttonOpen {
+  @apply flex rounded-[5px] text-gray text-14 justify-center items-center pt-[3px] pb-[2px] px-2;
+}

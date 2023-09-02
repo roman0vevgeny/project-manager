@@ -1,0 +1,49 @@
+.body {
+  @apply flex flex-row py-3 mx-5 border-stroke items-start rounded-[10px] max-w-[750px] relative cursor-pointer;
+}
+
+.checkbox {
+  @apply flex justify-start items-center min-w-[40px] h-full;
+}
+
+.clickable {
+  @apply flex flex-col flex-grow;
+}
+
+.notFavourite {
+  @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}
+
+.favourite {
+  @apply flex flex-row text-yellowTag bg-yellowTag justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply opacity-80;
+  }
+}
+
+.devider {
+  @apply flex items-center flex-grow mx-7;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider;
+    content: '';
+  }
+}
+
+.verticalDevider {
+  @apply flex items-center flex-grow my-3 mx-3;
+
+  &::after {
+    @apply flex-grow h-full w-[1px] bg-devider;
+    content: '';
+  }
+}

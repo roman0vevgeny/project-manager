@@ -1,0 +1,83 @@
+.tagOuter {
+  @apply flex justify-center items-center h-[25px] w-[25px] bg-grayTag rounded-full mr-1 mb-1;
+
+  &:hover {
+    @apply border-1 border-checkbox;
+  }
+
+  &:active {
+    @apply border-1 border-checkbox;
+  }
+}
+
+.selected {
+  @apply border-1 border-checkbox;
+}
+
+.tagInner {
+  @apply h-[11px] w-[11px] rounded-full bg-[var(--color-text-gray-tag)];
+}
+
+.redOuter {
+  @apply bg-redTag;
+}
+
+.greenOuter {
+  @apply bg-greenTag;
+}
+
+.yellowOuter {
+  @apply bg-yellowTag;
+}
+
+.blueOuter {
+  @apply bg-blueTag;
+}
+
+.purpleOuter {
+  @apply bg-purpleTag;
+}
+
+.grayOuter {
+  @apply bg-grayTag;
+}
+
+.seaOuter {
+  @apply bg-seaTag;
+}
+
+.pinkOuter {
+  @apply bg-pinkTag;
+}
+
+.redInner {
+  @apply bg-[var(--color-text-red-tag)];
+}
+
+.greenInner {
+  @apply bg-[var(--color-text-green-tag)];
+}
+
+.yellowInner {
+  @apply bg-[var(--color-text-yellow-tag)];
+}
+
+.blueInner {
+  @apply bg-[var(--color-text-blue-tag)];
+}
+
+.purpleInner {
+  @apply bg-[var(--color-text-purple-tag)];
+}
+
+.grayInner {
+  @apply bg-[var(--color-text-gray-tag)];
+}
+
+.seaInner {
+  @apply bg-[var(--color-text-sea-tag)];
+}
+
+.pinkInner {
+  @apply bg-[var(--color-text-pink-tag)];
+}

@@ -1,0 +1,27 @@
+.onDelete {
+  @apply flex mx-2 pt-[2px] rounded-[3px] cursor-pointer;
+
+  &:hover {
+    @apply text-tagDelete;
+  }
+}
+
+.main {
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
+  h-[24px] min-w-[25px] items-center rounded-[3px] text-12 mx-2 pl-[2px] text-grayHover bg-gray cursor-pointer;
+}
+
+.todayMain {
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
+  h-[24px] min-w-[25px] items-center rounded-[3px] text-12 mx-2 pl-[2px] text-blueTag bg-blueTag cursor-pointer;
+}
+
+.expiredMain {
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
+  h-[24px] min-w-[25px] items-center rounded-[3px] text-12 mx-2 pl-[2px] text-redTag bg-redTag cursor-pointer;
+}
+
+.mainChecked {
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
+  h-[24px] min-w-[25px] items-center rounded-[3px] text-12 mx-2 pl-[2px] text-grayHover;
+}

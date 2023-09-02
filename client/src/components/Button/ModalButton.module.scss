@@ -1,0 +1,19 @@
+.button {
+  @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 ml-1;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}
+
+.notFavourite {
+  @apply flex flex-row text-gray justify-center h-[25px] max-w-[25px] 
+  items-center px-[4px] pb-[1px] rounded-[5px] 
+  font-bold text-14 mx-2;
+
+  &:hover {
+    @apply bg-gray text-gray;
+  }
+}

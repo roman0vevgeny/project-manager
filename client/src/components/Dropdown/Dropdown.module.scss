@@ -1,0 +1,53 @@
+.main {
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  h-[30px] min-w-[25px] 
+  items-center px-[7px] py-1 rounded-[5px] 
+  font-bold text-14 text-gray mt-1
+  justify-between transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-navButtonHover text-grayHover;
+  }
+
+  &:active {
+    @apply bg-grayHover text-grayHover;
+  }
+}
+
+.open {
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  h-[30px] min-w-[25px] bg-mainBg
+  items-center px-[7px] py-1 rounded-t-[5px] 
+  font-bold text-14 text-gray mt-1
+  justify-between transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-navButtonHover text-grayHover transition-all duration-200 ease-in-out;
+  }
+
+  &:active {
+    @apply bg-grayHover text-grayHover transition-all duration-200 ease-in-out;
+  }
+}
+
+.icon {
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-2 auto-rows-fr 
+  items-center;
+}
+
+.counter {
+  @apply flex min-w-[15px] justify-center items-center;
+}
+
+.dropdown {
+  @apply flex flex-col content-start justify-start w-full mt-[1px] rounded-md max-h-0 
+  origin-top transition-all duration-200 ease-in-out;
+}
+
+.item {
+  @apply flex py-1 pl-7 pr-2 text-14 text-gray cursor-pointer truncate transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-gray text-grayHover transition-all duration-200 ease-in-out;
+  }
+}

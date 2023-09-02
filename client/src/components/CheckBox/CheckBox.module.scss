@@ -1,0 +1,20 @@
+.body {
+  @apply flex w-[20px] h-[20px] rounded-full justify-center items-center mx-2 box-border border-2 border-checkbox 
+  text-gray mb-1 mt-[5px] transition-all duration-200 ease-in-out;
+}
+
+.checked {
+  @apply flex w-[20px] h-[20px] rounded-full justify-center items-center mx-2 box-border border-2 border-checkboxActive bg-checkboxActive
+  text-checkboxIcon mb-1 mt-[5px] transition-all duration-200 ease-in-out;
+  transform: scale(1);
+}
+
+.checked:active {
+  @apply transition-all duration-200 ease-in-out;
+  transform: scale(0.4);
+}
+
+.body:active {
+  @apply transition-all duration-200 ease-in-out;
+  transform: scale(0.3);
+}

@@ -1,0 +1,88 @@
+.main {
+  @apply relative flex flex-grow max-h-[30px] items-center ml-2 text-menu box-border transition-all duration-200 ease-in-out;
+}
+
+.icon {
+  @apply absolute top-[6px] left-2 z-5;
+}
+
+.inputWrapper {
+  @apply relative flex items-center;
+}
+
+.inputActive {
+  @apply flex absolute left-0 top-0 w-[470px] box-border items-center rounded-l-[5px] border-1 border-search bg-main pl-9 pr-8 outline-none text-16 h-[30px] 
+  placeholder-search cursor-text transition-all duration-200 ease-in-out;
+}
+
+.inputInactive {
+  @apply flex absolute left-0 top-0 w-[240px] box-border items-center rounded-[5px] border-1 border-search bg-main pl-9 pr-8 outline-none text-16 h-[30px] 
+  placeholder-search cursor-pointer transition-all duration-200 ease-in-out;
+}
+
+.clear {
+  @apply px-[7px] pt-[6px] pb-[5px] absolute top-[4px] left-[440px] rounded-[3px] z-5;
+
+  &:hover {
+    @apply bg-menu;
+  }
+}
+
+.close {
+  @apply px-[7px] absolute top-[0px] left-[469px] rounded-r-[5px] z-5 border-1 border-search h-[30px] transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-menu transition-all duration-200 ease-in-out;
+  }
+}
+
+.closeNone {
+  @apply px-[7px] absolute top-[0px] left-[239px] rounded-r-[5px] z-5 border-1 border-search h-[30px] transition-all duration-200 ease-in-out opacity-0;
+
+  &:hover {
+    @apply bg-menu transition-all duration-200 ease-in-out;
+  }
+}
+
+.devider {
+  @apply flex items-center flex-grow my-1;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider;
+    content: '';
+  }
+}
+
+.searchPopup {
+  @apply absolute shadow-md top-[32px] left-2 py-1 bg-mainBg w-[500px] z-[20] rounded-[5px] border-1 border-search max-h-[686px] overflow-hidden
+  transition-all duration-200 ease-in-out;
+}
+
+.searchPopupLimited {
+  @apply absolute shadow-md top-[32px] left-2 py-1 bg-mainBg w-[500px] z-[20] rounded-[5px] border-1 border-search h-[686px] overflow-y-scroll transition-all duration-200 ease-in-out;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    scroll-behavior: smooth;
+    transition: all 200ms ease-in-out;
+  }
+}
+
+.item {
+  @apply flex flex-row items-center justify-between w-full px-2 py-2 cursor-pointer;
+}
+
+.limitButton {
+  @apply flex flex-row items-center justify-between w-full px-2 py-3 cursor-pointer;
+  &:hover {
+    @apply bg-gray;
+  }
+}
