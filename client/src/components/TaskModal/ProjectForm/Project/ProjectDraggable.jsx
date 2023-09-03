@@ -8,11 +8,17 @@ const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
 }
 
-const ProjectDraggable = ({ projectName, onDelete, isDragging, projectId }) => {
+const ProjectDraggable = ({
+  projectName,
+  onDelete,
+  isDragging,
+  projectId,
+  navData,
+}) => {
   const navigate = useNavigate()
 
   return (
-    <div className='w-full' onClick={() => navigate(`/projects/${projectId}`)}>
+    <div onClick={() => navigate(`/projects/${projectId}`)}>
       <div
         className={
           styles.withDelete +

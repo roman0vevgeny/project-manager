@@ -5,7 +5,7 @@ import Modal from '../Modal/Modal'
 import CreateTaskModal from '../TaskModal/CreateTaskModal'
 import BigPlus from '../svgs/BigPlus'
 
-const CreateButton = ({ children, today, bigButton }) => {
+const CreateButton = ({ children, today, bigButton, projectId }) => {
   const [open, setOpen] = useState(false)
 
   const onClose = () => {
@@ -38,7 +38,13 @@ const CreateButton = ({ children, today, bigButton }) => {
       <Modal
         open={open}
         onClose={onClose}
-        children={<CreateTaskModal onClose={onClose} today={today} />}
+        children={
+          <CreateTaskModal
+            onClose={onClose}
+            today={today}
+            projectId={projectId}
+          />
+        }
       />
     </div>
   )

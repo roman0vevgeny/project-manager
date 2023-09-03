@@ -49,18 +49,6 @@ const projectSlice = createSlice({
       }
     },
 
-    // toggleTaskInProject(state, action) {
-    //   const { projectId, taskId } = action.payload
-    //   const project = state.find((project) => project.id === projectId)
-    //   if (project) {
-    //     if (project.tasks.includes(taskId)) {
-    //       project.tasks = project.tasks.filter((id) => id !== taskId)
-    //     } else {
-    //       project.tasks.push(taskId)
-    //     }
-    //   }
-    // },
-
     updateProjectsOrder(state, action) {
       state.splice(0, state.length, ...action.payload.projects)
     },

@@ -6,13 +6,14 @@ import TagForm from './TagForm/TagForm'
 import Calend from './Calendar/Calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTask } from '../../features/tasksSlice'
+import { addTaskToProject } from '../../features/projectSlice'
 import Plus from '../svgs/Plus'
 import Tag from '../Tag/Tag'
 import TaskHeader from './TaskHeader/TaskHeader'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import ProjectForm from './ProjectForm/ProjectForm'
 
-const CreateTaskModal = ({ onClose, today }) => {
+const CreateTaskModal = ({ onClose, today, projectId }) => {
   const [task, setTask] = useState({
     id: Date.now(),
     name: '',
@@ -34,6 +35,12 @@ const CreateTaskModal = ({ onClose, today }) => {
   }, [today])
 
   useEffect(() => {
+    if (projectId && !task.projects.includes(projectId)) {
+      setTask({ ...task, projects: [...task.projects, projectId] })
+    }
+  }, [projectId])
+
+  useEffect(() => {
     setError(null)
   }, [task.name])
 
@@ -41,21 +48,6 @@ const CreateTaskModal = ({ onClose, today }) => {
   const { expirationDate } = task
 
   const allTags = useSelector((state) => state.tags)
-
-  // const handleCreateTask = () => {
-  //   if (!task.name || task.name === '') {
-  //     setError('Please enter a valid task name')
-  //   } else {
-  //     setError(null)
-  //     dispatch(
-  //       addTask({
-  //         ...task,
-  //         expirationDate: expirationDate,
-  //       })
-  //     )
-  //     onClose()
-  //   }
-  // }
 
   const handleCreateTask = () => {
     if (!task.name || task.name === '') {

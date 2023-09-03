@@ -4,6 +4,10 @@ import Button from '../Button/Button'
 import Edit from '../svgs/Edit'
 import styles from './SectionName.module.scss'
 
+const capitalizeFirstLetter = (string) => {
+  return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
+}
+
 const SectionName = ({ name, editable }) => {
   const [text, setText] = useState(name)
   const inputRef = useRef(null)
@@ -41,7 +45,7 @@ const SectionName = ({ name, editable }) => {
         <input
           className={styles.input}
           placeholder={name}
-          value={text}
+          value={capitalizeFirstLetter(text)}
           ref={inputRef}
           onChange={handleChange}
           readOnly={!editable}
@@ -51,7 +55,6 @@ const SectionName = ({ name, editable }) => {
           onBlur={handleBlur}
         />
         <div className='flex flex-row'>
-          {/* <CreateButton children={'Hello'} /> */}
           {editable && <Button svgLeft={<Edit />} onClick={handleFocus} />}
         </div>
       </div>

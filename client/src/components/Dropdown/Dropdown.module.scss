@@ -51,3 +51,15 @@
     @apply bg-gray text-grayHover transition-all duration-200 ease-in-out;
   }
 }
+
+.active {
+  @apply w-full bg-navButtonHover items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out;
+}
+
+.nav {
+  @apply w-full bg-mainBg items-center text-14 text-gray justify-between transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-gray text-grayHover;
+  }
+}

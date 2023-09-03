@@ -1,48 +1,44 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import ListItem from '../components/ListItem/ListItem'
 import styles from './Home.module.scss'
-import SectionName from '../components/SectionName/SectionName'
+import SectionProjectName from '../components/SectionName/SectionProjectName'
 import CreateButton from '../components/Button/CreateButton'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { updateTasksOrder } from '../features/tasksSlice'
 import InfoBlock from '../components/Info/IndoBlock'
 import ScrollButton from '../components/Button/ScrollButton'
 import Modal from '../components/Modal/Modal'
 import EditTaskModal from '../components/TaskModal/EditTaskModal'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { updateTasksInProject } from '../features/projectSlice'
+import { useParams } from 'react-router-dom'
+import { selectTaskById } from '../helpers/selectTaskById'
 
-const ProjectList = ({ projectId }) => {
-  const [isShowButton, setIsShowButton] = React.useState(false)
+const ProjectList = () => {
+  const [isShowButton, setIsShowButton] = useState(false)
   const [open, setOpen] = useState(false)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
 
   let location = useLocation()
   const dispatch = useDispatch()
+  const { projectId } = useParams()
 
   const project = useSelector((state) =>
     state.projects.find((project) => project.id === projectId)
   )
+  console.log('Project: ', project)
+
   const tasks = project.tasks
-  const task = useSelector((state) =>
-    state.tasks.tasks.find((task) => task.id === selectedTaskId)
-  )
-
-  const handleSelectTask = (taskId) => {
-    setSelectedTaskId(taskId)
-  }
-
-  // `/projects/${project.id}list`
-
   console.log('Tasks: ', tasks)
 
-  const sectionRef = useRef(null)
+  const handleSelectTask = (task) => {
+    setSelectedTaskId(task)
+  }
 
-  // const isDragDisabled = () => {
-  //   const path = location.pathname
-  //   return path === '/today/list' || path === '/expired/list'
-  // }
+  const selectedTask = useSelector((state) =>
+    selectTaskById(state, selectedTaskId)
+  )
+  const sectionRef = useRef(null)
 
   const handleScroll = useCallback(() => {
     const position = sectionRef.current.scrollTop
@@ -80,9 +76,12 @@ const ProjectList = ({ projectId }) => {
     newProjectTasks.splice(destination.index, 0, removed)
     dispatch(
       updateTasksInProject({
+        projectId: projectId,
         tasks: newProjectTasks,
       })
     )
+    const projectCopy = { ...project }
+    projectCopy.tasks = newProjectTasks
   }
 
   const renderCreateButton = (bigButton, projectId) => {
@@ -95,13 +94,17 @@ const ProjectList = ({ projectId }) => {
 
   return (
     <div className={styles.main}>
-      {Array.isArray(project) && project !== null ? (
+      {Array.isArray(tasks) && tasks.length === 0 ? (
         <InfoBlock location={location.pathname} />
       ) : (
         <section ref={sectionRef} className={styles.scrollable}>
           <div className='mb-[50px]'>
             <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out'>
-              <SectionName name={project.name} />
+              <SectionProjectName
+                name={project.name}
+                editable={true}
+                projectId={projectId}
+              />
             </div>
 
             <div className='z-[0]'>
@@ -122,10 +125,9 @@ const ProjectList = ({ projectId }) => {
                         {tasks &&
                           tasks.map((task, index) => (
                             <Draggable
-                              key={`${task.id}`}
-                              draggableId={`${task.id}`}
-                              index={index}
-                              isDragDisabled={isDragDisabled()}>
+                              key={task}
+                              draggableId={`${task}`}
+                              index={index}>
                               {(provided, snapshot) => (
                                 <div
                                   ref={provided.innerRef}
@@ -133,9 +135,9 @@ const ProjectList = ({ projectId }) => {
                                   {...provided.dragHandleProps}>
                                   <div onClick={handleOpenModal}>
                                     <ListItem
-                                      taskId={task.id}
+                                      taskId={task}
                                       onSelectTask={handleSelectTask}
-                                      onClick={() => handleSelectTask(task.id)}
+                                      onClick={() => handleSelectTask(task)}
                                       isDragging={snapshot.isDragging}
                                     />
                                   </div>
@@ -164,10 +166,14 @@ const ProjectList = ({ projectId }) => {
         open={selectedTaskId !== null}
         onClose={() => handleSelectTask(null)}
         children={
-          <EditTaskModal
-            task={tasks.find((task) => task.id === selectedTaskId)}
-            onClose={() => handleSelectTask(null)}
-          />
+          selectedTask ? (
+            <EditTaskModal
+              task={selectedTask}
+              onClose={() => handleSelectTask(null)}
+            />
+          ) : (
+            <div>Задача не найдена</div>
+          )
         }
       />
     </div>
@@ -175,46 +181,3 @@ const ProjectList = ({ projectId }) => {
 }
 
 export default ProjectList
-
-// import React from 'react'
-// import { useSelector } from 'react-redux'
-
-// const ProjectList = () => {
-//   const allTasks = useSelector((state) => state.tasks.tasks)
-//   console.log(allTasks)
-
-//   return (
-//     <>
-//       {allTasks.map((task) => (
-//         <div key={task.id}>
-//           <h1>{task.name}</h1>
-//           <p>{task.description}</p>
-//           <p>
-//             {task.subtasks.map((subtask) => (
-//               <div key={subtask.id}>
-//                 <h2>{subtask.name}</h2>
-//                 <p>{subtask.checked ? 'Done' : 'Not done'}</p>
-//               </div>
-//             ))}
-//           </p>
-//           <p>
-//             {task.projects.map((project) => (
-//               <div key={project.id}>
-//                 <h2>{project.name}</h2>
-//               </div>
-//             ))}
-//           </p>
-//           <p>
-//             {task.tags.map((tag) => (
-//               <div key={tag.id}>
-//                 <h2>{tag.name}</h2>
-//                 <p>{tag.color}</p>
-//               </div>
-//             ))}
-//           </p>
-//         </div>
-//       ))}
-//     </>
-//   )
-// }
-// export default ProjectList

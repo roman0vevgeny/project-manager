@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { updateProjectsOrder, deleteProject } from '../../features/projectSlice'
 import ProjectDraggable from '../TaskModal/ProjectForm/Project/ProjectDraggable'
 import { deleteTaskProject } from '../../features/tasksSlice'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, NavLink } from 'react-router-dom'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -120,9 +120,11 @@ const DropdownProjects = ({ children, svg }) => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}>
-                          <Link
+                          <NavLink
                             to={`/projects/${project.id}${view}`}
-                            className='w-full'>
+                            className={(navData) =>
+                              navData.isActive ? styles.active : styles.nav
+                            }>
                             <ProjectDraggable
                               projectName={project.name}
                               projectId={project.id}
@@ -133,7 +135,7 @@ const DropdownProjects = ({ children, svg }) => {
                                 navigate(`/projects/${project.id}${view}`)
                               }
                             />
-                          </Link>
+                          </NavLink>
                         </li>
                       )}
                     </Draggable>

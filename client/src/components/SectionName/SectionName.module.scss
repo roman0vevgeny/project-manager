@@ -1,13 +1,13 @@
 .input {
   @apply flex flex-row justify-between items-center text-24 font-bold flex-grow mr-2 px-2 bg-mainBg text-task rounded-[5px]
-  transition-all duration-200 ease-in-out;
+  transition-colors duration-200 ease-in-out border-0;
 
   &::placeholder {
-    @apply text-placeholder;
+    @apply text-placeholder border-0;
   }
 
   &:focus {
-    @apply outline-none bg-inputFocus text-inputFocus;
+    @apply outline-none bg-inputFocus text-inputFocus border-0;
   }
 }
 

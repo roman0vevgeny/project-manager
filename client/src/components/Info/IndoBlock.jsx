@@ -5,7 +5,7 @@ import CreateButton from '../Button/CreateButton'
 const InfoBlock = ({ location }) => {
   return (
     <div>
-      <div className='my-10 flex justify-center text-imageColor'>
+      <div className='my-10 flex justify-center text-imageColor transition-all duration-200 ease-in-out'>
         <NoTasks />
       </div>
       <div className='text-task m-0'>
