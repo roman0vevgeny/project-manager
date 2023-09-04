@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Arrow from '../svgs/Arrow'
 import styles from './Dropdown.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { updateProjectsOrder, deleteProject } from '../../features/projectSlice'
 import ProjectDraggable from '../TaskModal/ProjectForm/Project/ProjectDraggable'
-import { deleteTaskProject } from '../../features/tasksSlice'
-import { useNavigate, Link, NavLink } from 'react-router-dom'
+import { updateTaskProjects } from '../../features/tasksSlice'
+import { useNavigate, NavLink } from 'react-router-dom'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -19,7 +19,7 @@ const DropdownProjects = ({ children, svg }) => {
   const dispatch = useDispatch()
   const projects = useSelector((state) => state.projects)
   const tasks = useSelector((state) => state.tasks.tasks)
-  console.log('tasks: ', tasks)
+  // console.log('tasks: ', tasks)
 
   const navigate = useNavigate()
 
@@ -34,9 +34,14 @@ const DropdownProjects = ({ children, svg }) => {
   }
 
   const handleDeleteProject = (project) => {
+    // console.log('project: ', project)
     const findTasks = tasks.filter((task) => task.projects.includes(project.id))
+    // console.log('findTasks: ', findTasks)
     for (let task of findTasks) {
-      dispatch(deleteTaskProject({ taskId: task.id, projectId: project.id }))
+      const newProjects = task.projects.filter(
+        (projectId) => projectId !== project.id
+      )
+      dispatch(updateTaskProjects({ id: task.id, projects: newProjects }))
     }
     dispatch(deleteProject(project.id))
   }
@@ -64,7 +69,7 @@ const DropdownProjects = ({ children, svg }) => {
     )
   }
 
-  console.log('projects', projects)
+  // console.log('projects', projects)
 
   return (
     <div>
@@ -116,7 +121,7 @@ const DropdownProjects = ({ children, svg }) => {
                       index={index}>
                       {(provided, snapshot) => (
                         <li
-                          className='flex'
+                          className='flex flex-row'
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}>
@@ -131,6 +136,7 @@ const DropdownProjects = ({ children, svg }) => {
                               deleteProject={true}
                               onDelete={() => handleDeleteProject(project)}
                               isDragging={snapshot.isDragging}
+                              tasks={project.tasks.length}
                               onClick={() =>
                                 navigate(`/projects/${project.id}${view}`)
                               }

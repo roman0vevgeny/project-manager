@@ -12,24 +12,29 @@ import {
   updateTaskSubtasks,
   updateTaskIsFavorite,
   updateTaskProjects,
+  deleteTask,
 } from '../../features/tasksSlice'
 import {
   addTaskToProject,
-  removeProjectFromTasks,
   removeTaskFromProject,
 } from '../../features/projectSlice'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import TaskHeader from './TaskHeader/TaskHeader'
 import History from '../svgs/History'
 import ProjectForm from './ProjectForm/ProjectForm'
+import Trash from '../svgs/Trash'
+import { Navigate } from 'react-router-dom'
 
-const EditTaskModal = ({ handleCloseModal, task }) => {
+const EditTaskModal = ({ onClose, task }) => {
+  if (!task) {
+    return <Navigate to='/' />
+  }
+
   const { id, tags, description, checked, projects } = task
   const dispatch = useDispatch()
   const allTags = useSelector((state) => state.tags)
-  console.log('allTags: ', allTags)
   const allTasks = useSelector((state) => state.tasks.tasks)
-  console.log('allTasks: ', allTasks)
+  // console.log('allTasks: ', allTasks)
 
   const handleDeleteTag = (tagId) => {
     dispatch(
@@ -40,29 +45,33 @@ const EditTaskModal = ({ handleCloseModal, task }) => {
     )
   }
 
+  const handleDeleteTask = (taskId, projects) => {
+    dispatch(deleteTask(taskId))
+    projects.forEach((projectId) => {
+      dispatch(removeTaskFromProject({ projectId, taskId }))
+    })
+    onClose()
+  }
+
   const handleProjectSelect = (projectId) => {
     if (projects.includes(projectId)) {
       dispatch(removeTaskFromProject({ projectId, taskId: id }))
-      console.log('project: ', projectId, 'task: ', id, 'removed')
       dispatch(
         updateTaskProjects({
           id: task.id,
           projects: projects.filter((id) => id !== projectId),
         })
       )
-      console.log('project: ', projectId, 'task: ', id, 'removed')
     } else {
       dispatch(addTaskToProject({ projectId, taskId: id }))
-      console.log('project: ', projectId, 'task: ', id, 'added')
       dispatch(
         updateTaskProjects({ id: task.id, projects: [...projects, projectId] })
       )
-      console.log('project: ', projectId, 'task: ', id, 'added')
     }
   }
 
   return (
-    <div onClose={handleCloseModal} className='bg-mainBg mx-8 mb-8'>
+    <div onClose={onClose} className='bg-mainBg mx-8 mb-8'>
       <div className='sticky top-0 z-[1] bg-mainBg pt-8'>
         <TaskHeader
           task={task}
@@ -73,6 +82,7 @@ const EditTaskModal = ({ handleCloseModal, task }) => {
           }
           isNewTask={false}
           dispatch={dispatch}
+          handleProjectSelect={handleProjectSelect}
         />
       </div>
 
@@ -115,30 +125,45 @@ const EditTaskModal = ({ handleCloseModal, task }) => {
               checked={checked}
             />
           </div>
-          <div className='m-2 flex w-full'>
-            <div className='w-full mr-1'>
+          <div className='m-2 flex'>
+            <div className='mr-1 flex space-x-2 w-full'>
               <button
                 type={'submit'}
-                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-2 w-full'>
-                <div className='mr-2'>
+                onClick={() => handleDeleteTask(id, projects)}
+                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
+                <div className='mr-1'>
+                  <Trash />
+                </div>
+                <p className='flex justify-center ml-1'>Dublicate</p>
+              </button>
+              <button
+                type={'submit'}
+                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
+                <div className='mr-1'>
                   <History />
                 </div>
                 <p className='flex justify-center ml-1'>View history</p>
               </button>
-            </div>
-
-            {checked && (
-              <div className='w-full ml-1'>
+              {checked && (
                 <button
                   type={'submit'}
-                  className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-2 w-full'>
-                  <div className='mr-2'>
+                  className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
+                  <div className='mr-1'>
                     <History />
                   </div>
                   <p className='flex justify-center ml-1'>Add to archive</p>
                 </button>
-              </div>
-            )}
+              )}
+              <button
+                type={'submit'}
+                onClick={() => handleDeleteTask(id, projects)}
+                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-fit px-3 w-full'>
+                <div className='mr-1'>
+                  <Trash />
+                </div>
+                <p className='flex justify-center ml-1'>Delete</p>
+              </button>
+            </div>
           </div>
         </div>
 

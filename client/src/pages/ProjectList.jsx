@@ -28,7 +28,7 @@ const ProjectList = () => {
   )
   console.log('Project: ', project)
 
-  const tasks = project.tasks
+  const tasks = project && project.tasks
   console.log('Tasks: ', tasks)
 
   const handleSelectTask = (task) => {
@@ -93,90 +93,102 @@ const ProjectList = () => {
   }
 
   return (
-    <div className={styles.main}>
-      {Array.isArray(tasks) && tasks.length === 0 ? (
-        <InfoBlock location={location.pathname} />
-      ) : (
-        <section ref={sectionRef} className={styles.scrollable}>
-          <div className='mb-[50px]'>
-            <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out'>
-              <SectionProjectName
-                name={project.name}
-                editable={true}
-                projectId={projectId}
-              />
+    <>
+      {project ? (
+        <div className={styles.main}>
+          {Array.isArray(tasks) && tasks.length === 0 ? (
+            <div className='text-task m-0 transition-all duration-200 ease-in-out'>
+              <InfoBlock location={location.pathname} />
+              <p>Project is empty</p>
+              <p className='text-gray'>Add tasks to it</p>
             </div>
-
-            <div className='z-[0]'>
-              <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId={'1'} className='z-[0]'>
-                  {(provided, snapshot) => {
-                    const { droppableProps, innerRef, ...rest } = provided
-                    return (
-                      <div
-                        className={
-                          snapshot.isDraggingOver
-                            ? 'border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke'
-                            : 'border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out'
-                        }
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        {...rest}>
-                        {tasks &&
-                          tasks.map((task, index) => (
-                            <Draggable
-                              key={task}
-                              draggableId={`${task}`}
-                              index={index}>
-                              {(provided, snapshot) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}>
-                                  <div onClick={handleOpenModal}>
-                                    <ListItem
-                                      taskId={task}
-                                      onSelectTask={handleSelectTask}
-                                      onClick={() => handleSelectTask(task)}
-                                      isDragging={snapshot.isDragging}
-                                    />
-                                  </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
-
-                        {provided.placeholder}
-                      </div>
-                    )
-                  }}
-                </Droppable>
-              </DragDropContext>
-              <div className='flex justify-between mr-5 mt-5'>
-                <div></div>
-                {renderCreateButton(true, projectId)}
-              </div>
-            </div>
-          </div>
-          {isShowButton && <ScrollButton sectionRef={sectionRef} />}
-        </section>
-      )}
-      {renderCreateButton(true, projectId)}
-      <Modal
-        open={selectedTaskId !== null}
-        onClose={() => handleSelectTask(null)}
-        children={
-          selectedTask ? (
-            <EditTaskModal
-              task={selectedTask}
-              onClose={() => handleSelectTask(null)}
-            />
           ) : (
-            <div>Задача не найдена</div>
-          )
-        }
-      />
-    </div>
+            <section ref={sectionRef} className={styles.scrollable}>
+              <div className='mb-[50px]'>
+                <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out'>
+                  <SectionProjectName
+                    name={project.name}
+                    editable={true}
+                    projectId={projectId}
+                  />
+                </div>
+
+                <div className='z-[0]'>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={'1'} className='z-[0]'>
+                      {(provided, snapshot) => {
+                        const { droppableProps, innerRef, ...rest } = provided
+                        return (
+                          <div
+                            className={
+                              snapshot.isDraggingOver
+                                ? 'border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke'
+                                : 'border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out'
+                            }
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            {...rest}>
+                            {tasks &&
+                              tasks.map((task, index) => (
+                                <Draggable
+                                  key={task}
+                                  draggableId={`${task}`}
+                                  index={index}>
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}>
+                                      <div onClick={handleOpenModal}>
+                                        <ListItem
+                                          taskId={task}
+                                          onSelectTask={handleSelectTask}
+                                          onClick={() => handleSelectTask(task)}
+                                          isDragging={snapshot.isDragging}
+                                        />
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+
+                            {provided.placeholder}
+                          </div>
+                        )
+                      }}
+                    </Droppable>
+                  </DragDropContext>
+                  <div className='flex justify-between mr-5 mt-5'>
+                    <div></div>
+                    {renderCreateButton(true, projectId)}
+                  </div>
+                </div>
+              </div>
+              {isShowButton && <ScrollButton sectionRef={sectionRef} />}
+            </section>
+          )}
+          {renderCreateButton(true, projectId)}
+          <Modal
+            open={selectedTaskId !== null}
+            onClose={() => handleSelectTask(null)}
+            children={
+              selectedTask ? (
+                <EditTaskModal
+                  task={selectedTask}
+                  onClose={() => handleSelectTask(null)}
+                />
+              ) : (
+                <div>Задача не найдена</div>
+              )
+            }
+          />
+        </div>
+      ) : (
+        <div className='m-2 px-4 py-1 bg-yellowTag text-yellowTag text-14 flex justify-center h-fit rounded-md'>
+          Project not found or deleted
+        </div>
+      )}
+    </>
   )
 }
 

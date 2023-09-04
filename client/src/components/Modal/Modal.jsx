@@ -17,7 +17,6 @@ const Modal = ({ open, onClose, children }) => {
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      console.log('click overlay')
       onClose()
     }
   }

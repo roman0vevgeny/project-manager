@@ -20,7 +20,6 @@ import Folder from '../svgs/Folder'
 
 const CardItem = ({ taskId, onClick, isDragging }) => {
   const task = useSelector((state) => selectTaskById(state, taskId))
-  // console.log(task)
   const dispatch = useDispatch()
   const checked = task.checked
   const favorite = task.favorite
@@ -45,16 +44,23 @@ const CardItem = ({ taskId, onClick, isDragging }) => {
   const renderProjects = () => {
     return (
       <div className={styles.projectContainer}>
-        {task.projects.map((projectId, index) => {
-          const project = allProjects.find(
-            (project) => project.id === projectId
-          )
-          return (
-            project && (
-              <InfoCard key={index} svg={<Folder />} children={project.name} />
-            )
-          )
-        })}
+        {task.projects.length === 1 ? (
+          <InfoCard
+            svg={<Folder />}
+            children={
+              allProjects.find((project) => project.id === task.projects[0])
+                .name
+            }
+          />
+        ) : task.projects.length > 1 ? (
+          <InfoCard
+            svg={<Folder />}
+            children={`${
+              allProjects.find((project) => project.id === task.projects[0])
+                .name
+            } ...+${task.projects.length - 1}`}
+          />
+        ) : null}
       </div>
     )
   }

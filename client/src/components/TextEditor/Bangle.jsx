@@ -4,7 +4,7 @@ import '@bangle.dev/react-menu/style.css'
 import styles from './Bangle.module.scss'
 import { useDispatch } from 'react-redux'
 import { updateTaskDescription } from '../../features/tasksSlice'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BangleEditor, useEditorState } from '@bangle.dev/react'
 import {
   link,

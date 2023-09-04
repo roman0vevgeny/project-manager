@@ -47,7 +47,7 @@ const CreateTaskName = ({ name, setName }) => {
   }, [inputRef])
 
   return (
-    <div className='flex flex-row justify-between mx-2 items-start my-2'>
+    <div className='flex flex-row justify-between mx-2 items-start mt-2 mb-5'>
       <div
         placeholder={name}
         ref={inputRef}

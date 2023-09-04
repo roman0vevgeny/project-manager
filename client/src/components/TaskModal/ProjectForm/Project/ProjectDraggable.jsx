@@ -13,7 +13,7 @@ const ProjectDraggable = ({
   onDelete,
   isDragging,
   projectId,
-  navData,
+  tasks,
 }) => {
   const navigate = useNavigate()
 
@@ -27,12 +27,18 @@ const ProjectDraggable = ({
             ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover '
             : 'border-1 border-borderMain')
         }>
-        <div className={styles.folder}>
-          <Folder />
+        <div className='flex items-center'>
+          <div className={styles.folder}>
+            <Folder />
+          </div>
+          <p>{capitalizeFirstLetter(projectName)}</p>
+          <div className={styles.svg} onClick={onDelete}>
+            <Delete />
+          </div>
         </div>
-        <p>{capitalizeFirstLetter(projectName)}</p>
-        <div className={styles.svg} onClick={onDelete}>
-          <Delete />
+
+        <div className='flex min-w-[15px] justify-center items-center'>
+          {tasks}
         </div>
       </div>
     </div>

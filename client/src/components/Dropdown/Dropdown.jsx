@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateTagsOrder, deleteTag } from '../../features/tagsSlice'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import styles from './Dropdown.module.scss'
+import { updateTaskTags } from '../../features/tasksSlice'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -15,6 +16,7 @@ const Dropdown = ({ children, svg }) => {
   const [isRotated, setIsRotated] = useState(false)
 
   const dispatch = useDispatch()
+  const tasks = useSelector((state) => state.tasks.tasks)
   const tags = useSelector((state) => state.tags)
 
   const toggleDropdown = () => {
@@ -25,7 +27,16 @@ const Dropdown = ({ children, svg }) => {
     setIsRotated(!isRotated)
   }
 
+  // const handleDeleteTag = (tag) => {
+  //   dispatch(deleteTag(tag.id))
+  // }
+
   const handleDeleteTag = (tag) => {
+    const findTasks = tasks.filter((task) => task.tags.includes(tag.id))
+    for (let task of findTasks) {
+      const newTags = task.tags.filter((tagId) => tagId !== tag.id)
+      dispatch(updateTaskTags({ id: task.id, tags: newTags }))
+    }
     dispatch(deleteTag(tag.id))
   }
 
@@ -52,7 +63,7 @@ const Dropdown = ({ children, svg }) => {
     )
   }
 
-  console.log(tags)
+  // console.log(tags)
 
   return (
     <div>

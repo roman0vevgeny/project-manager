@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './EditTaskModal.module.scss'
 import CreateTaskName from './TaskName/CreateTaskName'
-import CreateTaskDescription from './TaskDescription/CreateTaskDescription'
 import TagForm from './TagForm/TagForm'
 import Calend from './Calendar/Calendar'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +11,7 @@ import Tag from '../Tag/Tag'
 import TaskHeader from './TaskHeader/TaskHeader'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import ProjectForm from './ProjectForm/ProjectForm'
+import CreateBangle from '../TextEditor/CreateBangle'
 
 const CreateTaskModal = ({ onClose, today, projectId }) => {
   const [task, setTask] = useState({
@@ -62,6 +62,19 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
     }
   }
 
+  const handleProjectSelect = (projectId) => {
+    if (task.projects.includes(projectId)) {
+      setTask({
+        ...task,
+        projects: task.projects.filter((id) => id !== projectId),
+      })
+    } else {
+      setTask({ ...task, projects: [...task.projects, projectId] })
+    }
+  }
+
+  console.log('task desc: ', task.description)
+
   return (
     <div className='bg-mainBg mx-8 mb-8'>
       <div className='sticky top-0 z-[1] bg-mainBg pt-8'>
@@ -88,7 +101,7 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
               name={task.name}
               setName={(newName) => setTask({ ...task, name: newName })}
             />
-            <CreateTaskDescription
+            <CreateBangle
               description={task.description}
               setDescription={(newDescription) =>
                 setTask({ ...task, description: newDescription })
@@ -154,6 +167,7 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
                 }
                 isNewTask={false}
                 taskId={null}
+                handleProjectSelect={handleProjectSelect}
               />
               <Calend
                 expirationDate={expirationDate}

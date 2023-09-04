@@ -26,13 +26,6 @@ const projectSlice = createSlice({
       }
     },
 
-    // removeProjectFromTasks(state, action) {
-    //   const { projectId } = action.payload
-    //   state.forEach((project) => {
-    //     project.tasks = project.tasks.filter((id) => id !== projectId)
-    //   })
-    // },
-
     addTaskToProject(state, action) {
       const { projectId, taskId } = action.payload
       const project = state.find((project) => project.id === projectId)
