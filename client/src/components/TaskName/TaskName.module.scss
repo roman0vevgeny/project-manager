@@ -13,3 +13,7 @@
 .textSmall {
   @apply min-w-[250px] text-14  pt-[5px] text-task text-start leading-1.5 flex-grow mr-10 break-words;
 }
+
+.textBoards {
+  @apply min-w-[250px] font-bold pt-[3px]  text-task text-start leading-1.5 flex-grow break-words;
+}

@@ -13,6 +13,7 @@ import ProjectList from './ProjectList.jsx'
 import ProjectCards from './ProjectCards.jsx'
 import ProjectBoards from './ProjectBoards.jsx'
 import ProjectPage from './ProjectPage.jsx'
+import SignIn from './SignIn.jsx'
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '/signin',
+    element: <SignIn />,
   },
 ])
 

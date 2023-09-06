@@ -70,9 +70,13 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
-    scroll-behavior: smooth;
-    transition: all 200ms ease-in-out;
+    @apply bg-transparent rounded-md scroll-smooth hover:scroll-auto;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    }
   }
 }
 

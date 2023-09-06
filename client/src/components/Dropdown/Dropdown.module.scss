@@ -6,7 +6,7 @@
   justify-between transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply bg-navButtonHover text-grayHover;
+    @apply bg-gray text-grayHover;
   }
 
   &:active {

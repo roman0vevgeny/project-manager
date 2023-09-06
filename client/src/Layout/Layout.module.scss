@@ -10,3 +10,19 @@
 .content {
   @apply flex justify-center w-full py-10;
 }
+
+.navbar {
+  @apply relative min-w-[300px] overflow-y-auto bg-nav py-10 pl-[15px] pr-[11px] h-[calc(100vh-50px)] transition-all duration-200 ease-in-out;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0 hidden;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}

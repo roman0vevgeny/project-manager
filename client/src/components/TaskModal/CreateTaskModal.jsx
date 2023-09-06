@@ -23,6 +23,7 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
     subtasks: [],
     checked: false,
     favorite: false,
+    status: 'todo',
     projects: [],
   })
 

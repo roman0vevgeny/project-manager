@@ -13,6 +13,7 @@ import {
   updateTaskIsFavorite,
   updateTaskProjects,
   deleteTask,
+  addTask,
 } from '../../features/tasksSlice'
 import {
   addTaskToProject,
@@ -24,6 +25,7 @@ import History from '../svgs/History'
 import ProjectForm from './ProjectForm/ProjectForm'
 import Trash from '../svgs/Trash'
 import { Navigate } from 'react-router-dom'
+import Copy from '../svgs/Copy'
 
 const EditTaskModal = ({ onClose, task }) => {
   if (!task) {
@@ -65,9 +67,25 @@ const EditTaskModal = ({ onClose, task }) => {
     } else {
       dispatch(addTaskToProject({ projectId, taskId: id }))
       dispatch(
-        updateTaskProjects({ id: task.id, projects: [...projects, projectId] })
+        updateTaskProjects({
+          id: task.id,
+          projects: [...projects, projectId],
+        })
       )
     }
+  }
+
+  const handleDuplicateTask = () => {
+    const newTask = {
+      ...task,
+      id: Date.now(),
+    }
+    dispatch(addTask(newTask))
+    newTask.projects.forEach((projectId) => {
+      dispatch(addTaskToProject({ projectId, taskId: newTask.id }))
+    })
+
+    onClose()
   }
 
   return (
@@ -129,39 +147,35 @@ const EditTaskModal = ({ onClose, task }) => {
             <div className='mr-1 flex space-x-2 w-full'>
               <button
                 type={'submit'}
-                onClick={() => handleDeleteTask(id, projects)}
-                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
-                <div className='mr-1'>
-                  <Trash />
+                onClick={handleDuplicateTask}
+                className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                <div className=''>
+                  <Copy />
                 </div>
-                <p className='flex justify-center ml-1'>Dublicate</p>
               </button>
               <button
                 type={'submit'}
-                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
-                <div className='mr-1'>
+                className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                <div className=''>
                   <History />
                 </div>
-                <p className='flex justify-center ml-1'>View history</p>
               </button>
               {checked && (
                 <button
                   type={'submit'}
-                  className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-3 w-full'>
-                  <div className='mr-1'>
+                  className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                  <div className=''>
                     <History />
                   </div>
-                  <p className='flex justify-center ml-1'>Add to archive</p>
                 </button>
               )}
               <button
                 type={'submit'}
                 onClick={() => handleDeleteTask(id, projects)}
-                className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-fit px-3 w-full'>
-                <div className='mr-1'>
+                className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-[25px] px-3 w-[25px]'>
+                <div className=''>
                   <Trash />
                 </div>
-                <p className='flex justify-center ml-1'>Delete</p>
               </button>
             </div>
           </div>

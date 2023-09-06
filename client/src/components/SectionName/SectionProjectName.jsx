@@ -73,7 +73,7 @@ const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
 }
 
-const SectionProjectName = ({ name, projectId, editable }) => {
+const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
   const inputRef = useRef(null)
 
   const [projectName, setProjectName] = useState(name)
@@ -124,9 +124,11 @@ const SectionProjectName = ({ name, projectId, editable }) => {
   return (
     <div>
       <div className='flex flex-row justify-between mx-2 items-center mb-2'>
-        <div className='mr-2 text-task transition-all duration-200 ease-in-out'>
-          <Case />
-        </div>
+        {!noSvg && (
+          <div className='mr-2 text-task transition-all duration-200 ease-in-out'>
+            <Case />
+          </div>
+        )}
         <input
           className={styles.input}
           placeholder={'Name'}

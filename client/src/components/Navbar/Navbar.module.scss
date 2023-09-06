@@ -1,17 +1,5 @@
 .main {
-  @apply relative w-full cursor-pointer overflow-y-auto h-[calc(100vh-90px)] pr-[5px] pb-[20px] transition-all duration-200 ease-in-out;
-
-  &::-webkit-scrollbar {
-    @apply w-[10px] absolute right-0 hidden;
-  }
-
-  &::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply bg-scroll rounded-md;
-  }
+  @apply relative w-full cursor-pointer pr-[5px] pb-[20px] transition-all duration-200 ease-in-out;
 }
 
 .tags {

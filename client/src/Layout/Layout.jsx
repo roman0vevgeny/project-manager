@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import styles from './Layout.module.scss'
 import Header from '../components/Header/Header'
 import Navbar from '../components/Navbar/Navbar'
 import { useSelector, useDispatch } from 'react-redux'
@@ -35,7 +36,7 @@ const Layout = () => {
       />
       <div className='relative flex snap-y flex-raw transition-all duration-200 ease-in-out'>
         {showNavbar && (
-          <nav className='min-w-[300px] bg-nav py-10 pl-[15px] pr-[12px] h-[calc(100vh-50px)] transition-all duration-200 ease-in-out'>
+          <nav className={styles.navbar}>
             <Navbar className='sticky top-0' />
           </nav>
         )}

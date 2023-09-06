@@ -57,9 +57,9 @@ const CreateTaskName = ({ name, setName }) => {
         onFocus={handleFocus}
         className={text === '' ? `${styles.input} bg-redTag` : styles.input}
       />
-      <div className='flex flex-row mt-1'>
+      {/* <div className='flex flex-row mt-1'>
         <ModalButton svg={<Edit />} onClick={handleFocus} />
-      </div>
+      </div> */}
     </div>
   )
 }

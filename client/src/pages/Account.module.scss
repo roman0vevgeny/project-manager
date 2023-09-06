@@ -1,5 +1,5 @@
 .input {
-  @apply flex box-border h-[35px] text-start text-16 font-medium flex-grow mt-1 mr-2 pl-2 pr-8 py-1 bg-mainBg text-task rounded-[5px] w-[500px] cursor-pointer border-1 border-stroke
+  @apply flex box-border h-[35px] text-start text-16 font-medium flex-grow mt-1 pl-2 pr-8 py-1 bg-mainBg text-task rounded-[5px] w-full cursor-pointer border-1 border-stroke
   transition-colors duration-200 ease-in-out;
 
   &:hover {

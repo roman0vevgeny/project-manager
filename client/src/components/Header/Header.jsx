@@ -10,6 +10,7 @@ import TabBoards from '../svgs/TabBoards'
 import { NavLink } from 'react-router-dom'
 
 import { useNavigate } from 'react-router-dom'
+import LogoInvert from '../svgs/LogoInvert'
 
 const Header = ({ toggleNavbar, showNavbar, currentPath }) => {
   const basePath = currentPath.replace(/\/(list|cards|boards)$/, '')
@@ -58,6 +59,12 @@ const Header = ({ toggleNavbar, showNavbar, currentPath }) => {
               <TabBoards />
             </NavLink>
           </>
+        )}
+
+        {accountLocation && (
+          <div className='text-menu transition-colors duration-200 ease-in-out'>
+            <LogoInvert />
+          </div>
         )}
       </div>
       <div className='flex flex-row'>

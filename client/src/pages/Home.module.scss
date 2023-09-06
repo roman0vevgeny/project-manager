@@ -19,3 +19,51 @@
     @apply bg-checkboxActive rounded-[5px];
   }
 }
+
+.scrollableBlock {
+  @apply flex flex-col items-center pb-10 transition-all duration-200 ease-in-out;
+}
+
+.draggingOver {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-[452px] h-[calc(100vh-150px)] overflow-y-scroll overflow-x-hidden;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-md scroll-smooth hover:scroll-auto;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    }
+  }
+}
+
+.notDraggingOver {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out w-[452px] h-[calc(100vh-150px)] overflow-y-auto overflow-x-hidden;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-md scroll-smooth hover:scroll-auto;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    }
+  }
+}

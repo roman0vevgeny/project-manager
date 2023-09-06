@@ -24,8 +24,8 @@ const ProjectDraggable = ({
           styles.withDelete +
           ' ' +
           (isDragging
-            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover '
-            : 'border-1 border-borderMain')
+            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover'
+            : 'border-1 border-transparent border-b-borderMain')
         }>
         <div className='flex items-center'>
           <div className={styles.folder}>

@@ -16,6 +16,7 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: null,
+      status: 'todo',
       subtasks: [
         { id: 1, name: 'Подзадача 1', checked: true },
         { id: 2, name: 'Подзадача 2', checked: false },
@@ -38,6 +39,7 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: null,
+      status: 'inprogress',
       subtasks: [],
       favorite: false,
       tags: [],

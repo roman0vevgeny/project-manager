@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react'
 import styles from './Account.module.scss'
 import Close from '../components/svgs/Close'
 import CheckBox from '../components/CheckBox/CheckBox'
-// import Bangle from '../components/TextEditor/Bangle'
-// import Editor from '../components/TextEditor/Editor'
 
 const Account = () => {
   const [email, setEmail] = useState('')
@@ -32,9 +30,9 @@ const Account = () => {
 
   return (
     <div className='relative h-[calc(100vh-50px)] flex justify-center '>
-      <div className='flex flex-col mt-8'>
+      <div className='flex flex-col mt-8 w-[500px]'>
         <h1 className='text-24 font-bold text-task mb-5 transition-all duration-200 ease-in-out'>
-          Login
+          Account page
         </h1>
         <div className='relative flex mb-5'>
           <input
