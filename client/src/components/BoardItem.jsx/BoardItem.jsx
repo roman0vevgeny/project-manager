@@ -69,7 +69,7 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
       <div
         className={isDragging ? styles.dragging : styles.body}
         onClick={onClick}>
-        <div className='flex flex-row w-full'>
+        <div className='flex flex-row w-full justify-center'>
           <button className={styles.checkbox} onClick={toggleChecked}>
             <CheckBox checked={checked} toggleChecked={toggleChecked} />
           </button>

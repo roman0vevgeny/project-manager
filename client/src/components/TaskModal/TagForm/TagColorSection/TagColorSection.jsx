@@ -14,7 +14,7 @@ const TagColorSection = ({ color, onColorSelect }) => {
   ]
 
   return (
-    <div className='flex w-[235px] flex-wrap mb-1'>
+    <div className='flex w-[235px] flex-wrap mb-1 ml-[3px]'>
       {colors.map((c) => (
         <TagBubble
           key={c}

@@ -21,7 +21,7 @@
 }
 
 .scrollableBlock {
-  @apply flex flex-col items-center pb-10 transition-all duration-200 ease-in-out;
+  @apply flex flex-col items-center justify-center pb-10 transition-all duration-200 ease-in-out;
 }
 
 .draggingOver {
@@ -32,7 +32,7 @@
   }
 
   &::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-transparent my-2;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -47,14 +47,15 @@
 }
 
 .notDraggingOver {
-  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out w-[452px] h-[calc(100vh-150px)] overflow-y-auto overflow-x-hidden;
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out w-[452px] h-[calc(100vh-150px)] 
+  overflow-y-auto overflow-x-hidden;
 
   &::-webkit-scrollbar {
     @apply w-[10px] absolute right-0;
   }
 
   &::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-transparent my-2;
   }
 
   &::-webkit-scrollbar-thumb {

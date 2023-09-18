@@ -1,5 +1,5 @@
 .projects {
-  @apply flex w-[227px] flex-wrap items-start pl-2 py-1 border-1 border-stroke rounded-[5px] max-h-[113px] overflow-y-auto;
+  @apply flex w-[227px] flex-wrap items-start pl-2 py-1 border-t-1 border-stroke max-h-[150px] overflow-y-auto;
   align-content: flex-start;
 
   &::-webkit-scrollbar {

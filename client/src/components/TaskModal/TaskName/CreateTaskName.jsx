@@ -47,7 +47,7 @@ const CreateTaskName = ({ name, setName }) => {
   }, [inputRef])
 
   return (
-    <div className='flex flex-row justify-between mx-2 items-start mt-2 mb-5'>
+    <div className='flex flex-row justify-between mx-2 items-start my-2'>
       <div
         placeholder={name}
         ref={inputRef}
@@ -55,7 +55,7 @@ const CreateTaskName = ({ name, setName }) => {
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        className={text === '' ? `${styles.input} bg-redTag` : styles.input}
+        className={text === '' ? `${styles.input} bg-gray` : styles.input}
       />
       {/* <div className='flex flex-row mt-1'>
         <ModalButton svg={<Edit />} onClick={handleFocus} />

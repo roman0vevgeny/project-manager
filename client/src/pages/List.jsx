@@ -42,7 +42,7 @@ const List = () => {
   }
 
   const tasks = getTasksByPath(location.pathname)
-  console.log('Tasks: ', tasks)
+  console.log('List - tasks:', tasks)
 
   const sectionRef = useRef(null)
 
@@ -119,6 +119,7 @@ const List = () => {
   }
 
   const handleOpenModal = () => {
+    console.log('List - Opening modal')
     setOpen(true)
   }
 

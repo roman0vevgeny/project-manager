@@ -1,21 +1,21 @@
 .body {
-  @apply flex flex-col py-3 px-3 mx-5 border-1 border-stroke items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden
+  @apply flex flex-col py-3 px-3 mx-3 border-1 border-stroke items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden
   transition-all duration-200 ease-in-out;
   // max-h-[400px];
 
   &:hover {
-    @apply shadow-lg border-1 border-borderHover;
+    @apply shadow-md border-1 border-borderHover;
   }
 }
 
 .dragging {
-  @apply flex flex-col py-3 px-3 mx-5 border-1 border-borderHover items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
+  @apply flex flex-col py-3 px-3 mx-3 border-1 border-borderHover items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
   transition-all duration-200 ease-in-out;
   // max-h-[400px];
 }
 
 .bodyChecked {
-  @apply flex flex-row py-3 px-3 mx-5 border-1 border-stroke items-start rounded-[10px] max-w-[800px] relative cursor-pointer bg-mainBg overflow-hidden
+  @apply flex flex-row py-3 px-3 mx-3 border-1 border-stroke items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden
   transition-all duration-200 ease-in-out;
 
   &:hover {

@@ -39,6 +39,6 @@
   @apply flex ml-1 mr-0 pb-[4px] rounded-[3px] cursor-pointer transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply text-tagDelete;
+    @apply text-tagDelete rotate-90;
   }
 }

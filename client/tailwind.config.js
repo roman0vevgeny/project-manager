@@ -150,6 +150,7 @@ export default {
     extend: {
       colors: {
         current: 'currentColor',
+        mainBg: 'var(--color-main-bg)',
       },
       textColor: {
         gray: 'var(--color-text-gray)',
@@ -205,6 +206,7 @@ export default {
         borderHover: 'var(--border-hover)',
         borderMain: 'var(--color-main-bg)',
         blueBorder: 'var(--input-focus-bg)',
+        currentDate: 'var(--border-active-day)',
       },
       placeholderColor: {
         search: 'var(--menu-text)',
@@ -212,6 +214,7 @@ export default {
       gradientColorStops: {
         main: 'var(--color-main-bg)',
         green: '#339523',
+        mainBg: 'var(--color-main-bg)',
       },
       screens: {
         '3xl': '1600px',

@@ -1,4 +1,4 @@
-export const isToday = (expirationDate, checked) => {
+export const isToday = (expirationDate) => {
   const today = new Date()
   const offset = today.getTimezoneOffset()
   today.setMinutes(today.getMinutes() - offset)

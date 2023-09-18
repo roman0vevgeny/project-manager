@@ -12,8 +12,16 @@ import TaskHeader from './TaskHeader/TaskHeader'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import ProjectForm from './ProjectForm/ProjectForm'
 import CreateBangle from '../TextEditor/CreateBangle'
+import Folder from '../svgs/Folder'
+import Cal from '../svgs/Cal'
+import TagSvg from '../svgs/TagSvg'
+import ModalMenuButton from '../Button/ModalMenuButton'
+import { isNotExpired } from '../../helpers/isNotExpired'
+import { isToday } from '../../helpers/isToday'
+import History from '../svgs/History'
+import DropdownModal from '../Modal/DropdownModal'
 
-const CreateTaskModal = ({ onClose, today, projectId }) => {
+const CreateTaskModal = ({ onClose, today, projectId, date }) => {
   const [task, setTask] = useState({
     id: Date.now(),
     name: '',
@@ -26,7 +34,9 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
     status: 'todo',
     projects: [],
   })
-
+  const [open, setOpen] = useState(false)
+  const [openProject, setOpenProject] = useState(false)
+  const [openTag, setOpenTag] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -42,11 +52,17 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
   }, [projectId])
 
   useEffect(() => {
+    if (date && !task.expirationDate) {
+      setTask({ ...task, expirationDate: date })
+    }
+  }, [date])
+
+  useEffect(() => {
     setError(null)
   }, [task.name])
 
   const dispatch = useDispatch()
-  const { expirationDate } = task
+  const { expirationDate, checked } = task
 
   const allTags = useSelector((state) => state.tags)
 
@@ -74,11 +90,35 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
     }
   }
 
+  const handleCloseModal = () => {
+    setOpen(false)
+  }
+
+  const handleCloseProjectModal = () => {
+    setOpenProject(false)
+  }
+
+  const handleCloseTagModal = () => {
+    setOpenTag(false)
+  }
+
+  const handleOpenModal = () => {
+    setOpen(true)
+  }
+
+  const handleOpenProjectModal = () => {
+    setOpenProject(true)
+  }
+
+  const handleOpenTagModal = () => {
+    setOpenTag(true)
+  }
+
   console.log('task desc: ', task.description)
 
   return (
-    <div className='bg-mainBg mx-8 mb-8'>
-      <div className='sticky top-0 z-[1] bg-mainBg pt-8'>
+    <div className='flex flex-col bg-mainBg mx-8 mb-8'>
+      <div className='sticky top-0 z-[301] bg-mainBg pt-8 pb-0 h-fit'>
         <TaskHeader
           task={task}
           onFavoriteChange={(newFavorite) =>
@@ -95,9 +135,9 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
         />
       </div>
 
-      <div className='flex flex-row'>
-        <div className='flex flex-col justify-between'>
-          <div>
+      <div className='relative flex flex-row w-full h-full mt-6'>
+        <div className='flex flex-col justify-between h-full flex-grow'>
+          <div className='flex flex-col flex-grow'>
             <CreateTaskName
               name={task.name}
               setName={(newName) => setTask({ ...task, name: newName })}
@@ -108,8 +148,8 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
                 setTask({ ...task, description: newDescription })
               }
             />
-            {task.tags && (
-              <div className='flex flex-wrap ml-4 mt-1 mb-3 max-w-[530px]'>
+            {task.tags.length > 0 && (
+              <div className='flex flex-wrap ml-4 mt-1 mb-1 max-w-[530px]'>
                 {task.tags.map((tagId) => {
                   const tag = allTags.find((tag) => tag.id === tagId)
                   return (
@@ -140,7 +180,12 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
               isNewTask={true}
             />
           </div>
-          <div className='m-2'>
+          <div className='m-2 flex flex-col'>
+            {error && (
+              <p className='flex px-2 py-1 mt-2 rounded-md text-redTag bg-redTag text-14 justify-center'>
+                {error}
+              </p>
+            )}
             <button
               type={'submit'}
               className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-2 w-full'
@@ -150,42 +195,100 @@ const CreateTaskModal = ({ onClose, today, projectId }) => {
               </div>
               <p className='flex justify-center ml-1'>Create task</p>
             </button>
-            {error && (
-              <p className='flex p-2 mt-2 rounded-md text-redTag bg-redTag text-14 justify-center'>
-                {error}
-              </p>
-            )}
           </div>
         </div>
         <>
           <div className={styles.verticalDevider}></div>
-          <div className='ml-5 mt-2'>
+          <div className='pl-1 pr-1 mb-2 py-2 rounded-[10px]'>
             <div>
-              <ProjectForm
-                value={task.projects}
-                onChange={(newProjects) =>
-                  setTask({ ...task, projects: newProjects })
-                }
-                isNewTask={false}
-                taskId={null}
-                handleProjectSelect={handleProjectSelect}
-              />
-              <Calend
-                expirationDate={expirationDate}
-                task={task}
-                onChange={(newExpirationDate) =>
-                  setTask({
-                    ...task,
-                    expirationDate: newExpirationDate,
-                  })
-                }
-              />
-              <TagForm
-                value={task.tags}
-                onChange={(newTags) => setTask({ ...task, tags: newTags })}
-                isNewTask={true}
-                taskId={null}
-              />
+              <div className='relative flex flex-row'>
+                <ModalMenuButton
+                  svgLeft={<Folder />}
+                  children={'Add project'}
+                  onClick={handleOpenProjectModal}
+                />
+                <DropdownModal
+                  children={
+                    <ProjectForm
+                      value={task.projects}
+                      onChange={(newProjects) =>
+                        setTask({ ...task, projects: newProjects })
+                      }
+                      isNewTask={false}
+                      taskId={null}
+                      handleProjectSelect={handleProjectSelect}
+                      onClose={handleCloseProjectModal}
+                    />
+                  }
+                  open={openProject}
+                  onClose={handleCloseProjectModal}
+                  noBorder={true}
+                />
+              </div>
+              <div className='relative flex flex-row'>
+                <ModalMenuButton
+                  svgLeft={<Cal />}
+                  children={
+                    (task.expirationDate &&
+                      new Date(task.expirationDate).toLocaleDateString(
+                        navigator.language,
+                        {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: '2-digit',
+                        }
+                      )) ||
+                    'Add due date'
+                  }
+                  onClick={handleOpenModal}
+                  expirationDate={
+                    task.expirationDate && task.expirationDate.slice(0, -1)
+                  }
+                  checked={checked}
+                  date={true}
+                />
+                <DropdownModal
+                  children={
+                    <Calend
+                      expirationDate={expirationDate}
+                      task={task}
+                      onChange={(newExpirationDate) =>
+                        setTask({
+                          ...task,
+                          expirationDate: newExpirationDate,
+                        })
+                      }
+                      onClose={handleCloseModal}
+                    />
+                  }
+                  open={open}
+                  onClose={handleCloseModal}
+                  noBorder={true}
+                />
+              </div>
+
+              <div className='relative flex flex-row'>
+                <ModalMenuButton
+                  svgLeft={<TagSvg />}
+                  children={'Add tags'}
+                  onClick={handleOpenTagModal}
+                />
+                <DropdownModal
+                  children={
+                    <TagForm
+                      value={task.tags}
+                      onChange={(newTags) =>
+                        setTask({ ...task, tags: newTags })
+                      }
+                      isNewTask={true}
+                      taskId={null}
+                    />
+                  }
+                  open={openTag}
+                  onClose={handleCloseTagModal}
+                  noBorder={true}
+                />
+              </div>
             </div>
           </div>
         </>

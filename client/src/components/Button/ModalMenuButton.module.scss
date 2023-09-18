@@ -1,0 +1,24 @@
+.main {
+  @apply flex flex-row grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  h-[30px] w-[227px] 
+  items-center px-[7px] pb-1 pt-[6px] rounded-[5px] 
+  font-bold text-14 text-gray my-[4px]
+  justify-between transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply bg-navButtonHover text-grayHover;
+  }
+}
+
+.icon {
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-2 auto-rows-fr 
+  items-center;
+}
+
+.counter {
+  @apply flex items-center mr-1;
+}
+
+.history {
+  @apply flex items-center mr-[2px];
+}

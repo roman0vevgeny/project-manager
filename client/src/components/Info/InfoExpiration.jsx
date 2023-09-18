@@ -47,7 +47,7 @@ const InfoExpiration = ({
           }>
           {today ? 'Today' : children}
           {onDelete && (
-            <div className={styles.onDelete} onClick={onDelete}>
+            <div className={styles.svg} onClick={onDelete}>
               <Delete />
             </div>
           )}

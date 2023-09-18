@@ -1,5 +1,5 @@
 .modal {
-  @apply relative flex justify-center bg-mainBg rounded-[10px] shadow-card z-[9001] overflow-y-auto overflow-x-hidden max-h-[calc(100vh-140px)] 
+  @apply relative flex justify-center bg-mainBg rounded-[10px] shadow-card z-[9001] overflow-y-auto overflow-x-hidden h-[calc(100vh-140px)] 
   max-w-[1100px];
 
   &::-webkit-scrollbar {

@@ -125,9 +125,9 @@ const projectSlice = createSlice({
       }
     },
 
-    // updateProjectsOrder(state, action) {
-    //   state.splice(0, state.length, ...action.payload.projects)
-    // },
+    updateProjectsOrder(state, action) {
+      state.splice(0, state.length, ...action.payload.projects)
+    },
 
     updateTasksInProject(state, action) {
       const { projectId, tasks } = action.payload

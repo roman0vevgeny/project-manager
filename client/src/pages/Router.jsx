@@ -14,6 +14,7 @@ import ProjectCards from './ProjectCards.jsx'
 import ProjectBoards from './ProjectBoards.jsx'
 import ProjectPage from './ProjectPage.jsx'
 import SignIn from './SignIn.jsx'
+import CalendarPage from './CalendarPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             path: '/home/boards',
             element: <Boards />,
           },
+          {
+            path: '/home/calendar',
+            element: <CalendarPage />,
+          },
         ],
       },
       {
@@ -55,6 +60,10 @@ const router = createBrowserRouter([
             path: '/today/boards',
             element: <Boards />,
           },
+          {
+            path: '/today/calendar',
+            element: <CalendarPage />,
+          },
         ],
       },
       {
@@ -72,6 +81,10 @@ const router = createBrowserRouter([
           {
             path: '/expired/boards',
             element: <Boards />,
+          },
+          {
+            path: '/expired/calendar',
+            element: <CalendarPage />,
           },
         ],
       },

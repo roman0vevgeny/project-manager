@@ -3,17 +3,52 @@ import CheckBox from '../../CheckBox/CheckBox'
 import Subtask from './Subtask/Subtask'
 import SubtaskInput from './SubtaskInput/SubtaskInput'
 import styles from './SubtaskBlock.module.scss'
+import { useDispatch } from 'react-redux'
+import { addTask } from '../../../features/tasksSlice'
+import { addTaskToProject } from '../../../features/projectSlice'
 
-const SubtaskBlock = ({ subtasks, onSubtasksChange, checked }) => {
+const SubtaskBlock = ({ subtasks, onSubtasksChange, checked, parentTask }) => {
   const [subtaskInput, setSubtaskInput] = useState('')
   const inputRef = useRef(null)
+
+  const dispatch = useDispatch()
 
   const handleAddSubtask = (subtask) => {
     onSubtasksChange([...subtasks, subtask])
   }
 
+  const transformSubtaskToTask = (subtask, parentTask) => {
+    const { expirationDate, projects, tags, status } = parentTask
+    return {
+      id: Date.now(),
+      name: subtask.name,
+      description: '',
+      subtasks: [],
+      expirationDate: expirationDate,
+      tags: tags,
+      projects: projects,
+      favorite: false,
+      checked: false,
+      status: status,
+    }
+  }
+
   const handleDeleteSubtask = (subtaskId) => {
     onSubtasksChange(subtasks.filter((subtask) => subtask.id !== subtaskId))
+  }
+
+  const handleTransformClick = (subtaskToTransform) => {
+    const newTask = transformSubtaskToTask(subtaskToTransform, parentTask)
+    dispatch(addTask(newTask))
+    console.log('newTask: ', newTask)
+    const taskId = newTask.id
+    console.log('taskId: ', taskId)
+    const parentProjects = parentTask.projects
+    console.log('parentProjects: ', parentProjects)
+    newTask.projects.forEach((projectId) => {
+      dispatch(addTaskToProject({ projectId, taskId: taskId }))
+    })
+    handleDeleteSubtask(subtaskToTransform.id)
   }
 
   const handleSubtaskCheckedChange = (subtaskId, checked) => {
@@ -49,7 +84,7 @@ const SubtaskBlock = ({ subtasks, onSubtasksChange, checked }) => {
     <div className='mb-4'>
       {subtasks &&
         subtasks.map((subtask) => (
-          <div key={subtask.id} className='flex items-start mx-2 mb-1'>
+          <div key={subtask.id} className='flex items-start mx-2 mb-1 mt-2'>
             <button
               className={styles.checkbox}
               onClick={(e) => {
@@ -68,6 +103,7 @@ const SubtaskBlock = ({ subtasks, onSubtasksChange, checked }) => {
               checked={checked}
               onChange={handleSubtaskNameChange}
               onDelete={() => handleDeleteSubtask(subtask.id)}
+              onTransform={() => handleTransformClick(subtask)}
             />
           </div>
         ))}

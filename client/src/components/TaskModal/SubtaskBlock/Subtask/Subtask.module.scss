@@ -1,5 +1,5 @@
 .input {
-  @apply outline-none flex text-start text-14 font-medium flex-grow mr-2 px-2 py-1 bg-mainBg text-task rounded-[5px] max-w-[430px] cursor-pointer;
+  @apply outline-none flex text-start text-14 font-medium flex-grow mr-2 px-2 py-1 bg-mainBg text-task rounded-[5px] max-w-[400px] cursor-pointer;
 
   &:focus {
     @apply outline-none bg-inputFocus text-inputFocus cursor-auto border-none pl-[8px] box-border;
@@ -7,7 +7,7 @@
 }
 
 .inputChecked {
-  @apply flex text-start text-14 font-medium flex-grow mr-2 px-2 py-1 bg-mainBg text-gray rounded-[5px] max-w-[430px] cursor-pointer;
+  @apply flex text-start text-14 font-medium flex-grow mr-2 px-2 py-1 bg-mainBg text-gray rounded-[5px] max-w-[400px] cursor-pointer;
 
   &:focus {
     @apply outline-none bg-inputFocus text-inputFocus cursor-auto border-none pl-[8px] box-border;

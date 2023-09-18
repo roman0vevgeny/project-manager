@@ -19,7 +19,7 @@
 }
 
 .sectionDevider {
-  @apply flex items-center flex-grow my-3;
+  @apply flex items-center flex-grow mt-3;
 
   &::after {
     @apply flex-grow h-[1px] bg-devider;

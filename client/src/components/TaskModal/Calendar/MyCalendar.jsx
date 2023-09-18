@@ -19,6 +19,7 @@ function MyCalendar({
   formatDay,
   dispatch,
   task,
+  onClose,
 }) {
   const [currentMonth, setCurrentMonth] = useState(
     value ? new Date(value).getMonth() : new Date().getMonth()
@@ -78,6 +79,7 @@ function MyCalendar({
     } else {
       onChange(dateString)
     }
+    onClose()
   }
 
   const isCurrentDate = (date) => {
@@ -106,7 +108,7 @@ function MyCalendar({
   }
 
   return (
-    <div className='text-12 text-task w-[227px] my-3 p-[10px] border-1 border-stroke rounded-[5px]'>
+    <div className='text-12 text-task w-[225px] p-[10px] rounded-[5px]'>
       {showNavigation && (
         <div className='flex w-full justify-between'>
           <button

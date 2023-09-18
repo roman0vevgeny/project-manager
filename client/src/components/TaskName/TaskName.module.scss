@@ -1,9 +1,9 @@
 .text {
-  @apply text-task transition-all duration-200 ease-in-out;
+  @apply text-task transition-all duration-200 ease-in-out items-center;
 }
 
 .textChecked {
-  @apply text-gray transition-all duration-200 ease-in-out;
+  @apply text-gray transition-all duration-200 ease-in-out items-center;
 }
 
 .textBig {
@@ -16,4 +16,8 @@
 
 .textBoards {
   @apply min-w-[250px] font-bold pt-[3px]  text-task text-start leading-1.5 flex-grow break-words;
+}
+
+.textCal {
+  @apply pt-[1px] text-13 items-center text-task text-start leading-1;
 }

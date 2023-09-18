@@ -64,11 +64,11 @@ const ProjectForm = ({ value, isNewTask, handleProjectSelect }) => {
 
   return (
     <form className='flex flex-col w-full' onSubmit={handleSubmit}>
-      <div className='flex'>
+      <div className='flex justify-center mx-[4px] mb-1'>
         <ProjectInput name={name} onNameChange={handleNameChange} />
         <button
           type={'submit'}
-          className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover w-[32px] h-[29px]'>
+          className='flex rounded-[5px] mt-1 text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover w-[29px] h-[29px]'>
           <Plus />
         </button>
       </div>

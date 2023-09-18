@@ -1,5 +1,5 @@
 .tagOuter {
-  @apply flex justify-center items-center h-[25px] w-[25px] bg-grayTag rounded-full mr-1 mb-1;
+  @apply flex justify-center items-center h-[25px] w-[25px] bg-grayTag rounded-full mr-[3px] mb-1;
 
   &:hover {
     @apply border-1 border-checkbox;

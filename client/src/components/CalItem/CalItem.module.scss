@@ -1,0 +1,41 @@
+.body {
+  @apply relative flex flex-row w-full items-center pb-[1px] border-borderMain border-1 rounded-[7px] cursor-pointer bg-mainBg
+  transition-all duration-200 ease-in-out overflow-hidden;
+  &:hover {
+    @apply border-checkbox;
+  }
+}
+
+.dragging {
+  @apply relative flex flex-row w-full border-stroke border-1 items-start rounded-[7px] cursor-pointer bg-mainBg
+  shadow-lg transition-all duration-200 ease-in-out;
+}
+
+.checkbox {
+  @apply flex justify-start items-center min-w-[40px] h-full ml-[-2px];
+}
+
+.clickable {
+  @apply flex flex-col flex-grow ml-[-5px] pr-2 overflow-hidden;
+}
+
+// .sectionDevider {
+//   @apply flex items-center flex-grow my-3;
+
+//   &::after {
+//     @apply flex-grow h-[1px] bg-devider transition-all duration-200 ease-in-out;
+//     content: '';
+//   }
+// }
+
+.dropZone {
+  @apply flex flex-row items-center justify-center h-[40px] w-full rounded-[5px] mx-2 bg-blueTag;
+}
+
+.draggedTaskPlaceholder {
+  @apply flex flex-row items-center justify-center h-[40px] w-full rounded-[5px] mx-2 bg-gray;
+}
+
+.projectContainer {
+  @apply flex flex-row items-center justify-end;
+}

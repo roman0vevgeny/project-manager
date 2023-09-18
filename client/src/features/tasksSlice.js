@@ -18,7 +18,7 @@ const initialState = {
       expirationDate: null,
       status: 'todo',
       subtasks: [
-        { id: 1, name: 'Подзадача 1', checked: true },
+        { id: 1, name: 'Подзадача 1', checked: false },
         { id: 2, name: 'Подзадача 2', checked: false },
       ],
       favorite: false,
@@ -27,9 +27,29 @@ const initialState = {
     },
     {
       id: 8,
-      checked: true,
+      checked: false,
       name: 'Вторая задача',
-      description: null,
+      description: '<p>Короткое описание про важность заджач</p>',
+      creationDate: new Date().toLocaleString('us-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }),
+      expirationDate: '2023-09-16T21:00:00.000Z',
+      status: 'inprogress',
+      subtasks: [],
+      favorite: false,
+      tags: [],
+      projects: [],
+    },
+    {
+      id: 3,
+      checked: false,
+      name: 'Новая задача',
+      description: '<p>С каким-то коротким описанием</p>',
       creationDate: new Date().toLocaleString('us-US', {
         year: 'numeric',
         month: '2-digit',
@@ -39,8 +59,11 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: null,
-      status: 'inprogress',
-      subtasks: [],
+      status: 'todo',
+      subtasks: [
+        { id: 1, name: 'Первая подзадача', checked: false },
+        { id: 2, name: 'Вторая подзадача', checked: false },
+      ],
       favorite: false,
       tags: [],
       projects: [],
@@ -63,7 +86,7 @@ const tasksSlice = createSlice({
           minute: '2-digit',
           second: '2-digit',
         }),
-        // expirationDate: action.payload.expirationDate,
+        expirationDate: action.payload.expirationDate,
       })
     },
 

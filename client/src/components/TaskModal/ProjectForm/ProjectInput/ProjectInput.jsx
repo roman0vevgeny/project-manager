@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import styles from '../../TagForm/TagInput/TagInput.module.scss'
 import Close from '../../../svgs/Close'
 
@@ -9,6 +9,10 @@ const ProjectInput = ({ name, onNameChange }) => {
     onNameChange('')
     inputRef.current.value = ''
   }
+
+  useLayoutEffect(() => {
+    inputRef.current.focus()
+  }, [inputRef])
 
   return (
     <div className='relative flex h-fit items-center w-fit'>

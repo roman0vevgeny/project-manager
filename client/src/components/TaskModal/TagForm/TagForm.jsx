@@ -82,12 +82,12 @@ const TagForm = ({ value, onChange, isNewTask, taskId }) => {
   }
 
   return (
-    <form className='flex flex-col w-full mb-3' onSubmit={handleSubmit}>
-      <div className='flex'>
+    <form className='flex flex-col w-[227px]' onSubmit={handleSubmit}>
+      <div className='flex justify-center'>
         <TagInput name={name} onNameChange={handleNameChange} />
         <button
           type={'submit'}
-          className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover w-[32px] h-[29px]'>
+          className='flex rounded-[5px] mt-1 text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover w-[29px] h-[29px]'>
           <Plus />
         </button>
       </div>

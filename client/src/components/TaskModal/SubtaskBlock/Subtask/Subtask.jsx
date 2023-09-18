@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Edit from '../../../svgs/Edit'
+// import Edit from '../../../svgs/Edit'
 import styles from './Subtask.module.scss'
 import Close from '../../../svgs/Close'
 import ModalButton from '../../../Button/ModalButton'
+import Transform from '../../../svgs/Transform'
 
-const Subtask = ({ subtask, onDelete, onChange, checked }) => {
+const Subtask = ({ subtask, onDelete, onChange, checked, onTransform }) => {
   const [text, setText] = useState(subtask.name)
   const [prevText, setPrevText] = useState(subtask.name)
   const inputRef = useRef(null)
@@ -76,7 +77,7 @@ const Subtask = ({ subtask, onDelete, onChange, checked }) => {
         <div className='flex'>
           {(hovered || inputRef.current === document.activeElement) && (
             <div className='flex flex-row mt-[1px]'>
-              <ModalButton svg={<Edit />} onClick={handleFocus} />
+              <ModalButton svg={<Transform />} onClick={onTransform} />
             </div>
           )}
           {(hovered || inputRef.current === document.activeElement) && (

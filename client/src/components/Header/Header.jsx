@@ -7,13 +7,14 @@ import SearchBar from '../SearchBar/SearchBar'
 import TabList from '../svgs/TabList'
 import TabCards from '../svgs/TabCards'
 import TabBoards from '../svgs/TabBoards'
+import TabCal from '../svgs/TabCal'
 import { NavLink } from 'react-router-dom'
 
 import { useNavigate } from 'react-router-dom'
 import LogoInvert from '../svgs/LogoInvert'
 
 const Header = ({ toggleNavbar, showNavbar, currentPath }) => {
-  const basePath = currentPath.replace(/\/(list|cards|boards)$/, '')
+  const basePath = currentPath.replace(/\/(list|cards|boards|calendar)$/, '')
   const navigate = useNavigate()
   const handleNavLinkClick = (view) => {
     localStorage.setItem('view', view)
@@ -57,6 +58,14 @@ const Header = ({ toggleNavbar, showNavbar, currentPath }) => {
               }
               onClick={() => handleNavLinkClick('/boards')}>
               <TabBoards />
+            </NavLink>
+            <NavLink
+              to={`${basePath}/calendar`}
+              className={(navData) =>
+                navData.isActive ? styles.active : styles.button
+              }
+              onClick={() => handleNavLinkClick('/calendar')}>
+              <TabCal />
             </NavLink>
           </>
         )}

@@ -1,0 +1,11 @@
+.modal {
+  @apply absolute top-7 left-0 flex justify-center bg-mainBg rounded-[5px] shadow-md z-[300] h-fit border-1 border-stroke;
+}
+
+.modalNoBorder {
+  @apply absolute top-9 left-0 flex justify-center bg-mainBg rounded-[5px] shadow-lg z-[300] h-fit border-1 border-stroke;
+}
+
+.overlay {
+  @apply fixed top-0 left-0 w-full h-full justify-center z-[200] bg-transparent;
+}

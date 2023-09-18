@@ -53,7 +53,7 @@ const CreateTaskDescription = ({ description, setDescription }) => {
   }, [description])
 
   return (
-    <div className='flex flex-row justify-between mx-2 items-start my-2'>
+    <div className='flex flex-col justify-between mx-2 items-start my-2 w-full'>
       <div
         className={
           localDescription === '+ Add a description'
