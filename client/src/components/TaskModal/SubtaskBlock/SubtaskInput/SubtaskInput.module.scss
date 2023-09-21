@@ -5,12 +5,12 @@
     @apply text-gray box-border;
 
     &::placeholder {
-      @apply text-gray;
+      @apply text-[var(--input-focus-text)];
     }
   }
 
   &::placeholder {
-    @apply text-gray;
+    @apply text-[var(--input-focus-text)];
   }
 
   &:focus {

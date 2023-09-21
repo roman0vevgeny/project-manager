@@ -14,10 +14,16 @@ import {
   updateTaskProjects,
   deleteTask,
   addTask,
+  setTaskPriority,
+  updateTaskStatus,
+  updateTaskChecked,
 } from '../../features/tasksSlice'
 import {
   addTaskToProject,
   removeTaskFromProject,
+  updateTodoTasksInProject,
+  updateProgressTasksInProject,
+  updateDoneTasksInProject,
 } from '../../features/projectSlice'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import TaskHeader from './TaskHeader/TaskHeader'
@@ -30,12 +36,19 @@ import ModalMenuButton from '../Button/ModalMenuButton'
 import Cal from '../svgs/Cal'
 import Folder from '../svgs/Folder'
 import TagSvg from '../svgs/TagSvg'
+import Priority from '../svgs/Priority'
+import PriorityBlock from './PriorityBlock/PriorityBlock'
+import Status from '../svgs/Status'
+import StatusBlock from './StatusBlock/StatusBlock'
 
 const EditTaskModal = ({ onClose, task }) => {
   const [open, setOpen] = useState(false)
   const [openProject, setOpenProject] = useState(false)
   const [openTag, setOpenTag] = useState(false)
+  const [openPriority, setOpenPriority] = useState(false)
+  const [openStatus, setOpenStatus] = useState(false)
   console.log('EditTaskModal - task:', task)
+  console.log('EditTaskModal - status:', task.status)
 
   if (!task) {
     console.log('EditTaskModal - Redirecting to home page')
@@ -45,8 +58,7 @@ const EditTaskModal = ({ onClose, task }) => {
 
   const dispatch = useDispatch()
   const allTags = useSelector((state) => state.tags)
-  // const allTasks = useSelector((state) => state.tasks.tasks)
-  // console.log('allTasks: ', allTasks)
+  const allProjects = useSelector((state) => state.projects)
 
   const { id, tags, description, checked, projects } = task || {}
 
@@ -67,6 +79,26 @@ const EditTaskModal = ({ onClose, task }) => {
     onClose()
   }
 
+  // const handleProjectSelect = (projectId) => {
+  //   if (projects.includes(projectId)) {
+  //     dispatch(removeTaskFromProject({ projectId, taskId: id }))
+  //     dispatch(
+  //       updateTaskProjects({
+  //         id: task.id,
+  //         projects: projects.filter((id) => id !== projectId),
+  //       })
+  //     )
+  //   } else {
+  //     dispatch(addTaskToProject({ projectId, taskId: id }))
+  //     dispatch(
+  //       updateTaskProjects({
+  //         id: task.id,
+  //         projects: [...projects, projectId],
+  //       })
+  //     )
+  //   }
+  // }
+
   const handleProjectSelect = (projectId) => {
     if (projects.includes(projectId)) {
       dispatch(removeTaskFromProject({ projectId, taskId: id }))
@@ -76,6 +108,41 @@ const EditTaskModal = ({ onClose, task }) => {
           projects: projects.filter((id) => id !== projectId),
         })
       )
+      const project = allProjects.find((proj) => proj.id === projectId)
+      if (project) {
+        let updatedTodoTasks = [...project.todotasks]
+        let updatedProgressTasks = [...project.progresstasks]
+        let updatedDoneTasks = [...project.donetasks]
+
+        switch (task.status) {
+          case 'todo':
+            updatedTodoTasks = updatedTodoTasks.filter((id) => id !== task.id)
+            break
+          case 'inprogress':
+            updatedProgressTasks = updatedProgressTasks.filter(
+              (id) => id !== task.id
+            )
+            break
+          case 'done':
+            updatedDoneTasks = updatedDoneTasks.filter((id) => id !== task.id)
+            break
+          default:
+            break
+        }
+
+        dispatch(
+          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+        )
+        dispatch(
+          updateProgressTasksInProject({
+            projectId,
+            tasks: updatedProgressTasks,
+          })
+        )
+        dispatch(
+          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+        )
+      }
     } else {
       dispatch(addTaskToProject({ projectId, taskId: id }))
       dispatch(
@@ -84,6 +151,39 @@ const EditTaskModal = ({ onClose, task }) => {
           projects: [...projects, projectId],
         })
       )
+      const project = allProjects.find((proj) => proj.id === projectId)
+      if (project) {
+        let updatedTodoTasks = [...project.todotasks]
+        let updatedProgressTasks = [...project.progresstasks]
+        let updatedDoneTasks = [...project.donetasks]
+
+        switch (task.status) {
+          case 'todo':
+            updatedTodoTasks.push(task.id)
+            break
+          case 'inprogress':
+            updatedProgressTasks.push(task.id)
+            break
+          case 'done':
+            updatedDoneTasks.push(task.id)
+            break
+          default:
+            break
+        }
+
+        dispatch(
+          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+        )
+        dispatch(
+          updateProgressTasksInProject({
+            projectId,
+            tasks: updatedProgressTasks,
+          })
+        )
+        dispatch(
+          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+        )
+      }
     }
   }
 
@@ -112,6 +212,14 @@ const EditTaskModal = ({ onClose, task }) => {
     setOpenTag(false)
   }
 
+  const handleClosePriorityModal = () => {
+    setOpenPriority(false)
+  }
+
+  const handleOpenPriorityModal = () => {
+    setOpenPriority(true)
+  }
+
   const handleOpenModal = () => {
     setOpen(true)
   }
@@ -122,6 +230,14 @@ const EditTaskModal = ({ onClose, task }) => {
 
   const handleOpenTagModal = () => {
     setOpenTag(true)
+  }
+
+  const handleCloseStatusModal = () => {
+    setOpenStatus(false)
+  }
+
+  const handleOpenStatusModal = () => {
+    setOpenStatus(true)
   }
 
   const handleEscapePress = (e) => {
@@ -196,14 +312,14 @@ const EditTaskModal = ({ onClose, task }) => {
                   <button
                     type={'submit'}
                     onClick={handleDuplicateTask}
-                    className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <Copy />
                     </div>
                   </button>
                   <button
                     type={'submit'}
-                    className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <History />
                     </div>
@@ -211,7 +327,7 @@ const EditTaskModal = ({ onClose, task }) => {
                   {checked && (
                     <button
                       type={'submit'}
-                      className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                      className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                       <div className=''>
                         <History />
                       </div>
@@ -220,7 +336,7 @@ const EditTaskModal = ({ onClose, task }) => {
                   <button
                     type={'submit'}
                     onClick={() => handleDeleteTask(id, projects)}
-                    className='flex rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <Trash />
                     </div>
@@ -340,6 +456,69 @@ const EditTaskModal = ({ onClose, task }) => {
                         noBorder={true}
                         stopPropagation={true}
                         onEscapePress={handleEscapePress}
+                      />
+                    </div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Priority />}
+                        children={
+                          task.priority
+                            ? `Priority: ${task.priority}`
+                            : 'Set priority'
+                        }
+                        onClick={handleOpenPriorityModal}
+                        onClose={handleClosePriorityModal}
+                        priority={task.priority}
+                      />
+                      <DropdownModal
+                        children={
+                          <PriorityBlock
+                            task={task}
+                            onPriorityChange={(newPriority) =>
+                              dispatch(
+                                setTaskPriority({
+                                  id: task.id,
+                                  priority: newPriority,
+                                })
+                              )
+                            }
+                            onClose={handleClosePriorityModal}
+                          />
+                        }
+                        open={openPriority}
+                        onClose={handleClosePriorityModal}
+                        noBorder={true}
+                        stopPropagation={true}
+                        // onEscapePress={handleEscapePress}
+                      />
+                    </div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Status />}
+                        onClick={handleOpenStatusModal}
+                        onClose={handleCloseStatusModal}
+                        status={task.status}
+                      />
+                      <DropdownModal
+                        children={
+                          <StatusBlock
+                            task={task}
+                            onStatusChange={(newStatus) =>
+                              dispatch(
+                                updateTaskStatus({
+                                  id: task.id,
+                                  status: newStatus,
+                                })
+                              )
+                            }
+                            onClose={handleCloseStatusModal}
+                          />
+                        }
+                        open={openStatus}
+                        onClose={handleCloseStatusModal}
+                        noBorder={true}
+                        stopPropagation={true}
+                        // onEscapePress={handleEscapePress}
                       />
                     </div>
                   </div>

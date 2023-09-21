@@ -31,10 +31,10 @@ const InfoDate = ({ svg, children, expirationDate, checked, onDelete }) => {
           <div
             className={
               today
-                ? 'mt-[2px] text-blueTag'
+                ? 'mt-[1px] text-blueTag leading-0'
                 : notExpired
-                ? 'mt-[2px] text-grayHover'
-                : 'mt-[2px] text-redTag'
+                ? 'mt-[1px] text-grayHover leading-0'
+                : 'mt-[1px] text-redTag leading-0'
             }>
             {today ? 'Today' : children}
           </div>

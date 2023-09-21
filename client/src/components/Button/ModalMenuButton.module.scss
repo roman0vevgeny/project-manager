@@ -1,18 +1,16 @@
 .main {
   @apply flex flex-row grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
-  h-[30px] w-[227px] 
-  items-center px-[7px] pb-1 pt-[6px] rounded-[5px] 
-  font-bold text-14 text-gray my-[4px]
-  justify-between transition-all duration-200 ease-in-out;
+  h-[30px] w-[227px] items-center px-[7px] rounded-[5px] 
+  text-13 text-grayHover my-[4px] justify-between;
 
   &:hover {
-    @apply bg-navButtonHover text-grayHover;
+    @apply bg-nav text-grayHover;
   }
 }
 
 .icon {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-2 auto-rows-fr 
-  items-center;
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-3 auto-rows-fr 
+  leading-0 items-center;
 }
 
 .counter {

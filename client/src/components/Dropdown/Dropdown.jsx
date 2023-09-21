@@ -132,7 +132,7 @@ const Dropdown = ({ children, svg }) => {
                     </Draggable>
                   ))
                 ) : (
-                  <p className='text-14 flex px-7 py-[2px] text-gray'>
+                  <p className='text-14 flex px-7 py-[2px] text-grayHover'>
                     No tags yet
                   </p>
                 )}

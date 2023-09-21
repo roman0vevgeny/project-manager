@@ -15,6 +15,7 @@ import ProjectBoards from './ProjectBoards.jsx'
 import ProjectPage from './ProjectPage.jsx'
 import SignIn from './SignIn.jsx'
 import CalendarPage from './CalendarPage.jsx'
+import ProjectCal from './ProjectCal.jsx'
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
           {
             path: '/projects/:projectId/boards',
             element: <ProjectBoards />,
+          },
+          {
+            path: '/projects/:projectId/calendar',
+            element: <ProjectCal />,
           },
         ],
       },

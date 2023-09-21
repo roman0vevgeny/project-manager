@@ -24,6 +24,7 @@ const initialState = {
       favorite: false,
       tags: [],
       projects: [],
+      priority: null,
     },
     {
       id: 8,
@@ -39,11 +40,12 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: '2023-09-16T21:00:00.000Z',
-      status: 'inprogress',
+      status: 'todo',
       subtasks: [],
       favorite: false,
       tags: [],
       projects: [],
+      priority: null,
     },
     {
       id: 3,
@@ -67,6 +69,7 @@ const initialState = {
       favorite: false,
       tags: [],
       projects: [],
+      priority: null,
     },
   ],
 }
@@ -87,6 +90,7 @@ const tasksSlice = createSlice({
           second: '2-digit',
         }),
         expirationDate: action.payload.expirationDate,
+        // status: action.payload.status,
       })
     },
 
@@ -239,47 +243,6 @@ const tasksSlice = createSlice({
       }
     },
 
-    // deleteTaskProject(state, action) {
-    //   const index = state.tasks.findIndex(
-    //     (task) => task.id === action.payload.id
-    //   )
-    //   if (index > -1) {
-    //     const projectIndex = state.tasks[index].projects.findIndex(
-    //       (projectId) => projectId === action.payload.projectId
-    //     )
-    //     state.tasks[index].projects.splice(projectIndex, 1)
-    //   }
-    // },
-
-    // deleteTaskProject(state, action) {
-    //   const index = state.tasks.findIndex(
-    //     (task) => task.id === action.payload.id
-    //   )
-    //   if (index > -1) {
-    //     const newProjects = state.tasks[index].projects.filter(
-    //       (projectId) => projectId !== action.payload.projectId
-    //     )
-    //     state.tasks[index].projects = newProjects
-    //   }
-    // },
-
-    // deleteTaskProject(state, action) {
-    //   const index = state.tasks.findIndex(
-    //     (task) => task.id === action.payload.id
-    //   )
-    //   if (index > -1) {
-    //     const projectIndices = []
-    //     for (let i = 0; i < state.tasks[index].projects.length; i++) {
-    //       if (state.tasks[index].projects[i] === action.payload.projectId) {
-    //         projectIndices.push(i)
-    //       }
-    //     }
-    //     for (let i = projectIndices.length - 1; i >= 0; i--) {
-    //       state.tasks[index].projects.splice(projectIndices[i], 1)
-    //     }
-    //   }
-    // },
-
     deleteTaskProject(state, action) {
       const index = state.tasks.findIndex(
         (task) => task.id === action.payload.id
@@ -313,17 +276,55 @@ const tasksSlice = createSlice({
       }
     },
 
-    // updateTasksOrder(state, action) {
-    //   const { startIndex, endIndex } = action.payload
-    //   const newTasks = [...state.tasks]
-    //   const [movedTask] = newTasks.splice(startIndex, 1)
-    //   newTasks.splice(endIndex, 0, movedTask)
-    //   state.tasks = newTasks
-    // },
-
     updateTasksOrder(state, action) {
       state.tasks = action.payload.tasks
     },
+
+    setTaskPriority: (state, action) => {
+      const { id, priority } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.priority = priority
+      }
+    },
+
+    updateTaskStatus(state, action) {
+      const { id, status } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.status = status
+      }
+    },
+
+    // updateTodoTasks(state, action) {
+    //   const { tasks } = action.payload
+    //   state.tasks = state.tasks.map((task) => {
+    //     if (tasks.some((newTask) => newTask.id === task.id)) {
+    //       return tasks.find((newTask) => newTask.id === task.id)
+    //     }
+    //     return task
+    //   })
+    // },
+
+    // updateProgressTasks(state, action) {
+    //   const { tasks } = action.payload
+    //   state.tasks = state.tasks.map((task) => {
+    //     if (tasks.some((newTask) => newTask.id === task.id)) {
+    //       return tasks.find((newTask) => newTask.id === task.id)
+    //     }
+    //     return task
+    //   })
+    // },
+
+    // updateDoneTasks(state, action) {
+    //   const { tasks } = action.payload
+    //   state.tasks = state.tasks.map((task) => {
+    //     if (tasks.some((newTask) => newTask.id === task.id)) {
+    //       return tasks.find((newTask) => newTask.id === task.id)
+    //     }
+    //     return task
+    //   })
+    // },
   },
 })
 
@@ -350,4 +351,9 @@ export const {
   addTaskProject,
   deleteTaskProject,
   updateTasksOrder,
+  setTaskPriority,
+  updateTaskStatus,
+  // updateTodoTasks,
+  // updateProgressTasks,
+  // updateDoneTasks,
 } = tasksSlice.actions

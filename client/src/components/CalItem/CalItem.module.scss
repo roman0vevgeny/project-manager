@@ -12,21 +12,12 @@
 }
 
 .checkbox {
-  @apply flex justify-start items-center min-w-[40px] h-full ml-[-2px];
+  @apply flex justify-start items-center min-w-[40px] h-full ml-[-2px] rounded-full;
 }
 
 .clickable {
   @apply flex flex-col flex-grow ml-[-5px] pr-2 overflow-hidden;
 }
-
-// .sectionDevider {
-//   @apply flex items-center flex-grow my-3;
-
-//   &::after {
-//     @apply flex-grow h-[1px] bg-devider transition-all duration-200 ease-in-out;
-//     content: '';
-//   }
-// }
 
 .dropZone {
   @apply flex flex-row items-center justify-center h-[40px] w-full rounded-[5px] mx-2 bg-blueTag;

@@ -16,7 +16,7 @@ const SubtaskInput = ({ value, onChange, onSubmit, inputRef }) => {
   }
 
   return (
-    <div className='relative flex flex-row justify-between ml-2 items-start my-2'>
+    <div className='relative flex flex-row justify-between items-start ml-2 mt-2'>
       <input
         className={styles.input}
         type='text'

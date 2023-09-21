@@ -2,11 +2,11 @@
   @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
   h-[30px] min-w-[25px] 
   items-center px-[7px] py-1 rounded-[5px] 
-  font-bold text-14 text-gray mt-1
+  font-bold text-14 text-grayHover mt-1
   justify-between transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply bg-navButtonHover text-grayHover;
+    @apply bg-navButtonHover;
   }
 
   &:active {
@@ -18,11 +18,11 @@
   @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
   h-[30px] min-w-[25px] bg-mainBg
   items-center px-[7px] py-1 rounded-t-[5px] 
-  font-bold text-14 text-gray mt-1
+  font-bold text-14 text-grayHover mt-1
   justify-between transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply bg-navButtonHover text-grayHover transition-all duration-200 ease-in-out;
+    @apply bg-navButtonHover transition-all duration-200 ease-in-out;
   }
 
   &:active {
@@ -45,10 +45,10 @@
 }
 
 .item {
-  @apply flex py-1 pl-7 pr-2 text-14 text-gray cursor-pointer truncate transition-all duration-200 ease-in-out;
+  @apply flex py-1 pl-7 pr-2 text-14 text-grayHover cursor-pointer truncate transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply bg-gray text-grayHover transition-all duration-200 ease-in-out;
+    @apply bg-gray;
   }
 }
 
@@ -57,9 +57,9 @@
 }
 
 .nav {
-  @apply w-full bg-mainBg items-center text-14 text-gray justify-between transition-all duration-200 ease-in-out;
+  @apply w-full bg-mainBg items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out;
 
   &:hover {
-    @apply bg-gray text-grayHover;
+    @apply bg-gray;
   }
 }

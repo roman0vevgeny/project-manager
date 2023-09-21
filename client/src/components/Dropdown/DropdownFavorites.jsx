@@ -77,7 +77,7 @@ const DropdownFavorites = ({ children, items = [], svg }) => {
               </li>
             ))
           ) : (
-            <p className='text-14 flex px-7 text-gray truncate'>
+            <p className='text-14 flex px-7 text-grayHover truncate'>
               No favorites yet
             </p>
           )}

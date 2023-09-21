@@ -56,7 +56,7 @@ const Subtask = ({ subtask, onDelete, onChange, checked, onTransform }) => {
 
   return (
     <div
-      className='flex flex-row justify-between items-start w-full mt-[1px]'
+      className='flex flex-row justify-between items-start w-full mt-[1px] ml-[-5px]'
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}>
       <div

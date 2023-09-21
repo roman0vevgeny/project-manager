@@ -2,12 +2,16 @@ import React from 'react'
 import InfoCard from '../../Info/InfoCard'
 import Subtasks from '../../svgs/Subtasks'
 import { useSelector } from 'react-redux'
-import { updateTaskExpirationDate } from '../../../features/tasksSlice'
+import {
+  setTaskPriority,
+  updateTaskExpirationDate,
+} from '../../../features/tasksSlice'
 import Star from '../../svgs/Star'
 import Cal from '../../svgs/Cal'
 import styles from './TaskHeader.module.scss'
 import InfoDate from '../../Info/InfoDate'
 import Project from '../../TaskModal/ProjectForm/Project/Project'
+import Priority from '../../svgs/Priority'
 
 const TaskHeader = ({
   task,
@@ -17,6 +21,7 @@ const TaskHeader = ({
   isNewTask,
   dispatch,
   handleProjectSelect,
+  onPriorityChange,
 }) => {
   const {
     subtasks,
@@ -52,6 +57,19 @@ const TaskHeader = ({
         updateTaskExpirationDate({
           id: id,
           expirationDate: null,
+        })
+      )
+    }
+  }
+
+  const handleDeletePriority = () => {
+    if (isNewTask) {
+      onPriorityChange(null)
+    } else {
+      dispatch(
+        setTaskPriority({
+          id: id,
+          priority: null,
         })
       )
     }
@@ -103,6 +121,21 @@ const TaskHeader = ({
               onDelete={() => handleDeleteExpirationDate()}
               expirationDate={expirationDate}
               checked={checked}
+            />
+          )}
+          {task.priority && (
+            <InfoCard
+              svg={<Priority />}
+              color={
+                task.priority === 'Low'
+                  ? 'text-blueTag bg-blueTag'
+                  : task.priority === 'Medium'
+                  ? 'text-yellowTag bg-yellowTag'
+                  : task.priority === 'High'
+                  ? 'text-redTag bg-redTag'
+                  : 'text-grayHover'
+              }
+              onDelete={() => handleDeletePriority()}
             />
           )}
           {subtasks && subtasks.length > 0 && (

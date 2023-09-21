@@ -1,5 +1,5 @@
 .input {
-  @apply flex text-start text-20 font-bold flex-grow mr-2 mb-[2px] px-2 py-1 bg-mainBg text-task rounded-[5px] w-[500px] cursor-pointer;
+  @apply flex text-start text-20 font-bold flex-grow mr-2 mb-[2px] px-2 py-1 mt-1 bg-mainBg text-task rounded-[5px] w-[500px] cursor-pointer;
 
   &::placeholder {
     @apply text-placeholder;

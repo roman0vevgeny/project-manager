@@ -11,10 +11,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   updateTaskChecked,
   updateTaskIsFavorite,
+  updateTaskStatus,
 } from '../../features/tasksSlice'
 import InfoExpiration from '../Info/InfoExpiration'
 import { selectTaskById } from '../../helpers/selectTaskById'
 import Folder from '../svgs/Folder'
+import {
+  updateDoneTasksInProject,
+  updateTodoTasksInProject,
+  updateProgressTasksInProject,
+} from '../../features/projectSlice'
 
 const ListItem = ({ taskId, onClick, isDragging }) => {
   const task = useSelector((state) => selectTaskById(state, taskId))
@@ -37,6 +43,64 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
   const toggleChecked = (e) => {
     e.stopPropagation()
     dispatch(updateTaskChecked(taskId))
+
+    const currentStatus = task.status
+    const newStatus = currentStatus === 'done' ? 'todo' : 'done'
+    dispatch(updateTaskStatus({ id: taskId, status: newStatus }))
+
+    if (task.projects.length > 0) {
+      task.projects.forEach((projectId) => {
+        const project = allProjects.find((proj) => proj.id === projectId)
+        if (project) {
+          let updatedTodoTasks = [...project.todotasks]
+          let updatedProgressTasks = [...project.progresstasks]
+          let updatedDoneTasks = [...project.donetasks]
+
+          switch (currentStatus) {
+            case 'todo':
+              updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
+              break
+            case 'inprogress':
+              updatedProgressTasks = updatedProgressTasks.filter(
+                (id) => id !== taskId
+              )
+              break
+            case 'done':
+              updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
+              break
+            default:
+              break
+          }
+
+          switch (newStatus) {
+            case 'todo':
+              updatedTodoTasks.push(taskId)
+              break
+            case 'inprogress':
+              updatedProgressTasks.push(taskId)
+              break
+            case 'done':
+              updatedDoneTasks.push(taskId)
+              break
+            default:
+              break
+          }
+
+          dispatch(
+            updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+          )
+          dispatch(
+            updateProgressTasksInProject({
+              projectId,
+              tasks: updatedProgressTasks,
+            })
+          )
+          dispatch(
+            updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+          )
+        }
+      })
+    }
   }
 
   const renderProjects = () => {
@@ -75,7 +139,12 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
             className={isDragging ? styles.dragging : styles.body}
             onClick={onClick}>
             <button className={styles.checkbox} onClick={toggleChecked}>
-              <CheckBox checked={checked} toggleChecked={toggleChecked} />
+              <CheckBox
+                checked={checked}
+                toggleChecked={toggleChecked}
+                priority={task.priority}
+                status={task.status}
+              />
             </button>
             <div className={styles.clickable}>
               <div className='flex flex-raw justify-between items-start w-full'>

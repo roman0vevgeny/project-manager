@@ -162,6 +162,7 @@ const projectSlice = createSlice({
 
     updateTodoTasksInProject(state, action) {
       const { projectId, tasks } = action.payload
+      console.log('action.payload updateTodoTasksInProject: ', action.payload)
       const project = state.find((project) => project.id === projectId)
       if (project) {
         project.todotasks = tasks
@@ -170,6 +171,10 @@ const projectSlice = createSlice({
 
     updateProgressTasksInProject(state, action) {
       const { projectId, tasks } = action.payload
+      console.log(
+        'action.payload updateProgressTasksInProject: ',
+        action.payload
+      )
       const project = state.find((project) => project.id === projectId)
       if (project) {
         project.progresstasks = tasks
@@ -178,6 +183,7 @@ const projectSlice = createSlice({
 
     updateDoneTasksInProject(state, action) {
       const { projectId, tasks } = action.payload
+      console.log('action.payload updateDoneTasksInProject: ', action.payload)
       const project = state.find((project) => project.id === projectId)
       if (project) {
         project.donetasks = tasks

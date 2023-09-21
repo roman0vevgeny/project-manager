@@ -16,10 +16,9 @@ import Folder from '../svgs/Folder'
 import Cal from '../svgs/Cal'
 import TagSvg from '../svgs/TagSvg'
 import ModalMenuButton from '../Button/ModalMenuButton'
-import { isNotExpired } from '../../helpers/isNotExpired'
-import { isToday } from '../../helpers/isToday'
-import History from '../svgs/History'
 import DropdownModal from '../Modal/DropdownModal'
+import Priority from '../svgs/Priority'
+import PriorityBlock from './PriorityBlock/PriorityBlock'
 
 const CreateTaskModal = ({ onClose, today, projectId, date }) => {
   const [task, setTask] = useState({
@@ -37,6 +36,7 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
   const [open, setOpen] = useState(false)
   const [openProject, setOpenProject] = useState(false)
   const [openTag, setOpenTag] = useState(false)
+  const [openPriority, setOpenPriority] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -114,6 +114,14 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
     setOpenTag(true)
   }
 
+  const handleClosePriorityModal = () => {
+    setOpenPriority(false)
+  }
+
+  const handleOpenPriorityModal = () => {
+    setOpenPriority(true)
+  }
+
   console.log('task desc: ', task.description)
 
   return (
@@ -188,7 +196,7 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
             )}
             <button
               type={'submit'}
-              className='flex p-1 rounded-[5px] text-gray text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-2 w-full'
+              className='flex p-[6px] rounded-[6px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-fit px-2 w-full'
               onClick={handleCreateTask}>
               <div>
                 <Plus />
@@ -287,6 +295,36 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
                   open={openTag}
                   onClose={handleCloseTagModal}
                   noBorder={true}
+                />
+              </div>
+              <div className='relative flex flex-row mr-2'>
+                <ModalMenuButton
+                  svgLeft={<Priority />}
+                  children={
+                    task.priority
+                      ? `Priority: ${task.priority}`
+                      : 'Set priority'
+                  }
+                  onClick={handleOpenPriorityModal}
+                  onClose={handleClosePriorityModal}
+                  priority={task.priority}
+                />
+                <DropdownModal
+                  children={
+                    <PriorityBlock
+                      task={task}
+                      isNewTask={true}
+                      onPriorityChange={(newPriority) =>
+                        setTask({ ...task, priority: newPriority })
+                      }
+                      onClose={handleClosePriorityModal}
+                    />
+                  }
+                  open={openPriority}
+                  onClose={handleClosePriorityModal}
+                  noBorder={true}
+                  stopPropagation={true}
+                  // onEscapePress={handleEscapePress}
                 />
               </div>
             </div>

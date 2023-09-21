@@ -18,7 +18,7 @@ const SubtaskBlock = ({ subtasks, onSubtasksChange, checked, parentTask }) => {
   }
 
   const transformSubtaskToTask = (subtask, parentTask) => {
-    const { expirationDate, projects, tags, status } = parentTask
+    const { expirationDate, projects, tags, status, priority } = parentTask
     return {
       id: Date.now(),
       name: subtask.name,
@@ -30,6 +30,7 @@ const SubtaskBlock = ({ subtasks, onSubtasksChange, checked, parentTask }) => {
       favorite: false,
       checked: false,
       status: status,
+      priority: priority,
     }
   }
 

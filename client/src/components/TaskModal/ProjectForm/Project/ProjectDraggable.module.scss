@@ -1,9 +1,6 @@
 .withDelete {
   @apply flex flex-row items-center w-full py-[7px] pl-[25px] pr-[7px] text-14 leading-[11px] cursor-pointer 
-  transition-colors duration-200 ease-in-out justify-between;
-  // &:hover {
-  //   @apply text-grayHover;
-  // }
+  justify-between transition-colors duration-200 ease-in-out;
 }
 
 .svg {
@@ -16,7 +13,3 @@
 .folder {
   @apply ml-[2px] mr-2;
 }
-
-// .active {
-//   @apply bg-gray text-grayHover;
-// }

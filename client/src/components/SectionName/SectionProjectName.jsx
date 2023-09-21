@@ -9,6 +9,7 @@ import Sort from '../svgs/Sort'
 import DropdownModal from '../Modal/DropdownModal'
 import SortMenu from '../SortMenu/SortMenu'
 import SortItem from '../SortItem/SortItem'
+import Information from '../svgs/Information'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -114,6 +115,11 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
             open={open}
             onClose={handleCloseModal}
           />
+        </div>
+        <div className='flex flex-row'>
+          {editable && (
+            <Button svgLeft={<Information />} onClick={handleFocus} />
+          )}
         </div>
       </div>
       {warning && (

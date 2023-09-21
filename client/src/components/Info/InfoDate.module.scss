@@ -1,27 +1,26 @@
 .onDelete {
-  @apply flex mx-2 pt-[2px] rounded-[5px] cursor-pointer;
-
+  @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[5px] cursor-pointer;
   &:hover {
-    @apply text-tagDelete;
+    @apply text-tagDelete rotate-90 transition-all duration-200 ease-in-out;
   }
 }
 
 .main {
-  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
-  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] text-grayHover bg-gray cursor-pointer;
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start leading-0
+  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] pr-[5px] text-grayHover bg-gray cursor-pointer;
 }
 
 .todayMain {
-  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
-  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] text-blueTag bg-blueTag cursor-pointer;
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start leading-0
+  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] pr-[5px] text-blueTag bg-blueTag cursor-pointer;
 }
 
 .expiredMain {
-  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
-  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] text-redTag bg-redTag cursor-pointer;
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start leading-0
+  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] pr-[5px] text-redTag bg-redTag cursor-pointer;
 }
 
 .mainChecked {
-  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start 
-  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] text-grayHover;
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start  leading-0
+  h-[24px] min-w-[25px] items-center rounded-[5px] text-12 mx-2 pl-[2px] pr-[5px] text-grayHover;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProject } from '../../../features/projectSlice'
 import ProjectInput from './ProjectInput/ProjectInput'
@@ -8,8 +8,8 @@ import Plus from '../../svgs/Plus'
 
 const ProjectForm = ({ value, isNewTask, handleProjectSelect }) => {
   const dispatch = useDispatch()
-  const [name, setName] = React.useState('')
-  const [error, setError] = React.useState('')
+  const [name, setName] = useState('')
+  const [error, setError] = useState('')
 
   const handleNameChange = (value) => {
     setName(value)

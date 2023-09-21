@@ -13,6 +13,7 @@ import {
   updateProgressTasksInProject,
   updateDoneTasksInProject,
 } from '../features/projectSlice'
+import { updateTaskChecked, updateTaskStatus } from '../features/tasksSlice'
 import { useParams } from 'react-router-dom'
 import { selectTaskById } from '../helpers/selectTaskById'
 import BoardItem from '../components/BoardItem.jsx/BoardItem'
@@ -26,10 +27,11 @@ const ProjectBoards = () => {
   const dispatch = useDispatch()
   const { projectId } = useParams()
 
+  const tasks = useSelector((state) => state.tasks.tasks)
   const project = useSelector((state) =>
     state.projects.find((project) => project.id === projectId)
   )
-  console.log('Project: ', project)
+  // console.log('Project: ', project)
 
   const sections = [
     { name: 'To-do', tasks: project && project.todotasks },
@@ -66,6 +68,128 @@ const ProjectBoards = () => {
     }
   }, [sectionRef])
 
+  // const onDragEnd = (result) => {
+  //   const { source, destination } = result
+  //   if (!destination) {
+  //     return
+  //   }
+
+  //   const sourceSectionName = source.droppableId
+  //   const destinationSectionName = destination.droppableId
+
+  //   if (sourceSectionName === destinationSectionName) {
+  //     const section = sections.find(
+  //       (section) => section.name === sourceSectionName
+  //     )
+  //     const newTasks = [...section.tasks]
+  //     const [movedTask] = newTasks.splice(source.index, 1)
+  //     newTasks.splice(destination.index, 0, movedTask)
+
+  //     switch (sourceSectionName) {
+  //       case 'To-do':
+  //         dispatch(
+  //           updateTodoTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'In progress':
+  //         dispatch(
+  //           updateProgressTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'Done':
+  //         dispatch(
+  //           updateDoneTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newTasks,
+  //           })
+  //         )
+  //         break
+  //       default:
+  //         break
+  //     }
+  //   } else {
+  //     const movedTask = sections.find(
+  //       (section) => section.name === sourceSectionName
+  //     ).tasks[source.index]
+
+  //     const newSourceTasks = sections
+  //       .find((section) => section.name === sourceSectionName)
+  //       .tasks.filter((task, index) => index !== source.index)
+
+  //     const newDestinationTasks = [
+  //       ...sections.find((section) => section.name === destinationSectionName)
+  //         .tasks,
+  //     ]
+  //     newDestinationTasks.splice(destination.index, 0, movedTask)
+
+  //     switch (sourceSectionName) {
+  //       case 'To-do':
+  //         dispatch(
+  //           updateTodoTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newSourceTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'In progress':
+  //         dispatch(
+  //           updateProgressTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newSourceTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'Done':
+  //         dispatch(
+  //           updateDoneTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newSourceTasks,
+  //           })
+  //         )
+  //         break
+  //       default:
+  //         break
+  //     }
+
+  //     switch (destinationSectionName) {
+  //       case 'To-do':
+  //         dispatch(
+  //           updateTodoTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newDestinationTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'In progress':
+  //         dispatch(
+  //           updateProgressTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newDestinationTasks,
+  //           })
+  //         )
+  //         break
+  //       case 'Done':
+  //         dispatch(
+  //           updateDoneTasksInProject({
+  //             projectId: projectId,
+  //             tasks: newDestinationTasks,
+  //           })
+  //         )
+  //         dispatch(updateTaskChecked(task.id))
+  //         dispatch(updateTaskStatus({ id: task.id, status: 'done' }))
+  //         break
+  //       default:
+  //         break
+  //     }
+  //   }
+  // }
+
   const onDragEnd = (result) => {
     const { source, destination } = result
     if (!destination) {
@@ -75,6 +199,30 @@ const ProjectBoards = () => {
     const sourceSectionName = source.droppableId
     const destinationSectionName = destination.droppableId
 
+    const updateFunctions = {
+      'To-do': (tasks) =>
+        dispatch(
+          updateTodoTasksInProject({
+            projectId: projectId,
+            tasks: tasks,
+          })
+        ),
+      'In progress': (tasks) =>
+        dispatch(
+          updateProgressTasksInProject({
+            projectId: projectId,
+            tasks: tasks,
+          })
+        ),
+      'Done': (tasks) =>
+        dispatch(
+          updateDoneTasksInProject({
+            projectId: projectId,
+            tasks: tasks,
+          })
+        ),
+    }
+
     if (sourceSectionName === destinationSectionName) {
       const section = sections.find(
         (section) => section.name === sourceSectionName
@@ -83,34 +231,7 @@ const ProjectBoards = () => {
       const [movedTask] = newTasks.splice(source.index, 1)
       newTasks.splice(destination.index, 0, movedTask)
 
-      switch (sourceSectionName) {
-        case 'To-do':
-          dispatch(
-            updateTodoTasksInProject({
-              projectId: projectId,
-              tasks: newTasks,
-            })
-          )
-          break
-        case 'In progress':
-          dispatch(
-            updateProgressTasksInProject({
-              projectId: projectId,
-              tasks: newTasks,
-            })
-          )
-          break
-        case 'Done':
-          dispatch(
-            updateDoneTasksInProject({
-              projectId: projectId,
-              tasks: newTasks,
-            })
-          )
-          break
-        default:
-          break
-      }
+      updateFunctions[sourceSectionName](newTasks)
     } else {
       const movedTask = sections.find(
         (section) => section.name === sourceSectionName
@@ -126,62 +247,28 @@ const ProjectBoards = () => {
       ]
       newDestinationTasks.splice(destination.index, 0, movedTask)
 
-      switch (sourceSectionName) {
-        case 'To-do':
-          dispatch(
-            updateTodoTasksInProject({
-              projectId: projectId,
-              tasks: newSourceTasks,
-            })
-          )
-          break
-        case 'In progress':
-          dispatch(
-            updateProgressTasksInProject({
-              projectId: projectId,
-              tasks: newSourceTasks,
-            })
-          )
-          break
-        case 'Done':
-          dispatch(
-            updateDoneTasksInProject({
-              projectId: projectId,
-              tasks: newSourceTasks,
-            })
-          )
-          break
-        default:
-          break
-      }
-
-      switch (destinationSectionName) {
-        case 'To-do':
-          dispatch(
-            updateTodoTasksInProject({
-              projectId: projectId,
-              tasks: newDestinationTasks,
-            })
-          )
-          break
-        case 'In progress':
-          dispatch(
-            updateProgressTasksInProject({
-              projectId: projectId,
-              tasks: newDestinationTasks,
-            })
-          )
-          break
-        case 'Done':
-          dispatch(
-            updateDoneTasksInProject({
-              projectId: projectId,
-              tasks: newDestinationTasks,
-            })
-          )
-          break
-        default:
-          break
+      updateFunctions[sourceSectionName](newSourceTasks)
+      updateFunctions[destinationSectionName](newDestinationTasks)
+      const task = tasks.find((task) => task.id === movedTask)
+      if (destinationSectionName === 'Done') {
+        if (task.status !== 'done' && task.checked === false) {
+          dispatch(updateTaskStatus({ id: task.id, status: 'done' }))
+          dispatch(updateTaskChecked(task.id))
+        }
+      } else if (destinationSectionName === 'In progress') {
+        if (task.status !== 'inprogress') {
+          dispatch(updateTaskStatus({ id: task.id, status: 'inprogress' }))
+          if (task.checked === true) {
+            dispatch(updateTaskChecked(task.id))
+          }
+        }
+      } else if (destinationSectionName === 'To-do') {
+        if (task.status !== 'todo') {
+          dispatch(updateTaskStatus({ id: task.id, status: 'todo' }))
+          if (task.checked === true) {
+            dispatch(updateTaskChecked(task.id))
+          }
+        }
       }
     }
   }

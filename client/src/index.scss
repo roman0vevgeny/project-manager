@@ -83,6 +83,9 @@ body {
   --expired: #d8435f;
   --border-hover: #d8d8d8;
   --border-active-day: #6e7dff;
+  --priority-blue: #9aa4ff;
+  --priority-red: #e0909d;
+  --priority-yellow: #caa874;
 }
 
 .dark {
@@ -130,6 +133,9 @@ body {
   --expired: #f07c91;
   --border-hover: #949494;
   --border-active-day: #dcdcdc;
+  --priority-blue: #7f87c7;
+  --priority-red: #bb7380;
+  --priority-yellow: #b19060;
 }
 
 .bangle-editor {
@@ -172,23 +178,23 @@ body {
 }
 
 .bangle-menu {
-  @apply flex items-center text-14 font-normal bg-mainBg text-gray rounded-[10px] py-1 w-fit ml-0 mr-1 px-0;
+  @apply flex items-center text-14 font-normal bg-mainBg text-grayHover rounded-[10px] py-1 w-fit ml-0 mr-1 px-0;
 }
 
 .bangle-menu > div > .bangle-menu-button {
-  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-grayHover hover:bg-grayHover hover:rounded-[5px];
 }
 
 .bangle-menu > div > .bangle-menu-button:disabled {
-  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-grayHover hover:bg-grayHover hover:rounded-[5px];
 }
 
 .bangle-menu > div > .bangle-menu-button:active {
-  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-gray hover:bg-grayHover hover:text-grayHover hover:rounded-[5px];
+  @apply flex items-center justify-center text-14 font-normal rounded-[5px] bg-gray text-grayHover hover:bg-grayHover hover:rounded-[5px];
 }
 
 .bangle-menu-button svg {
-  @apply w-[20px] h-[20px] text-gray hover:text-grayHover;
+  @apply w-[20px] h-[20px] text-grayHover;
 }
 
 .bangle-menu > div > .active {

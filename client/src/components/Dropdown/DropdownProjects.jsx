@@ -19,7 +19,6 @@ const DropdownProjects = ({ children, svg }) => {
   const dispatch = useDispatch()
   const projects = useSelector((state) => state.projects)
   const tasks = useSelector((state) => state.tasks.tasks)
-  // console.log('tasks: ', tasks)
 
   const navigate = useNavigate()
 
@@ -34,9 +33,7 @@ const DropdownProjects = ({ children, svg }) => {
   }
 
   const handleDeleteProject = (project) => {
-    // console.log('project: ', project)
     const findTasks = tasks.filter((task) => task.projects.includes(project.id))
-    // console.log('findTasks: ', findTasks)
     for (let task of findTasks) {
       const newProjects = task.projects.filter(
         (projectId) => projectId !== project.id
@@ -68,8 +65,6 @@ const DropdownProjects = ({ children, svg }) => {
       })
     )
   }
-
-  // console.log('projects', projects)
 
   return (
     <div>
@@ -147,7 +142,7 @@ const DropdownProjects = ({ children, svg }) => {
                     </Draggable>
                   ))
                 ) : (
-                  <p className='text-14 flex px-7 py-[2px] text-gray'>
+                  <p className='text-14 flex px-7 py-[2px] text-grayHover'>
                     No projects yet
                   </p>
                 )}

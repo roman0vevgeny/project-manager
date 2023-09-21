@@ -37,7 +37,7 @@ const SortMenu = ({ name, onSortChange, onClose }) => {
         {items.map((item) => (
           <li
             key={item.id}
-            className='text-gray hover:text-grayHover hover:bg-gray cursor-pointer text-12 py-1 px-2 w-full'
+            className='text-grayHover hover:bg-gray cursor-pointer text-12 py-1 px-2 w-full'
             onClick={() => {
               onSortChange(item.name)
               onClose()
