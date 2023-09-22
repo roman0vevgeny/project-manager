@@ -31,6 +31,7 @@ const ProjectForm = ({ value, isNewTask, handleProjectSelect }) => {
         id: Date.now().toString(),
         name,
         tasks: [],
+        icon: 'case',
       }
       dispatch(addProject(newProject))
       setName('')

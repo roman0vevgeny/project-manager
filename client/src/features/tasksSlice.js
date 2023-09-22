@@ -17,6 +17,7 @@ const initialState = {
       }),
       expirationDate: null,
       status: 'todo',
+      documents: [],
       subtasks: [
         { id: 1, name: 'Подзадача 1', checked: false },
         { id: 2, name: 'Подзадача 2', checked: false },
@@ -42,6 +43,7 @@ const initialState = {
       expirationDate: '2023-09-16T21:00:00.000Z',
       status: 'todo',
       subtasks: [],
+      documents: [],
       favorite: false,
       tags: [],
       projects: [],
@@ -68,6 +70,7 @@ const initialState = {
       ],
       favorite: false,
       tags: [],
+      documents: [],
       projects: [],
       priority: null,
     },
@@ -296,6 +299,22 @@ const tasksSlice = createSlice({
       }
     },
 
+    updateTaskDocuments(state, action) {
+      const { id, documents } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.documents = documents
+      }
+    },
+
+    addDocument(state, action) {
+      const { id, document } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.documents.push(document)
+      }
+    },
+
     // updateTodoTasks(state, action) {
     //   const { tasks } = action.payload
     //   state.tasks = state.tasks.map((task) => {
@@ -353,6 +372,8 @@ export const {
   updateTasksOrder,
   setTaskPriority,
   updateTaskStatus,
+  updateTaskDocuments,
+  addDocument,
   // updateTodoTasks,
   // updateProgressTasks,
   // updateDoneTasks,

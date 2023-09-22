@@ -1,0 +1,6 @@
+.svg {
+  @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[3px] cursor-pointer text-grayHover;
+  &:hover {
+    @apply text-tagDelete rotate-90 transition-all duration-200 ease-in-out;
+  }
+}

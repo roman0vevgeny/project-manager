@@ -15,9 +15,9 @@ const ModalMenuButton = ({
   onClick,
   expirationDate,
   checked,
-  onClose,
   priority,
   status,
+  doc,
 }) => {
   const adjustedDate = expirationDate && new Date(expirationDate) // преобразуем expirationDate в объект Date
   adjustedDate && adjustedDate.setDate(adjustedDate.getDate() + 1) // вычитаем один день из объекта Date
@@ -50,7 +50,7 @@ const ModalMenuButton = ({
           <div className={styles.icon}>
             <div
               className={
-                'pb-[1px]' +
+                'pb-[1px] truncate' +
                 ' ' +
                 (priority && priority === 'Low'
                   ? 'text-blueTag'
@@ -63,6 +63,7 @@ const ModalMenuButton = ({
               {svgLeft && svgLeft}
             </div>
             {status ? `Status: ${getStatusText(status)}` : children}
+            {doc ? `${doc}` : ''}
           </div>
           <div className={styles.counter}>{<Plus />}</div>
         </button>

@@ -1,0 +1,7 @@
+.icon {
+  @apply flex items-center justify-start m-1 px-1 py-[3px] rounded-[5px] text-grayHover bg-mainBg hover:bg-gray hover:text-task cursor-pointer;
+}
+
+.iconSticky {
+  @apply flex items-center justify-start m-1 px-1 py-[3px] rounded-[5px] text-task bg-gray hover:bg-gray hover:text-task cursor-pointer;
+}

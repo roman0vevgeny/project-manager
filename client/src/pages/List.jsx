@@ -15,17 +15,27 @@ import {
   todayTasksSelector,
   expiredTasksSelector,
 } from '../features/taskMemoSelectors'
+import FastTask from '../components/FastTask/FastTask'
 
 const List = () => {
   const [isShowButton, setIsShowButton] = React.useState(false)
   const [open, setOpen] = useState(false)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
+  const [openFastTask, setOpenFastTask] = useState(false)
 
   let location = useLocation()
   const dispatch = useDispatch()
 
   const handleSelectTask = (taskId) => {
     setSelectedTaskId(taskId)
+  }
+
+  const handleOpenFastTask = () => {
+    setOpenFastTask(true)
+  }
+
+  const handleCloseFastTask = () => {
+    setOpenFastTask(false)
   }
 
   const getTasksByPath = (path) => {
@@ -173,22 +183,34 @@ const List = () => {
                               )}
                             </Draggable>
                           ))}
-
                         {provided.placeholder}
                       </div>
                     )
                   }}
                 </Droppable>
               </DragDropContext>
-              <div className='flex justify-between mr-5 mt-5'>
-                <div></div>
-                {renderCreateButton(location.pathname)}
+              <div className='flex flex-col'>
+                <div className='flex justify-between mr-5 mt-5'>
+                  {!openFastTask && (
+                    <div
+                      onClick={handleOpenFastTask}
+                      className='flex text-grayHover px-3 text-14 text-bold py-1 rounded-[4px] bg-gray cursor-pointer'>
+                      + Add task
+                    </div>
+                  )}
+                </div>
+                {openFastTask && (
+                  <div className='mx-6'>
+                    <FastTask onClose={handleCloseFastTask} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
           {isShowButton && <ScrollButton sectionRef={sectionRef} />}
         </section>
       )}
+
       {renderCreateButton(location.pathname, true)}
       <Modal
         open={selectedTaskId !== null}

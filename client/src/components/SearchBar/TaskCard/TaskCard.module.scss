@@ -1,8 +1,8 @@
 .item {
-  @apply flex flex-row items-center justify-between w-full px-2 py-2 cursor-pointer min-h-[45px] font-medium;
+  @apply flex flex-row items-center justify-between w-full px-2 py-2 cursor-pointer min-h-[45px] font-medium text-grayHover;
 
   &:hover {
-    @apply bg-navButtonHover text-grayHover;
+    @apply bg-navButtonHover;
   }
 }
 

@@ -18,17 +18,15 @@ import {
 } from '../../features/tasksSelectors'
 import Expired from '../svgs/Expired'
 import DropdownProjects from '../Dropdown/DropdownProjects'
+import Archive from '../svgs/Archive'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const selectTasks = (state) => state.tasks.tasks
 
   const totalTasks = useSelector(selectTotalTasks)
-  // console.log('totalTasks', totalTasks)
   const dueTasks = useSelector(selectDueTasks)
-  // console.log('dueTasks', dueTasks)
   const expiredTasks = useSelector(selectExpiredTasks)
-  // console.log('expiredTasks', expiredTasks)
 
   const selectFavoriteTasks = createSelector([selectTasks], (tasks) =>
     tasks.filter((task) => task.favorite)
@@ -60,6 +58,7 @@ const Navbar = () => {
         counter={expiredTasks}
         to={`/expired${view}`}
       />
+      <NavButton children={'Archive'} svgLeft={<Archive />} to={'/archive'} />
       <div className={styles.sectionDevider}></div>
       <DropdownFavorites
         children={'Favorites'}

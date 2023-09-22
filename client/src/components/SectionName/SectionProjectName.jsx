@@ -2,14 +2,22 @@ import React, { useRef, useState, useEffect } from 'react'
 import Button from '../Button/Button'
 import Edit from '../svgs/Edit'
 import styles from './SectionName.module.scss'
-import { useDispatch } from 'react-redux'
-import { updateProjectName } from '../../features/projectSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  updateProjectIcon,
+  updateProjectName,
+} from '../../features/projectSlice'
 import Case from '../svgs/Case'
 import Sort from '../svgs/Sort'
 import DropdownModal from '../Modal/DropdownModal'
 import SortMenu from '../SortMenu/SortMenu'
 import SortItem from '../SortItem/SortItem'
 import Information from '../svgs/Information'
+import SectionIcon from './SectionIcon/SectionIcon'
+import Monitor from '../svgs/Monitor'
+import StarProject from '../svgs/StarProject'
+import PuzzleProject from '../svgs/PuzzleProject'
+import Heart from '../svgs/Heart'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -21,9 +29,17 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
   const [projectName, setProjectName] = useState(name)
   const [warning, setWarning] = useState(false)
   const [open, setOpen] = useState(false)
+  const [openIcon, setOpenIcon] = useState(false)
   const [sortType, setSortType] = useState(null)
 
   const dispatch = useDispatch()
+
+  const project = useSelector((state) =>
+    state.projects.find((project) => project.id === projectId)
+  )
+
+  console.log('Project: ', project)
+  console.log('Project icon: ', project.icon)
 
   const handleChange = (e) => {
     const newValue = e.target.value
@@ -35,12 +51,27 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
     }
   }
 
+  const handleIconChange = (icon) => {
+    dispatch(updateProjectIcon({ projectId: project.id, icon: icon }))
+    console.log('icon: ', icon)
+  }
+
   const handleSortChange = (type) => {
     setSortType(type)
   }
 
   const handleToggleModal = () => {
     setOpen((prev) => !prev)
+  }
+
+  const handleOpenIcon = () => {
+    setOpenIcon(true)
+    console.log('opened')
+  }
+
+  const handleCloseIcon = () => {
+    setOpenIcon(false)
+    console.log('closed')
   }
 
   const handleCloseModal = () => {
@@ -73,16 +104,47 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
     }
   }
 
+  const getIconFromName = (name) => {
+    switch (name) {
+      case 'case':
+        return <Case />
+      case 'puzzle':
+        return <PuzzleProject />
+      case 'monitor':
+        return <Monitor />
+      case 'star':
+        return <StarProject />
+      case 'heart':
+        return <Heart />
+      default:
+        return <Case />
+    }
+  }
+
   useEffect(() => {
     setProjectName(name)
   }, [name])
 
   return (
     <div>
-      <div className='flex flex-row justify-between mx-2 items-center mb-2'>
+      <div className='flex flex-row justify-between mx-2 items-center mb-[5px]'>
         {!noSvg && (
-          <div className='mr-2 text-task transition-all duration-200 ease-in-out'>
-            <Case />
+          <div className='relative flex'>
+            <div className={styles.iconBlock} onClick={handleOpenIcon}>
+              {getIconFromName(project.icon)}
+            </div>
+            <DropdownModal
+              children={
+                <SectionIcon
+                  projectIcon={project.icon}
+                  onIconChange={handleIconChange}
+                  onClose={handleCloseIcon}
+                />
+              }
+              icon={true}
+              open={openIcon}
+              onClose={handleCloseIcon}
+            />
           </div>
         )}
         <input

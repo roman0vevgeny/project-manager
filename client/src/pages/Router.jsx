@@ -16,6 +16,7 @@ import ProjectPage from './ProjectPage.jsx'
 import SignIn from './SignIn.jsx'
 import CalendarPage from './CalendarPage.jsx'
 import ProjectCal from './ProjectCal.jsx'
+import Archive from './Archive.jsx'
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
             element: <ProjectCal />,
           },
         ],
+      },
+      {
+        path: '/archive',
+        element: <Archive />,
       },
     ],
   },

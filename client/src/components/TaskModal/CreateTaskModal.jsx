@@ -32,6 +32,7 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
     favorite: false,
     status: 'todo',
     projects: [],
+    documents: [],
   })
   const [open, setOpen] = useState(false)
   const [openProject, setOpenProject] = useState(false)

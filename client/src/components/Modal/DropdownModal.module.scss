@@ -9,3 +9,18 @@
 .overlay {
   @apply fixed top-0 left-0 w-full h-full justify-center z-[200] bg-transparent;
 }
+
+.icon {
+  @apply absolute top-0 left-[-1px] flex justify-center bg-mainBg rounded-[5px] shadow-md z-[300] h-[157px] overflow-auto pb-2 border-1 border-stroke;
+  &::-webkit-scrollbar {
+    @apply w-[5px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+  }
+}

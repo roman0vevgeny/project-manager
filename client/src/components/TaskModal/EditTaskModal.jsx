@@ -17,6 +17,7 @@ import {
   setTaskPriority,
   updateTaskStatus,
   updateTaskChecked,
+  updateTaskDocuments,
 } from '../../features/tasksSlice'
 import {
   addTaskToProject,
@@ -40,6 +41,9 @@ import Priority from '../svgs/Priority'
 import PriorityBlock from './PriorityBlock/PriorityBlock'
 import Status from '../svgs/Status'
 import StatusBlock from './StatusBlock/StatusBlock'
+import Archive from '../svgs/Archive'
+import Drive from '../svgs/Drive'
+import DocumentForm from './DocumentForm/DocumentForm'
 
 const EditTaskModal = ({ onClose, task }) => {
   const [open, setOpen] = useState(false)
@@ -47,6 +51,7 @@ const EditTaskModal = ({ onClose, task }) => {
   const [openTag, setOpenTag] = useState(false)
   const [openPriority, setOpenPriority] = useState(false)
   const [openStatus, setOpenStatus] = useState(false)
+  const [openDocument, setOpenDocument] = useState(false)
   console.log('EditTaskModal - task:', task)
   console.log('EditTaskModal - status:', task.status)
 
@@ -78,26 +83,6 @@ const EditTaskModal = ({ onClose, task }) => {
     })
     onClose()
   }
-
-  // const handleProjectSelect = (projectId) => {
-  //   if (projects.includes(projectId)) {
-  //     dispatch(removeTaskFromProject({ projectId, taskId: id }))
-  //     dispatch(
-  //       updateTaskProjects({
-  //         id: task.id,
-  //         projects: projects.filter((id) => id !== projectId),
-  //       })
-  //     )
-  //   } else {
-  //     dispatch(addTaskToProject({ projectId, taskId: id }))
-  //     dispatch(
-  //       updateTaskProjects({
-  //         id: task.id,
-  //         projects: [...projects, projectId],
-  //       })
-  //     )
-  //   }
-  // }
 
   const handleProjectSelect = (projectId) => {
     if (projects.includes(projectId)) {
@@ -195,6 +180,39 @@ const EditTaskModal = ({ onClose, task }) => {
     dispatch(addTask(newTask))
     newTask.projects.forEach((projectId) => {
       dispatch(addTaskToProject({ projectId, taskId: newTask.id }))
+      const project = allProjects.find((proj) => proj.id === projectId)
+      if (project) {
+        let updatedTodoTasks = [...project.todotasks]
+        let updatedProgressTasks = [...project.progresstasks]
+        let updatedDoneTasks = [...project.donetasks]
+
+        switch (newTask.status) {
+          case 'todo':
+            updatedTodoTasks.push(newTask.id)
+            break
+          case 'inprogress':
+            updatedProgressTasks.push(newTask.id)
+            break
+          case 'done':
+            updatedDoneTasks.push(newTask.id)
+            break
+          default:
+            break
+        }
+
+        dispatch(
+          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+        )
+        dispatch(
+          updateProgressTasksInProject({
+            projectId,
+            tasks: updatedProgressTasks,
+          })
+        )
+        dispatch(
+          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+        )
+      }
     })
 
     onClose()
@@ -214,6 +232,14 @@ const EditTaskModal = ({ onClose, task }) => {
 
   const handleClosePriorityModal = () => {
     setOpenPriority(false)
+  }
+
+  const handleOpenDocumentModal = () => {
+    setOpenDocument(true)
+  }
+
+  const handleCloseDocumentModal = () => {
+    setOpenDocument(false)
   }
 
   const handleOpenPriorityModal = () => {
@@ -329,7 +355,7 @@ const EditTaskModal = ({ onClose, task }) => {
                       type={'submit'}
                       className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                       <div className=''>
-                        <History />
+                        <Archive />
                       </div>
                     </button>
                   )}
@@ -518,7 +544,40 @@ const EditTaskModal = ({ onClose, task }) => {
                         onClose={handleCloseStatusModal}
                         noBorder={true}
                         stopPropagation={true}
-                        // onEscapePress={handleEscapePress}
+                      />
+                    </div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Drive />}
+                        children={
+                          task.documents && task.documents.length > 0
+                            ? `Drive docs: ${task.documents.length}`
+                            : 'Add documents'
+                        }
+                        onClick={handleOpenDocumentModal}
+                        onClose={handleCloseDocumentModal}
+                      />
+                      <DropdownModal
+                        children={
+                          <DocumentForm
+                            value={task.documents}
+                            task={task}
+                            onChange={(newDocuments) =>
+                              dispatch(
+                                updateTaskDocuments({
+                                  id: task.id,
+                                  documents: newDocuments,
+                                })
+                              )
+                            }
+                            isNewTask={false}
+                            onClose={handleCloseDocumentModal}
+                          />
+                        }
+                        open={openDocument}
+                        onClose={handleCloseDocumentModal}
+                        noBorder={true}
+                        stopPropagation={true}
                       />
                     </div>
                   </div>
