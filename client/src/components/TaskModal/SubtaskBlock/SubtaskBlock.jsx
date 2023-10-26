@@ -153,13 +153,15 @@ const SubtaskBlock = ({ subtasks, onSubtasksChange, checked, parentTask }) => {
                 }
               />
             </button>
-            <Subtask
-              subtask={subtask}
-              checked={checked}
-              onChange={handleSubtaskNameChange}
-              onDelete={() => handleDeleteSubtask(subtask.id)}
-              onTransform={() => handleTransformClick(subtask)}
-            />
+            <div className='w-full pt-[1px]'>
+              <Subtask
+                subtask={subtask}
+                checked={checked}
+                onChange={handleSubtaskNameChange}
+                onDelete={() => handleDeleteSubtask(subtask.id)}
+                onTransform={() => handleTransformClick(subtask)}
+              />
+            </div>
           </div>
         ))}
       {!checked && (

@@ -22,7 +22,7 @@ const CheckBox = ({ checked, priority, status }) => {
         !checked ? styles.body + ' ' + priorityColor(priority) : styles.checked
       }>
       {checked && (
-        <div className='flex items-center rounded-full'>
+        <div className='flex items-center rounded-full text-white'>
           <svg
             width='12'
             height='12'

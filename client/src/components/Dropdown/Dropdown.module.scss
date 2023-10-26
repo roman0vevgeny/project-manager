@@ -10,7 +10,7 @@
   }
 
   &:active {
-    @apply bg-grayHover text-grayHover;
+    @apply bg-grayHover text-task;
   }
 }
 
@@ -26,7 +26,7 @@
   }
 
   &:active {
-    @apply bg-grayHover text-grayHover transition-all duration-200 ease-in-out;
+    @apply bg-grayHover text-task transition-all duration-200 ease-in-out;
   }
 }
 

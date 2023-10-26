@@ -29,8 +29,8 @@ const TaskDescription = ({ description, width }) => {
         <div
           className={
             width
-              ? 'relative text-14 pt-[1px] mr-0 mb-[10px] mt-[0px] w-[480px] text-gray text-start leading-1.4 flex-grow break-words'
-              : 'relative text-14 min-w-[200px] pr-2 pt-[0px] mb-[10px] mt-[0px] max-w-[720px] text-gray text-start leading-1.5 flex-grow mr-10 w-full break-words'
+              ? 'relative text-14 pt-[1px] mr-0 mb-[10px] mt-[0px] w-[480px] text-grayHover text-start leading-1.4 flex-grow break-words'
+              : 'relative text-14 min-w-[200px] pr-2 pt-[0px] mb-[10px] mt-[0px] max-w-[720px] text-grayHover text-start leading-1.5 flex-grow mr-10 w-full break-words'
           }>
           <div className='w-full'>
             {parse(description, {
@@ -66,11 +66,11 @@ const TaskDescription = ({ description, width }) => {
                         domNode.children.map((child) => {
                           if (child.name === 'a') {
                             const style = {
-                              width: '200px',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                              display: 'block',
+                              // width: '200px',
+                              // overflow: 'hidden',
+                              // textOverflow: 'ellipsis',
+                              // whiteSpace: 'nowrap',
+                              // display: 'block',
                             }
 
                             const styleString = Object.entries(style)

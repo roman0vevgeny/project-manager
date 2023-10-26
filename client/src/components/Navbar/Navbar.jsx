@@ -19,6 +19,8 @@ import {
 import Expired from '../svgs/Expired'
 import DropdownProjects from '../Dropdown/DropdownProjects'
 import Archive from '../svgs/Archive'
+import DropdownUsers from '../Dropdown/DropdownUsers'
+import Deligate from '../svgs/Deligate'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -72,6 +74,7 @@ const Navbar = () => {
         svg={<Projects />}
         className='m-0 p-0'
       />
+      <DropdownUsers children={'Team'} svg={<Deligate />} className='m-0 p-0' />
     </div>
   )
 }

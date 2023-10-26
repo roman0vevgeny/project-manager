@@ -11,7 +11,7 @@ import Tag from '../Tag/Tag'
 import TaskHeader from './TaskHeader/TaskHeader'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import ProjectForm from './ProjectForm/ProjectForm'
-import CreateBangle from '../TextEditor/CreateBangle'
+// import CreateBangle from '../TextEditor/CreateBangle'
 import Folder from '../svgs/Folder'
 import Cal from '../svgs/Cal'
 import TagSvg from '../svgs/TagSvg'
@@ -20,7 +20,7 @@ import DropdownModal from '../Modal/DropdownModal'
 import Priority from '../svgs/Priority'
 import PriorityBlock from './PriorityBlock/PriorityBlock'
 
-const CreateTaskModal = ({ onClose, today, projectId, date }) => {
+const CreateTaskModal = ({ onClose, today, projectId, userId, date }) => {
   const [task, setTask] = useState({
     id: Date.now(),
     name: '',
@@ -33,6 +33,7 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
     status: 'todo',
     projects: [],
     documents: [],
+    users: [],
   })
   const [open, setOpen] = useState(false)
   const [openProject, setOpenProject] = useState(false)
@@ -51,6 +52,12 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
       setTask({ ...task, projects: [...task.projects, projectId] })
     }
   }, [projectId])
+
+  useEffect(() => {
+    if (userId && !task.users.includes(userId)) {
+      setTask({ ...task, users: [...task.users, userId] })
+    }
+  }, [userId])
 
   useEffect(() => {
     if (date && !task.expirationDate) {
@@ -88,6 +95,17 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
       })
     } else {
       setTask({ ...task, projects: [...task.projects, projectId] })
+    }
+  }
+
+  const handleUserSelect = (userId) => {
+    if (task.users.includes(userId)) {
+      setTask({
+        ...task,
+        users: userId,
+      })
+    } else {
+      setTask({ ...task, users: userId })
     }
   }
 
@@ -151,12 +169,12 @@ const CreateTaskModal = ({ onClose, today, projectId, date }) => {
               name={task.name}
               setName={(newName) => setTask({ ...task, name: newName })}
             />
-            <CreateBangle
+            {/* <CreateBangle
               description={task.description}
               setDescription={(newDescription) =>
                 setTask({ ...task, description: newDescription })
               }
-            />
+            /> */}
             {task.tags.length > 0 && (
               <div className='flex flex-wrap ml-4 mt-1 mb-1 max-w-[530px]'>
                 {task.tags.map((tagId) => {

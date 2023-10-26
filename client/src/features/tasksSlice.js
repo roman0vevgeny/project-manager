@@ -26,12 +26,13 @@ const initialState = {
       tags: [],
       projects: [],
       priority: null,
+      users: [],
     },
     {
       id: 8,
       checked: false,
       name: 'Вторая задача',
-      description: '<p>Короткое описание про важность заджач</p>',
+      description: '<p>Короткое описание про важность задач</p>',
       creationDate: new Date().toLocaleString('us-US', {
         year: 'numeric',
         month: '2-digit',
@@ -40,7 +41,7 @@ const initialState = {
         minute: '2-digit',
         second: '2-digit',
       }),
-      expirationDate: '2023-09-16T21:00:00.000Z',
+      expirationDate: new Date().toISOString(),
       status: 'todo',
       subtasks: [],
       documents: [],
@@ -48,6 +49,7 @@ const initialState = {
       tags: [],
       projects: [],
       priority: null,
+      users: [],
     },
     {
       id: 3,
@@ -73,6 +75,7 @@ const initialState = {
       documents: [],
       projects: [],
       priority: null,
+      users: [],
     },
   ],
 }
@@ -95,6 +98,24 @@ const tasksSlice = createSlice({
         expirationDate: action.payload.expirationDate,
         // status: action.payload.status,
       })
+      console.log('action.payload addTask: ', action.payload)
+    },
+
+    addFastTask(state, action) {
+      state.tasks.push({
+        ...action.payload,
+        id: Date.now(),
+        creationDate: new Date().toLocaleString('us-US', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
+        expirationDate: action.payload.expirationDate,
+      })
+      console.log('action.payload addTask: ', action.payload)
     },
 
     deleteTask(state, action) {
@@ -315,6 +336,23 @@ const tasksSlice = createSlice({
       }
     },
 
+    addUser(state, action) {
+      const { id, userId } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.users = userId
+      }
+      console.log('action.payload addUser: ', action.payload)
+    },
+
+    updateTaskUsers(state, action) {
+      const { id } = action.payload
+      const task = state.tasks.find((task) => task.id === id)
+      if (task) {
+        task.users = []
+      }
+    },
+
     // updateTodoTasks(state, action) {
     //   const { tasks } = action.payload
     //   state.tasks = state.tasks.map((task) => {
@@ -351,6 +389,7 @@ export default tasksSlice.reducer
 
 export const {
   addTask,
+  addFastTask,
   deleteTask,
   updateTaskName,
   updateTaskDescription,
@@ -374,6 +413,8 @@ export const {
   updateTaskStatus,
   updateTaskDocuments,
   addDocument,
+  addUser,
+  updateTaskUsers,
   // updateTodoTasks,
   // updateProgressTasks,
   // updateDoneTasks,

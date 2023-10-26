@@ -214,6 +214,7 @@ import {
   updateTodoTasksInProject,
   updateProgressTasksInProject,
 } from '../../features/projectSlice'
+import TagSecond from '../Tag/TagSecond'
 
 const BoardItem = ({ taskId, onClick, isDragging }) => {
   const tasks = useSelector((state) => state.tasks)
@@ -357,8 +358,8 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
                 <TaskName
                   name={task.name}
                   checked={task.checked}
-                  cards={true}
-                  boards={true}
+                  // cards={true}
+                  // boards={true}
                 />
               </div>
             </div>
@@ -394,7 +395,7 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
                 const tag = allTags.find((tag) => tag.id === tagId)
                 return (
                   tag && (
-                    <Tag
+                    <TagSecond
                       color={tag.color}
                       tagName={tag.name}
                       key={index}

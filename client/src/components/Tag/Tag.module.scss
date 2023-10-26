@@ -1,5 +1,10 @@
 .tagBg {
-  @apply flex flex-row items-center w-fit my-[5px] mr-[8px] pt-[3px] pb-[3px] px-[3px] rounded-[3px] text-11 tracking-widest leading-[11px] cursor-pointer max-h-[17px]
+  @apply flex flex-row items-center w-fit my-[5px] mr-[8px] pl-[3px] pr-[1px] rounded-[3px] text-12 leading-0 cursor-pointer max-h-[17px]
+  bg-gray text-gray transition-all duration-200 ease-in-out;
+}
+
+.iconBg {
+  @apply flex flex-row items-center w-fit my-[5px] mr-[1px] px-[1px] rounded-[3px] text-12 leading-0 cursor-pointer max-h-[17px]
   bg-gray text-gray transition-all duration-200 ease-in-out;
 }
 
@@ -36,7 +41,7 @@
 }
 
 .delete {
-  @apply flex ml-1 mr-0 pb-[4px] rounded-[3px] cursor-pointer transition-all duration-200 ease-in-out;
+  @apply flex items-center justify-center m-1 rounded-[3px] cursor-pointer transition-all duration-200 ease-in-out w-[10px] h-[10px];
 
   &:hover {
     @apply text-tagDelete rotate-90;

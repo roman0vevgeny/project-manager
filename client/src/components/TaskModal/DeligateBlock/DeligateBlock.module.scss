@@ -1,0 +1,105 @@
+.user {
+  @apply flex text-12 justify-center items-center min-w-[20px] h-[20px] mr-1 rounded-full;
+}
+
+.main {
+  @apply flex w-[218px] items-center justify-start m-1 px-2 py-1 rounded-[5px] text-grayHover hover:bg-nav cursor-pointer truncate;
+}
+
+.mainSelected {
+  @apply flex w-[218px] items-center justify-start m-1 px-2 py-1 text-grayHover hover:bg-nav cursor-pointer truncate;
+}
+
+.container {
+  @apply w-[227px] max-h-[200px] overflow-y-auto overflow-x-hidden;
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}
+
+.name {
+  @apply flex text-13 leading-0 items-center mt-1 ml-1 pb-[2px];
+}
+
+.noBg {
+  @apply bg-none;
+}
+
+.blue {
+  @apply bg-blueTag;
+}
+
+.blueText {
+  @apply text-blueTag;
+}
+
+.red {
+  @apply bg-redTag;
+}
+
+.redText {
+  @apply text-redTag;
+}
+
+.green {
+  @apply bg-greenTag;
+}
+
+.greenText {
+  @apply text-greenTag;
+}
+
+.yellow {
+  @apply bg-yellowTag;
+}
+
+.yellowText {
+  @apply text-yellowTag;
+}
+
+.purple {
+  @apply bg-purpleTag;
+}
+
+.purpleText {
+  @apply text-purpleTag;
+}
+
+.pink {
+  @apply bg-pinkTag;
+}
+
+.pinkText {
+  @apply text-pinkTag;
+}
+
+.sea {
+  @apply bg-seaTag;
+}
+
+.seaText {
+  @apply text-seaTag;
+}
+
+.gray {
+  @apply bg-grayTag;
+}
+
+.grayText {
+  @apply text-grayTag;
+}
+
+.svg {
+  @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[3px] cursor-pointer text-grayHover;
+  &:hover {
+    @apply text-tagDelete rotate-90 transition-all duration-200 ease-in-out;
+  }
+}

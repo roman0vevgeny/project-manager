@@ -17,6 +17,8 @@ import SignIn from './SignIn.jsx'
 import CalendarPage from './CalendarPage.jsx'
 import ProjectCal from './ProjectCal.jsx'
 import Archive from './Archive.jsx'
+import Users from './Users.jsx'
+import UserList from './UserList.jsx'
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,28 @@ const router = createBrowserRouter([
           },
           {
             path: '/expired/calendar',
+            element: <CalendarPage />,
+          },
+        ],
+      },
+      {
+        path: '/users/:userId',
+        element: <Users />,
+        children: [
+          {
+            path: '/users/:userId/list',
+            element: <UserList />,
+          },
+          {
+            path: '/users/:userId/cards',
+            element: <Cards />,
+          },
+          {
+            path: '/users/:userId/boards',
+            element: <Boards />,
+          },
+          {
+            path: '/users/:userId/calendar',
             element: <CalendarPage />,
           },
         ],

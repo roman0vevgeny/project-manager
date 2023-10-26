@@ -1,0 +1,44 @@
+.tagBg {
+  @apply flex flex-row items-center w-fit mr-[11px] pt-[3px] pb-[3px] rounded-[3px] text-12 leading-[10px] cursor-pointer
+  text-gray transition-all duration-200 ease-in-out;
+}
+
+.red {
+  @apply text-redTagSecond;
+}
+
+.green {
+  @apply text-greenTagSecond;
+}
+
+.yellow {
+  @apply text-yellowTagSecond;
+}
+
+.blue {
+  @apply text-blueTagSecond;
+}
+
+.purple {
+  @apply text-purpleTagSecond;
+}
+
+.gray {
+  @apply text-grayTagSecond;
+}
+
+.sea {
+  @apply text-seaTagSecond;
+}
+
+.pink {
+  @apply text-pinkTagSecond;
+}
+
+.delete {
+  @apply flex ml-1 mr-0 pb-[4px] rounded-[3px] cursor-pointer transition-all duration-200 ease-in-out;
+
+  &:hover {
+    @apply text-tagDelete rotate-90;
+  }
+}

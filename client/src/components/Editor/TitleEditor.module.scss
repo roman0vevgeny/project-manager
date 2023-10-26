@@ -1,0 +1,7 @@
+.selected {
+  @apply flex text-14 text-task w-[200px] truncate;
+}
+
+.user {
+  @apply flex flex-row items-center;
+}

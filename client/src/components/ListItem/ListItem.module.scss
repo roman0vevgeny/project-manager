@@ -18,7 +18,7 @@
 
 .notFavorite {
   @apply flex flex-row text-gray justify-center h-[25px] w-[25px] 
-  items-center px-[4px] pb-[1px] rounded-[5px] 
+  items-center px-[4px] pb-[1px] rounded-full 
   font-bold text-14 mx-2 transition-all duration-200 ease-in-out;
 
   &:hover {
@@ -28,7 +28,7 @@
 
 .favorite {
   @apply flex flex-row text-yellowTag bg-yellowTag justify-center h-[25px] w-[25px] 
-  items-center px-[4px] pb-[1px] rounded-[5px] 
+  items-center px-[4px] pb-[1px] rounded-full 
   font-bold text-14 mx-2 transition-all duration-200 ease-in-out;
 
   &:hover {
@@ -72,5 +72,73 @@
 }
 
 .projectContainer {
-  @apply flex flex-row items-center justify-end;
+  @apply flex flex-row items-center justify-end h-[15px];
+}
+
+.user {
+  @apply flex justify-center text-12 font-medium items-center min-w-[25px] h-[25px] rounded-full leading-0;
+}
+
+.blue {
+  @apply bg-blueTag;
+}
+
+.blueText {
+  @apply text-blueTag border-[var(--color-text-blue-tag)];
+}
+
+.red {
+  @apply bg-redTag;
+}
+
+.redText {
+  @apply text-redTag border-[var(--color-text-red-tag)];
+}
+
+.green {
+  @apply bg-greenTag;
+}
+
+.greenText {
+  @apply text-greenTag border-[var(--color-text-green-tag)];
+}
+
+.yellow {
+  @apply bg-yellowTag;
+}
+
+.yellowText {
+  @apply text-yellowTag border-[var(--color-text-yellow-tag)];
+}
+
+.purple {
+  @apply bg-purpleTag;
+}
+
+.purpleText {
+  @apply text-purpleTag border-[var(--color-text-purple-tag)];
+}
+
+.pink {
+  @apply bg-pinkTag;
+}
+
+.pinkText {
+  @apply text-pinkTag border-[var(--color-text-pink-tag)];
+}
+
+.sea {
+  @apply bg-seaTag;
+}
+
+.seaText {
+  @apply text-seaTag border-[var(--color-text-sea-tag)];
+}
+
+.gray {
+  @apply bg-grayTag;
+}
+
+.grayText {
+  @apply text-grayTag border-[var(--color-text-gray-tag)];
 }

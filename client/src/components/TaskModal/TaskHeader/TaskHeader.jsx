@@ -45,7 +45,7 @@ const TaskHeader = ({
     if (isNewTask) {
       onProjectsChange(updatedProjects)
     } else {
-      handleProjectSelect(projectId)
+      handleProjectSelect(projectId, allProjects, task)
     }
   }
 

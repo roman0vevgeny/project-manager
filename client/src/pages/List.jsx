@@ -16,6 +16,7 @@ import {
   expiredTasksSelector,
 } from '../features/taskMemoSelectors'
 import FastTask from '../components/FastTask/FastTask'
+import Plus from '../components/svgs/Plus'
 
 const List = () => {
   const [isShowButton, setIsShowButton] = React.useState(false)
@@ -192,18 +193,28 @@ const List = () => {
               <div className='flex flex-col'>
                 <div className='flex justify-between mr-5 mt-5'>
                   {!openFastTask && (
-                    <div
-                      onClick={handleOpenFastTask}
-                      className='flex text-grayHover px-3 text-14 text-bold py-1 rounded-[4px] bg-gray cursor-pointer'>
-                      + Add task
+                    <div className='flex flex-row justify-between w-full mx-2'>
+                      <div className='h-[2px]'></div>
+                      <div
+                        onClick={handleOpenFastTask}
+                        className='flex items-center text-grayHover px-3 text-14 font-bold py-[3px] rounded-[4px] bg-gray cursor-pointer'>
+                        <div className='mr-1'>
+                          <Plus />
+                        </div>
+                        <div>Add task</div>
+                      </div>
                     </div>
                   )}
                 </div>
                 {openFastTask && (
                   <div className='mx-6'>
-                    <FastTask onClose={handleCloseFastTask} />
+                    <FastTask
+                      onClose={handleCloseFastTask}
+                      onChange={(newTask) => dispatch(addTask(newTask))}
+                    />
                   </div>
                 )}
+                <div className='flex w-[510px] flex-col space-y-5 mt-5'></div>
               </div>
             </div>
           </div>

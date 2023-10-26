@@ -1,0 +1,11 @@
+.items {
+  @apply relative flex text-14 text-task w-[200px] truncate;
+}
+
+.isSelected {
+  @apply flex py-1 px-2 border-1 border-stroke;
+}
+
+.notSelected {
+  @apply flex py-1 px-2 border-1 border-mainBg;
+}

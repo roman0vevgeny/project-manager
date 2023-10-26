@@ -93,7 +93,7 @@ const Dropdown = ({ children, svg }) => {
         </div>
       </button>
       <div
-        className={`flex flex-col w-full mt-[1px] bg-mainBg rounded-b-md max-h-0 overflow-hidden transition-all duration-200 ease-in-out ${
+        className={`flex w-full mt-[1px] bg-mainBg rounded-b-md max-h-0 overflow-hidden transition-all duration-200 ease-in-out ${
           isOpen ? 'max-h-screen opacity-100' : 'opacity-0'
         }`}>
         <DragDropContext onDragEnd={onDragEnd}>

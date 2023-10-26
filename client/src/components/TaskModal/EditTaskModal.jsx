@@ -16,8 +16,9 @@ import {
   addTask,
   setTaskPriority,
   updateTaskStatus,
-  updateTaskChecked,
   updateTaskDocuments,
+  addUser,
+  updateTaskUsers,
 } from '../../features/tasksSlice'
 import {
   addTaskToProject,
@@ -26,6 +27,13 @@ import {
   updateProgressTasksInProject,
   updateDoneTasksInProject,
 } from '../../features/projectSlice'
+import {
+  addTaskToUser,
+  removeTaskFromUser,
+  addTaskToUserDoneTasks,
+  addTaskToUserProgressTasks,
+  addTaskToUserTodoTasks,
+} from '../../features/usersSlice'
 import SubtaskBlock from './SubtaskBlock/SubtaskBlock'
 import TaskHeader from './TaskHeader/TaskHeader'
 import History from '../svgs/History'
@@ -44,6 +52,12 @@ import StatusBlock from './StatusBlock/StatusBlock'
 import Archive from '../svgs/Archive'
 import Drive from '../svgs/Drive'
 import DocumentForm from './DocumentForm/DocumentForm'
+import Deligate from '../svgs/Deligate'
+import Contacts from '../svgs/Contacts'
+import Coins from '../svgs/Coins'
+import DeligateBlock from './DeligateBlock/DeligateBlock'
+import { selectUserById } from '../../helpers/selectUserById'
+import { v4 as uuidv4 } from 'uuid'
 
 const EditTaskModal = ({ onClose, task }) => {
   const [open, setOpen] = useState(false)
@@ -52,11 +66,12 @@ const EditTaskModal = ({ onClose, task }) => {
   const [openPriority, setOpenPriority] = useState(false)
   const [openStatus, setOpenStatus] = useState(false)
   const [openDocument, setOpenDocument] = useState(false)
-  console.log('EditTaskModal - task:', task)
-  console.log('EditTaskModal - status:', task.status)
+  const [openDeligate, setOpenDeligate] = useState(false)
+  // console.log('EditTaskModal - task:', task)
+  // console.log('EditTaskModal - status:', task.status)
 
   if (!task) {
-    console.log('EditTaskModal - Redirecting to home page')
+    // console.log('EditTaskModal - Redirecting to home page')
     onClose()
     // return <Navigate to='/' />
   }
@@ -64,6 +79,8 @@ const EditTaskModal = ({ onClose, task }) => {
   const dispatch = useDispatch()
   const allTags = useSelector((state) => state.tags)
   const allProjects = useSelector((state) => state.projects)
+  const users = useSelector((state) => state.users.users)
+  // console.log('EditTaskModal - users:', users)
 
   const { id, tags, description, checked, projects } = task || {}
 
@@ -80,6 +97,9 @@ const EditTaskModal = ({ onClose, task }) => {
     dispatch(deleteTask(taskId))
     projects.forEach((projectId) => {
       dispatch(removeTaskFromProject({ projectId, taskId }))
+    })
+    users.forEach((user) => {
+      dispatch(removeTaskFromUser({ userId: user.id, taskId }))
     })
     onClose()
   }
@@ -172,49 +192,71 @@ const EditTaskModal = ({ onClose, task }) => {
     }
   }
 
+  const handleUserSelect = (userId) => {
+    // console.log('handleUserSelect - userId:', userId)
+    // console.log('handleUserSelect - type of userId:', typeof userId)
+    users.forEach((user) => {
+      dispatch(removeTaskFromUser({ userId: user.id, taskId: task.id }))
+    })
+    dispatch(addTaskToUser({ userId, taskId: task.id }))
+    if (task.status === 'todo') {
+      dispatch(addTaskToUserTodoTasks({ userId, taskId: task.id }))
+    } else if (task.status === 'inprogress') {
+      dispatch(addTaskToUserProgressTasks({ userId, taskId: task.id }))
+    } else if (task.status === 'done') {
+      dispatch(addTaskToUserDoneTasks({ userId, taskId: task.id }))
+    }
+    // console.log('handleUserSelect - all users after adding:', users)
+    dispatch(addUser({ id: task.id, userId: userId }))
+    // console.log('handleUserSelect - task after adding:', task)
+  }
+
+  const handleDeleteUser = (userId) => {
+    users.forEach((user) => {
+      dispatch(removeTaskFromUser({ userId: user.id, taskId: task.id }))
+    })
+    dispatch(updateTaskUsers({ id: task.id }))
+    // console.log('handleDeleteUser - userId:', userId)
+    // console.log('handleDeleteUser - task after deleting:', task)
+    // console.log('handleDeleteUser - all users after deleting:', users)
+  }
+
   const handleDuplicateTask = () => {
+    // const newIdForTask = uuidv4()
     const newTask = {
-      ...task,
+      name: task.name,
+      description: description,
+      tags: tags,
+      subtasks: task.subtasks,
+      projects: projects,
+      expirationDate: task.expirationDate,
+      priority: task.priority,
+      status: 'todo',
+      documents: task.documents,
+      users: task.users,
+      favorite: false,
       id: Date.now(),
     }
+    const user = users.find((user) => user.id === task.users)
+    // console.log('EditTaskModal - user:', user)
+    // console.log('EditTaskModal - newIdForTask:', newIdForTask)
     dispatch(addTask(newTask))
     newTask.projects.forEach((projectId) => {
       dispatch(addTaskToProject({ projectId, taskId: newTask.id }))
       const project = allProjects.find((proj) => proj.id === projectId)
       if (project) {
         let updatedTodoTasks = [...project.todotasks]
-        let updatedProgressTasks = [...project.progresstasks]
-        let updatedDoneTasks = [...project.donetasks]
-
-        switch (newTask.status) {
-          case 'todo':
-            updatedTodoTasks.push(newTask.id)
-            break
-          case 'inprogress':
-            updatedProgressTasks.push(newTask.id)
-            break
-          case 'done':
-            updatedDoneTasks.push(newTask.id)
-            break
-          default:
-            break
-        }
-
         dispatch(
           updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
         )
-        dispatch(
-          updateProgressTasksInProject({
-            projectId,
-            tasks: updatedProgressTasks,
-          })
-        )
-        dispatch(
-          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-        )
       }
     })
-
+    if (user) {
+      // console.log('EditTaskModal - newTask.id:', newTask.id)
+      dispatch(addTaskToUser({ userId: user.id, taskId: newTask.id }))
+      dispatch(addTaskToUserTodoTasks({ userId: user.id, taskId: newTask.id }))
+      dispatch(addUser({ id: newTask.id, userId: user.id }))
+    }
     onClose()
   }
 
@@ -250,6 +292,14 @@ const EditTaskModal = ({ onClose, task }) => {
     setOpen(true)
   }
 
+  const handleCloseDeligateModal = () => {
+    setOpenDeligate(false)
+  }
+
+  const handleOpenDeligateModal = () => {
+    setOpenDeligate(true)
+  }
+
   const handleOpenProjectModal = () => {
     setOpenProject(true)
   }
@@ -275,6 +325,8 @@ const EditTaskModal = ({ onClose, task }) => {
     }
   }
 
+  // console.log('EditTaskModal - task.users:', task.users)
+
   return (
     <>
       {task && (
@@ -296,11 +348,16 @@ const EditTaskModal = ({ onClose, task }) => {
           <div className='relative flex flex-row w-full h-full mt-6'>
             <div className='flex flex-col justify-between h-full flex-grow'>
               <div className='flex flex-col flex-grow'>
-                <TaskNameModal id={id} checked={checked} />
+                {/* <TaskNameModal id={id} checked={checked} /> */}
                 {description === '' && checked ? (
                   ' '
                 ) : (
-                  <TaskDescription task={task} checked={checked} />
+                  <TaskDescription
+                    task={task}
+                    checked={checked}
+                    users={users}
+                    projects={allProjects}
+                  />
                 )}
 
                 {tags.length > 0 && (
@@ -338,14 +395,14 @@ const EditTaskModal = ({ onClose, task }) => {
                   <button
                     type={'submit'}
                     onClick={handleDuplicateTask}
-                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-nav justify-center items-center hover:bg-navButtonHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <Copy />
                     </div>
                   </button>
                   <button
                     type={'submit'}
-                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-nav justify-center items-center hover:bg-navButtonHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <History />
                     </div>
@@ -353,7 +410,7 @@ const EditTaskModal = ({ onClose, task }) => {
                   {checked && (
                     <button
                       type={'submit'}
-                      className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-grayHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
+                      className='flex rounded-[5px] text-grayHover text-14 font-bold bg-nav justify-center items-center hover:bg-navButtonHover hover:text-grayHover my-1 h-[25px] px-3 w-[25px]'>
                       <div className=''>
                         <Archive />
                       </div>
@@ -362,7 +419,7 @@ const EditTaskModal = ({ onClose, task }) => {
                   <button
                     type={'submit'}
                     onClick={() => handleDeleteTask(id, projects)}
-                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-gray justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-[25px] px-3 w-[25px]'>
+                    className='flex rounded-[5px] text-grayHover text-14 font-bold bg-nav justify-center items-center hover:bg-redTag hover:text-redTag my-1 h-[25px] px-3 w-[25px]'>
                     <div className=''>
                       <Trash />
                     </div>
@@ -578,6 +635,66 @@ const EditTaskModal = ({ onClose, task }) => {
                         onClose={handleCloseDocumentModal}
                         noBorder={true}
                         stopPropagation={true}
+                      />
+                    </div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Deligate />}
+                        children={
+                          task.users &&
+                          `Deligated to: ${
+                            selectUserById(users, task.users) || ''
+                          }`
+                        }
+                        onClick={handleOpenDeligateModal}
+                        onClose={handleCloseDeligateModal}
+                      />
+                      <DropdownModal
+                        children={
+                          <DeligateBlock
+                            users={users}
+                            task={task}
+                            // onDeligateChange={(user) => {
+                            //   dispatch(removeTaskFromUser({ userId: users.id }))
+                            //   dispatch(
+                            //     addTaskToUser({
+                            //       userId: user,
+                            //       taskId: task.id,
+                            //     })
+                            //   )
+                            //   dispatch(
+                            //     addUser({
+                            //       id: task.id,
+                            //       userId: user,
+                            //     })
+                            //   )
+                            //   console.log('EditTaskModal - user (new):', user)
+                            // }}
+                            onDeligateChange={(user) => handleUserSelect(user)}
+                            onDelete={(user) => handleDeleteUser(user)}
+                            isNewTask={false}
+                            onClose={handleCloseDeligateModal}
+                          />
+                        }
+                        open={openDeligate}
+                        onClose={handleCloseDeligateModal}
+                        noBorder={true}
+                        stopPropagation={true}
+                      />
+                    </div>
+                    <div className='w-[227px] h-[1px] bg-[var(--stroke)] my-[5px]'></div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Contacts />}
+                        children={'Add contacts'}
+                        onClose={handleCloseDocumentModal}
+                      />
+                    </div>
+                    <div className='relative flex flex-row mr-2'>
+                      <ModalMenuButton
+                        svgLeft={<Coins />}
+                        children={'Add expenses'}
+                        onClose={handleCloseDocumentModal}
                       />
                     </div>
                   </div>

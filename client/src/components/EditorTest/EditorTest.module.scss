@@ -1,0 +1,64 @@
+.container {
+  @apply flex flex-col flex-grow border-1 border-checkboxActive no-underline rounded-[10px];
+  &:focus {
+    @apply outline-none bg-amber-200;
+  }
+}
+
+.mention {
+  @apply flex flex-row items-center min-w-[25px] h-[25px] rounded-[5px] p-1 text-task cursor-pointer;
+}
+
+.selectedUser {
+  @apply flex bg-nav rounded-[5px] text-14 items-center p-1;
+}
+
+.main {
+  @apply flex flex-nowrap p-2 grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start h-[15px] min-w-[25px] items-center rounded-[5px] text-task text-14;
+}
+
+.input {
+  @apply flex flex-nowrap grid-cols-2 auto-cols-max gap-[2px] auto-rows-max justify-start h-[15px] min-w-[25px] max-w-[400px] items-center rounded-[5px] text-12 text-task mr-[11px];
+}
+
+.isActive {
+  @apply flex flex-row items-center min-w-[25px] h-[25px] rounded-[5px] p-1 text-task cursor-pointer bg-gray;
+}
+
+.menu {
+  @apply flex p-1 rounded-[5px] bg-mainBg space-x-1 shadow-lg border-1 border-stroke;
+}
+
+.menuButton {
+  @apply flex flex-row relative items-center min-w-[25px] h-[25px] rounded-[5px] p-1 text-task cursor-pointer;
+  &:hover {
+    @apply text-tagDelete bg-navButtonHover transition-all duration-200 ease-in-out;
+  }
+}
+
+.text {
+  @apply flex w-[500px] text-14 text-grayHover flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0;
+}
+
+.textActive {
+  @apply flex w-[500px] text-14 text-task flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0 min-h-[80px];
+}
+
+.textBig {
+  @apply flex w-[500px] text-20 font-bold text-task flex-grow items-center bg-mainBg no-underline rounded-[10px] p-0;
+}
+
+.textActiveBig {
+  @apply flex w-[500px] text-20 font-bold text-task flex-grow items-center bg-mainBg no-underline rounded-[10px] p-0;
+}
+
+.link {
+  @apply flex flex-row items-center min-w-[25px] h-[25px] rounded-[5px] p-1 text-task cursor-pointer;
+}
+
+.saveButton {
+  @apply flex text-13 text-grayHover justify-center bg-nav w-[60px] py-2 rounded-[5px] cursor-pointer;
+  &:hover {
+    @apply text-grayHover bg-navButtonHover;
+  }
+}

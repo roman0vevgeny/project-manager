@@ -1,0 +1,21 @@
+.main {
+  @apply flex max-w-[300px] text-task flex-grow items-center border-0 no-underline rounded-[10px] p-0;
+}
+
+.input {
+  @apply flex justify-start w-[222px] items-center rounded-[8px] text-14 mr-[11px] px-2 outline-none bg-inputFocus text-inputFocus border-1 border-[var(--input-focus-text)];
+  &::placeholder {
+    @apply text-inputFocus;
+  }
+}
+
+.menuButton {
+  @apply flex flex-row relative items-center justify-center min-w-[30px] h-[30px] rounded-[5px] p-1 text-task cursor-pointer;
+  &:hover {
+    @apply text-tagDelete bg-navButtonHover transition-all duration-200 ease-in-out;
+  }
+}
+
+.buttons {
+  @apply flex p-1 rounded-[8px] bg-mainBg space-x-1 shadow-lg border-1 border-stroke;
+}

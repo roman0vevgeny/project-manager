@@ -3,6 +3,7 @@ import styles from './ProjectDraggable.module.scss'
 import Delete from '../../../svgs/Delete'
 import Folder from '../../../svgs/Folder'
 import { useNavigate } from 'react-router-dom'
+import FolderClosed from '../../../svgs/FolderClosed'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()

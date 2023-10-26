@@ -6,6 +6,7 @@ import Cal from '../../svgs/Cal'
 import Modal from '../../Modal/Modal'
 import EditTaskModal from '../../TaskModal/EditTaskModal'
 import InfoExpiration from '../../Info/InfoExpiration'
+import TaskName from '../../TaskName/TaskName'
 
 const TaskCard = ({ task }) => {
   const [openModal, setOpenModal] = useState(null)
@@ -28,7 +29,9 @@ const TaskCard = ({ task }) => {
   return (
     <div className='font-medium'>
       <div className={styles.item} onClick={() => handleOpenModal(task)}>
-        <p className={styles.searchText}>{name}</p>
+        <p className={styles.searchText}>
+          <TaskName name={name} />
+        </p>
         <div className={styles.infoBlock}>
           {expirationDate && (
             <InfoExpiration

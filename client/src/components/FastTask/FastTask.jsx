@@ -1,13 +1,12 @@
-import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
-import Edit from '../svgs/Edit'
+import React, { useRef, useEffect, useState } from 'react'
 import styles from './FastTask.module.scss'
-import ModalButton from '../Button/ModalButton'
+import { useDispatch } from 'react-redux'
+import { addFastTask } from '../../features/tasksSlice'
+// import Editor from '../Editor/Editor'
 
-const FastTask = ({ onClose }) => {
+const FastTask = ({ onClose, onChange }) => {
   const [name, setName] = useState('')
-  const [text, setText] = useState(name || '')
   const [task, setTask] = useState({
-    id: Date.now(),
     name: '',
     description: '',
     tags: [],
@@ -18,12 +17,18 @@ const FastTask = ({ onClose }) => {
     status: 'todo',
     projects: [],
     documents: [],
+    users: [],
   })
+
+  const dispatch = useDispatch()
 
   const inputRef = useRef(null)
 
   const handleFocus = () => {
     inputRef.current.focus()
+    if (inputRef.current.textContent === 'Task Name') {
+      inputRef.current.textContent = ''
+    }
 
     const range = document.createRange()
     range.selectNodeContents(inputRef.current)
@@ -36,55 +41,87 @@ const FastTask = ({ onClose }) => {
 
   const handleBlur = () => {
     const newText = inputRef.current.textContent.trim()
+    if (!newText || newText === '') {
+      setName('Task Name')
+    }
     if (newText !== name) {
       setName(newText)
+      setTask({
+        ...task,
+        name: newText,
+      })
+    } else {
+      setTask({
+        ...task,
+        name: name,
+      })
     }
   }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      if (task.name === '') {
+      const newText = inputRef.current.textContent.trim()
+      if (!newText || newText === '') {
         return
       } else {
-        setTask({
+        const newTask = {
           ...task,
-          name: name,
-        })
-        setError(null)
-        dispatch(addTask(task))
+          name: newText,
+        }
+        dispatch(addFastTask(newTask))
       }
+      setName('')
+      inputRef.current.textContent = ''
     }
   }
 
-  useEffect(() => {
-    inputRef.current.textContent = text
-  }, [text])
+  const handleClick = () => {
+    const newText = inputRef.current.textContent.trim()
+    if (!newText || newText === '' || newText === 'Task Name') {
+      return
+    } else {
+      const newTask = {
+        ...task,
+        name: newText,
+      }
+      dispatch(addFastTask(newTask))
+    }
+    setName('')
+    inputRef.current.textContent = ''
+  }
 
   useEffect(() => {
-    setText(name || '')
+    inputRef.current.textContent = name
   }, [name])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    setName(name || '')
+  }, [name])
+
+  useEffect(() => {
     inputRef.current.focus()
   }, [inputRef])
 
   return (
     <div className={styles.main}>
       <div className='flex justify-center items-start w-full rounded-[10px] mb-3'>
-        <div
+        {/* <div
           placeholder={name}
           ref={inputRef}
           contentEditable='true'
           onKeyDown={handleKeyDown}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          className={text === '' ? `${styles.input} bg-gray` : styles.input}
-        />
+          className={styles.input}
+        /> */}
+        {/* <Editor /> */}
         <div className='w-[1px]'></div>
       </div>
       <div className='flex space-x-2 w-full mx-4'>
-        <button className='flex text-14 items-center font-bold text-grayHover bg-gray pt-[4px] pb-[3px] px-2 rounded-[4px] justify-center'>
+        <button
+          className='flex text-14 items-center font-bold text-grayHover bg-gray pt-[4px] pb-[3px] px-2 rounded-[4px] justify-center'
+          onClick={handleClick}>
           {'Add task'}
         </button>
         <button

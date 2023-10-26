@@ -1,4 +1,9 @@
 "use strict";
+// import { Module } from '@nestjs/common';
+// import { TypeOrmModule } from '@nestjs/typeorm';
+// import { UserController } from './user/user.controller';
+// import { UserService } from './user/user.service';
+// import { User } from './entities/user.entity';
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,18 +12,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
+// @Module({
+//   imports: [TypeOrmModule.forFeature([User])],
+//   controllers: [UserController],
+//   providers: [UserService],
+// })
+// export class AppModule {}
+// В файле app.module.ts
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_controller_1 = require("./user/user.controller");
-const user_service_1 = require("./user/user.service");
-const user_entity_1 = require("./entities/user.entity");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])],
-        controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService],
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: 'localhost',
+                port: 5432,
+                username: 'evgeny',
+                password: '09872584Raiii',
+                database: 'project_manager',
+                entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                synchronize: true,
+            }),
+            user_module_1.UserModule,
+        ],
     })
 ], AppModule);

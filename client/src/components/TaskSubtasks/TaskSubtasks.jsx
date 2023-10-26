@@ -31,11 +31,13 @@ const TaskSubtasks = ({ onSubtasksChange, subtasks, checked }) => {
                 }}
               />
             </button>
-            <TaskSubtask
-              subtask={subtask}
-              checked={subtask.checked}
-              taskChecked={checked}
-            />
+            <div className='pt-[1px]'>
+              <TaskSubtask
+                subtask={subtask}
+                checked={subtask.checked}
+                taskChecked={checked}
+              />
+            </div>
           </div>
         ))}
     </div>

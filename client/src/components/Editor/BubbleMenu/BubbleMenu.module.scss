@@ -1,0 +1,21 @@
+.isActive {
+  @apply flex flex-row items-center rounded-[5px] p-1 text-task cursor-pointer bg-nav;
+  &:hover {
+    @apply text-tagDelete bg-navButtonHover transition-all duration-200 ease-in-out;
+  }
+}
+
+.menu {
+  @apply flex p-1 rounded-[8px] bg-mainBg space-x-1 shadow-lg border-1 border-stroke;
+}
+
+.menuButton {
+  @apply flex flex-row relative items-center rounded-[5px] p-1 text-task cursor-pointer;
+  &:hover {
+    @apply text-tagDelete bg-navButtonHover transition-all duration-200 ease-in-out;
+  }
+}
+
+.link {
+  @apply flex flex-row items-center rounded-[5px] p-1 text-task cursor-pointer;
+}

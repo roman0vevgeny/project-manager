@@ -3,6 +3,7 @@ import tasksReducer from '../features/tasksSlice'
 import tagsReducer from '../features/tagsSlice'
 import navbarReducer from '../features/navbarSlice'
 import projectsReducer from '../features/projectSlice'
+import usersReducer from '../features/usersSlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     tags: tagsReducer,
     navbar: navbarReducer,
     projects: projectsReducer,
+    users: usersReducer,
   },
 })

@@ -1,6 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = []
+const initialState = [
+  {
+    donetasks: [],
+    icon: 'case',
+    id: '1698044668160',
+    name: 'Новый',
+    progresstasks: [],
+    tasks: [],
+    todotasks: [],
+  },
+  {
+    donetasks: [],
+    icon: 'case',
+    id: '1698044668380',
+    name: 'Дополнительный',
+    progresstasks: [],
+    tasks: [],
+    todotasks: [],
+  },
+]
 
 const projectSlice = createSlice({
   name: 'projects',
@@ -36,7 +55,7 @@ const projectSlice = createSlice({
       const project = state.find((project) => project.id === projectId)
       if (project) {
         project.tasks.push(taskId)
-        project.todotasks.push(taskId)
+        // project.todotasks.push(taskId)
       }
     },
 
