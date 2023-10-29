@@ -1,6 +1,6 @@
 .body {
-  @apply flex flex-col py-3 px-3 mx-3 border-1 border-stroke items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden
-  transition-all duration-200 ease-in-out;
+  @apply flex flex-col pt-1 pb-2 border-1 border-stroke items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
+  transition-all duration-200 ease-in-out h-fit;
   // max-h-[400px];
 
   &:hover {
@@ -9,13 +9,12 @@
 }
 
 .dragging {
-  @apply flex flex-col py-3 px-3 mx-3 border-1 border-borderHover items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
+  @apply flex flex-col pt-1 pb-2 border-1 border-borderHover items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
   transition-all duration-200 ease-in-out;
-  // max-h-[400px];
 }
 
 .bodyChecked {
-  @apply flex flex-row py-3 px-3 mx-3 border-1 border-stroke items-start rounded-[10px] max-w-[452px] relative cursor-pointer bg-mainBg overflow-hidden
+  @apply flex flex-col pt-1 pb-2 border-1 border-stroke items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
   transition-all duration-200 ease-in-out;
 
   &:hover {
@@ -24,7 +23,7 @@
 }
 
 .checkbox {
-  @apply flex justify-start items-center min-w-[40px] h-full;
+  @apply flex justify-start items-center min-w-[40px] h-fit;
 }
 
 .clickable {
@@ -67,4 +66,72 @@
     @apply flex-grow h-[1px] bg-devider;
     content: '';
   }
+}
+
+.user {
+  @apply flex justify-center text-12 font-medium items-center min-w-[20px] h-[20px] rounded-full leading-1 mt-[2px];
+}
+
+.blue {
+  @apply bg-blueTag;
+}
+
+.blueText {
+  @apply text-blueTag border-[var(--color-text-blue-tag)];
+}
+
+.red {
+  @apply bg-redTag;
+}
+
+.redText {
+  @apply text-redTag border-[var(--color-text-red-tag)];
+}
+
+.green {
+  @apply bg-greenTag;
+}
+
+.greenText {
+  @apply text-greenTag border-[var(--color-text-green-tag)];
+}
+
+.yellow {
+  @apply bg-yellowTag;
+}
+
+.yellowText {
+  @apply text-yellowTag border-[var(--color-text-yellow-tag)];
+}
+
+.purple {
+  @apply bg-purpleTag;
+}
+
+.purpleText {
+  @apply text-purpleTag border-[var(--color-text-purple-tag)];
+}
+
+.pink {
+  @apply bg-pinkTag;
+}
+
+.pinkText {
+  @apply text-pinkTag border-[var(--color-text-pink-tag)];
+}
+
+.sea {
+  @apply bg-seaTag;
+}
+
+.seaText {
+  @apply text-seaTag border-[var(--color-text-sea-tag)];
+}
+
+.gray {
+  @apply bg-grayTag;
+}
+
+.grayText {
+  @apply text-grayTag border-[var(--color-text-gray-tag)];
 }

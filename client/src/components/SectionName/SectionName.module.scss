@@ -11,6 +11,19 @@
   }
 }
 
+.inputProject {
+  @apply flex items-center text-24 font-bold mr-2 px-2 bg-mainBg text-task rounded-[5px]
+  transition-colors duration-200 ease-in-out border-0 min-w-[80px] max-w-[290px];
+
+  &::placeholder {
+    @apply text-placeholder border-0;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus border-0;
+  }
+}
+
 .devider {
   @apply flex items-center flex-grow;
 

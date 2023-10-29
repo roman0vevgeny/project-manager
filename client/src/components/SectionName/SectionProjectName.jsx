@@ -148,7 +148,7 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
           </div>
         )}
         <input
-          className={styles.input}
+          className={styles.inputProject}
           placeholder={'Name'}
           value={capitalizeFirstLetter(projectName)}
           ref={inputRef}
@@ -159,13 +159,16 @@ const SectionProjectName = ({ name, projectId, editable, noSvg }) => {
           onKeyDown={handleKeyDown}
           onBlur={handleBlur}
         />
-        <div className='flex flex-row'>
+        {/* <div className='flex'>
           {editable && <Button svgLeft={<Edit />} onClick={handleFocus} />}
+        </div> */}
+        <div className='flex flex-grow flex-nowrap'>
+          {sortType && (
+            <SortItem sortType={sortType} onDelete={() => setSortType(null)} />
+          )}
         </div>
-        {sortType && (
-          <SortItem sortType={sortType} onDelete={() => setSortType(null)} />
-        )}
-        <div className='relative flex flex-row'>
+
+        <div className='relative flex flex-row flex-nowrap'>
           <Button svgLeft={<Sort />} onClick={handleToggleModal} />
           <DropdownModal
             children={

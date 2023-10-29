@@ -251,7 +251,7 @@ body {
 }
 
 .is-editor-empty {
-  @apply text-gray text-14 ml-5 cursor-pointer;
+  @apply text-gray text-14 ml-5 cursor-pointer w-full;
 }
 
 .tiptap p.is-empty {
@@ -269,12 +269,8 @@ body {
   pointer-events: none;
 }
 
-// .is-editorTitle-empty {
-//   @apply text-gray text-20 cursor-pointer;
-// }
-
 .tiptap p.is-emptyTitle {
-  @apply w-full;
+  @apply flex w-full;
 }
 
 .tiptap p.is-emptyTitle:first-child::before {

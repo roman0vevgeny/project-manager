@@ -1,5 +1,5 @@
 .main {
-  @apply flex flex-row items-center w-fit h-[25px] mx-2 pt-[6px] pb-[5px] px-[5px] rounded-[5px] text-12 leading-[11px] cursor-pointer bg-gray
+  @apply flex flex-row flex-nowrap items-center w-fit h-[25px] mx-2 pt-[6px] pb-[5px] px-[5px] rounded-[5px] text-12 leading-[11px] cursor-pointer bg-gray
   text-grayHover transition-all duration-200 ease-in-out;
 }
 

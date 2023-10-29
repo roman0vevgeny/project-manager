@@ -16,6 +16,10 @@ import Link from '@tiptap/extension-link'
 import Code from '@tiptap/extension-code'
 import Bold from '@tiptap/extension-bold'
 import Placeholder from '@tiptap/extension-placeholder'
+import SendText from '../svgs/SendText'
+import Close from '../svgs/Close'
+import PaperClip from '../svgs/PaperClip'
+import Cancel from '../svgs/Cancel'
 
 const TitleEditor = ({ taskDescription, name, users, task }) => {
   const [showLinkModal, setShowLinkModal] = useState(false)
@@ -66,7 +70,7 @@ const TitleEditor = ({ taskDescription, name, users, task }) => {
     dispatch(
       updateTaskDescription({
         id: id,
-        name:
+        description:
           descriptionEditor.getHTML() === '<p></p>'
             ? ''
             : descriptionEditor.getHTML(),
@@ -143,9 +147,8 @@ const TitleEditor = ({ taskDescription, name, users, task }) => {
       }),
       Placeholder.configure({
         showOnlyWhenEditable: false,
-        placeholder: 'Description',
-        emptyEditorClass: '.is-editor-empty ',
-        emptyNodeClass: '.is-empty ',
+        emptyEditorClass: 'is-editor-empty',
+        emptyNodeClass: 'is-empty',
       }),
     ],
     content: taskDescription ? taskDescription : '',
@@ -178,7 +181,7 @@ const TitleEditor = ({ taskDescription, name, users, task }) => {
             setShowLinkModal={setShowLinkModal}
           />
         </div>
-        <div className='text-14 font-medium text-gray pb-8'>
+        <div className={isEditable ? styles.textActive : styles.text}>
           <EditorContent editor={descriptionEditor} />
           <BubbleMenuComponent
             editor={descriptionEditor}
@@ -190,16 +193,19 @@ const TitleEditor = ({ taskDescription, name, users, task }) => {
       </div>
 
       {isEditable && (
-        <div className='flex mt-2 w-full justify-between'>
+        <div className='flex mt-2 w-full justify-between relative'>
           <div></div>
-          <div className='flex space-x-2'>
+          <div className=' flex space-x-2 absolute top-[-40px] right-[8px]'>
             <button className={styles.saveButton} onClick={saveChanges}>
-              Save
+              <SendText />
             </button>
             <button
               className={styles.saveButton}
               onClick={() => setIsEditable(false)}>
-              Cancel
+              <Cancel />
+            </button>
+            <button className={styles.saveButton}>
+              <PaperClip />
             </button>
           </div>
         </div>

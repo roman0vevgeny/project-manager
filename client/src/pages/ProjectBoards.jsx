@@ -166,12 +166,13 @@ const ProjectBoards = () => {
           <div className='flex flex-row justify-center w-full'>
             <DragDropContext onDragEnd={onDragEnd}>
               {sections.map((section) => (
-                <div className='mx-4 w-[452px]' key={section.name}>
+                <div className='mx-4 w-[350px]' key={section.name}>
                   <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out'>
                     <SectionProjectName
                       name={section.name}
                       projectId={projectId}
                       noSvg={true}
+                      editable={true}
                     />
                   </div>
                   <section ref={sectionRef} className={styles.scrollableBlock}>

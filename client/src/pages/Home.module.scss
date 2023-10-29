@@ -25,7 +25,7 @@
 }
 
 .draggingOver {
-  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-[452px] h-[calc(100vh-150px)] overflow-y-scroll overflow-x-hidden;
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-[355px] h-[calc(100vh-150px)] overflow-y-scroll overflow-x-hidden;
 
   &::-webkit-scrollbar {
     @apply w-[10px] absolute right-0;
@@ -46,8 +46,16 @@
   }
 }
 
+.draggingOver > div {
+  @apply flex justify-center w-full;
+}
+
+.draggingOver > div > div {
+  @apply w-full;
+}
+
 .notDraggingOver {
-  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain transition-all duration-200 ease-in-out w-[452px] h-[calc(100vh-150px)] 
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain w-[355px] h-[calc(100vh-150px)] transition-all duration-200 ease-in-out  
   overflow-y-auto overflow-x-hidden;
 
   &::-webkit-scrollbar {
@@ -67,4 +75,12 @@
       @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
     }
   }
+}
+
+.notDraggingOver > div {
+  @apply flex justify-center w-full;
+}
+
+.notDraggingOver > div > div {
+  @apply w-full;
 }

@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col flex-grow border-1 border-checkboxActive no-underline rounded-[10px];
+  @apply flex flex-col flex-grow border-1 border-checkboxActive no-underline rounded-[10px] pb-8;
   &:focus {
     @apply outline-none bg-amber-200;
   }
@@ -37,11 +37,19 @@
 }
 
 .text {
-  @apply flex w-[500px] text-14 text-grayHover flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0;
+  @apply flex w-full font-medium text-14 text-grayHover flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0;
+}
+
+.text > div {
+  @apply w-full;
 }
 
 .textActive {
-  @apply flex w-[500px] text-14 text-task flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0 min-h-[80px];
+  @apply flex w-[498px] text-14 font-medium text-task flex-grow items-start bg-mainBg no-underline rounded-[10px] p-0 min-h-[80px];
+}
+
+.textActive > div {
+  @apply w-full;
 }
 
 .textBig {
@@ -57,8 +65,8 @@
 }
 
 .saveButton {
-  @apply flex text-13 text-grayHover justify-center bg-nav w-[60px] py-2 rounded-[5px] cursor-pointer;
+  @apply flex text-13 text-grayHover justify-center items-center bg-none w-[25px] h-[25px] py-1 rounded-[5px] cursor-pointer;
   &:hover {
-    @apply text-grayHover bg-navButtonHover;
+    @apply text-grayHover bg-nav;
   }
 }
