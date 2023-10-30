@@ -531,7 +531,7 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
           </div>
         </div>
         {task.tags.length > 0 && (
-          <div className='flex flex-wrap max-w-[600px] my-1 ml-10 space-y-1'>
+          <div className='flex flex-wrap max-w-[300px] ml-10 items-center'>
             {task.tags.map((tagId, index) => {
               const tag = allTags.find((tag) => tag.id === tagId)
               return (
