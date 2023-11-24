@@ -29,23 +29,26 @@ const TaskHeader = ({
     expirationDate,
     favorite,
     checked,
-    projects,
+    project,
     id,
   } = task
 
   const allProjects = useSelector((state) => state.projects)
+  // console.log('project from TaskHeader: ', project)
+  const taskProject = allProjects.find((proj) => proj.id === task.project)
+  // console.log('taskProject from TaskHeader: ', taskProject)
 
   const handleToggleFavorite = () => {
     onFavoriteChange(!favorite)
   }
 
   const handleDeleteProject = (projectId) => {
-    const updatedProjects = projects.filter((id) => id !== projectId)
+    const updatedProjects = ''
 
     if (isNewTask) {
       onProjectsChange(updatedProjects)
     } else {
-      handleProjectSelect(projectId, allProjects, task)
+      handleProjectSelect(projectId, allProjects, sectionId, task)
     }
   }
 
@@ -75,27 +78,19 @@ const TaskHeader = ({
     }
   }
 
-  const renderProjects = () => {
-    return (
-      <div className='flex flex-row justify-end'>
-        {task.projects.map((projectId, index) => {
-          const project = allProjects.find(
-            (project) => project.id === projectId
-          )
-          return (
-            project && (
-              <Project
-                projectName={project.name}
-                deleteProject={!checked ? true : false}
-                onDelete={() => handleDeleteProject(projectId)}
-                checked={checked}
-                key={index}
-              />
-            )
-          )
-        })}
-      </div>
-    )
+  const renderProject = () => {
+    if (taskProject) {
+      return (
+        <div className='flex flex-row justify-end'>
+          <Project
+            projectName={taskProject.name}
+            deleteProject={!checked ? true : false}
+            // onDelete={() => handleDeleteProject(projectId)}
+            checked={checked}
+          />
+        </div>
+      )
+    }
   }
 
   return (
@@ -106,7 +101,7 @@ const TaskHeader = ({
         )}
         {isNewTask && <p className='text-12'>Create a new task</p>}
         <div className='flex flex-row justify-end'>
-          {renderProjects()}
+          {renderProject()}
           {expirationDate && (
             <InfoDate
               svg={<Cal />}

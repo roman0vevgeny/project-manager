@@ -33,8 +33,19 @@ const tagsSlice = createSlice({
     //   state = action.payload.tags
     // },
 
+    // updateTagsOrder(state, action) {
+    //   state.splice(0, state.length, ...action.payload.tags)
+    // },
+
     updateTagsOrder(state, action) {
-      state.splice(0, state.length, ...action.payload.tags)
+      const { sourceIndex, destinationIndex } = action.payload
+
+      const newTags = [...state]
+
+      const [removed] = newTags.splice(sourceIndex, 1)
+      newTags.splice(destinationIndex, 0, removed)
+
+      return newTags
     },
   },
 })

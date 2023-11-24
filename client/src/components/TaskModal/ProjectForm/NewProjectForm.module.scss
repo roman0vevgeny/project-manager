@@ -1,0 +1,18 @@
+.main {
+  @apply flex flex-col w-[227px] max-h-[435px] overflow-x-hidden;
+  &::-webkit-scrollbar {
+    @apply w-[8px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}
+
+.list {
+  @apply mt-1 w-full;
+}

@@ -20,13 +20,12 @@ import {
   addUser,
   updateTaskUsers,
 } from '../../features/tasksSlice'
-import {
-  addTaskToProject,
-  removeTaskFromProject,
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-  updateDoneTasksInProject,
-} from '../../features/projectSlice'
+import // addTaskToProject,
+// removeTaskFromProject,
+// updateTodoTasksInProject,
+// updateProgressTasksInProject,
+// updateDoneTasksInProject,
+'../../features/projectSlice'
 import {
   addTaskToUser,
   removeTaskFromUser,
@@ -58,6 +57,10 @@ import Coins from '../svgs/Coins'
 import DeligateBlock from './DeligateBlock/DeligateBlock'
 import { selectUserById } from '../../helpers/selectUserById'
 import { v4 as uuidv4 } from 'uuid'
+import StatusMenu from '../svgs/StatusMenu'
+import ProjectButton from '../Button/ProjectButton'
+import NewProjectForm from './ProjectForm/NewProjectForm'
+import { removeTaskFromSection } from '../../features/sectionSlice'
 
 const EditTaskModal = ({ onClose, task }) => {
   const [open, setOpen] = useState(false)
@@ -82,7 +85,7 @@ const EditTaskModal = ({ onClose, task }) => {
   const users = useSelector((state) => state.users.users)
   // console.log('EditTaskModal - users:', users)
 
-  const { id, tags, description, checked, projects } = task || {}
+  const { id, tags, description, checked, project } = task || {}
 
   const handleDeleteTag = (tagId) => {
     dispatch(
@@ -93,103 +96,152 @@ const EditTaskModal = ({ onClose, task }) => {
     )
   }
 
-  const handleDeleteTask = (taskId, projects) => {
+  const handleDeleteTask = (taskId) => {
     dispatch(deleteTask(taskId))
-    projects.forEach((projectId) => {
-      dispatch(removeTaskFromProject({ projectId, taskId }))
-    })
+    // projects.forEach((projectId) => {
+    //   // dispatch(removeTaskFromProject({ projectId, taskId }))
+    // })
     users.forEach((user) => {
       dispatch(removeTaskFromUser({ userId: user.id, taskId }))
     })
     onClose()
   }
 
-  const handleProjectSelect = (projectId) => {
-    if (projects.includes(projectId)) {
-      dispatch(removeTaskFromProject({ projectId, taskId: id }))
+  // const handleProjectSelect = (projectId) => {
+  //   if (projects.includes(projectId)) {
+  //     // dispatch(removeTaskFromProject({ projectId, taskId: id }))
+  //     dispatch(
+  //       updateTaskProjects({
+  //         id: task.id,
+  //         projects: projects.filter((id) => id !== projectId),
+  //       })
+  //     )
+  //     const project = allProjects.find((proj) => proj.id === projectId)
+  //     if (project) {
+  //       let updatedTodoTasks = [...project.todotasks]
+  //       let updatedProgressTasks = [...project.progresstasks]
+  //       let updatedDoneTasks = [...project.donetasks]
+
+  //       switch (task.status) {
+  //         case 'todo':
+  //           updatedTodoTasks = updatedTodoTasks.filter((id) => id !== task.id)
+  //           break
+  //         case 'inprogress':
+  //           updatedProgressTasks = updatedProgressTasks.filter(
+  //             (id) => id !== task.id
+  //           )
+  //           break
+  //         case 'done':
+  //           updatedDoneTasks = updatedDoneTasks.filter((id) => id !== task.id)
+  //           break
+  //         default:
+  //           break
+  //       }
+
+  //       // dispatch(
+  //       //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+  //       // )
+  //       // dispatch(
+  //       //   updateProgressTasksInProject({
+  //       //     projectId,
+  //       //     tasks: updatedProgressTasks,
+  //       //   })
+  //       // )
+  //       // dispatch(
+  //       //   updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+  //       // )
+  //     }
+  //   } else {
+  //     // dispatch(addTaskToProject({ projectId, taskId: id }))
+  //     dispatch(
+  //       updateTaskProjects({
+  //         id: task.id,
+  //         projects: [...projects, projectId],
+  //       })
+  //     )
+  //     const project = allProjects.find((proj) => proj.id === projectId)
+  //     if (project) {
+  //       let updatedTodoTasks = [...project.todotasks]
+  //       let updatedProgressTasks = [...project.progresstasks]
+  //       let updatedDoneTasks = [...project.donetasks]
+
+  //       switch (task.status) {
+  //         case 'todo':
+  //           updatedTodoTasks.push(task.id)
+  //           break
+  //         case 'inprogress':
+  //           updatedProgressTasks.push(task.id)
+  //           break
+  //         case 'done':
+  //           updatedDoneTasks.push(task.id)
+  //           break
+  //         default:
+  //           break
+  //       }
+
+  //       // dispatch(
+  //       //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+  //       // )
+  //       // dispatch(
+  //       //   updateProgressTasksInProject({
+  //       //     projectId,
+  //       //     tasks: updatedProgressTasks,
+  //       //   })
+  //       // )
+  //       // dispatch(
+  //       //   updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+  //       // )
+  //     }
+  //   }
+  // }
+
+  // removeTaskFromSection(state, action) {
+  //     const { projectId, sectionId, taskId } = action.payload
+  //     const project = state.find((project) => project.id === projectId)
+  //     if (project) {
+  //       const section = project.sections.find(
+  //         (section) => section.id === sectionId
+  //       )
+  //       if (section) {
+  //         section.tasks = section.tasks.filter((id) => id !== taskId)
+  //       }
+  //     }
+  //   },
+
+  const handleProjectSelect = (projectId, allProjects, sectionId, task) => {
+    // Найти текущий проект, где находится задача
+    const currentProject = allProjects.find((proj) => proj.id === task.project)
+
+    // Проверить, что задача действительно находится в предыдущей секции
+    const checkIfCurrentProjectSectionsHasTask = currentProject.sections.find(
+      (section) => section.tasks.includes(task.id)
+    )
+
+    if (checkIfCurrentProjectSectionsHasTask) {
+      // Удалить задачу из предыдущей секции
       dispatch(
-        updateTaskProjects({
-          id: task.id,
-          projects: projects.filter((id) => id !== projectId),
+        removeTaskFromSection({
+          taskId: task.id,
+          sectionId: sectionId,
+          projectId: currentProject.id,
         })
       )
-      const project = allProjects.find((proj) => proj.id === projectId)
-      if (project) {
-        let updatedTodoTasks = [...project.todotasks]
-        let updatedProgressTasks = [...project.progresstasks]
-        let updatedDoneTasks = [...project.donetasks]
-
-        switch (task.status) {
-          case 'todo':
-            updatedTodoTasks = updatedTodoTasks.filter((id) => id !== task.id)
-            break
-          case 'inprogress':
-            updatedProgressTasks = updatedProgressTasks.filter(
-              (id) => id !== task.id
-            )
-            break
-          case 'done':
-            updatedDoneTasks = updatedDoneTasks.filter((id) => id !== task.id)
-            break
-          default:
-            break
-        }
-
-        dispatch(
-          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-        )
-        dispatch(
-          updateProgressTasksInProject({
-            projectId,
-            tasks: updatedProgressTasks,
-          })
-        )
-        dispatch(
-          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-        )
-      }
-    } else {
-      dispatch(addTaskToProject({ projectId, taskId: id }))
-      dispatch(
-        updateTaskProjects({
-          id: task.id,
-          projects: [...projects, projectId],
-        })
-      )
-      const project = allProjects.find((proj) => proj.id === projectId)
-      if (project) {
-        let updatedTodoTasks = [...project.todotasks]
-        let updatedProgressTasks = [...project.progresstasks]
-        let updatedDoneTasks = [...project.donetasks]
-
-        switch (task.status) {
-          case 'todo':
-            updatedTodoTasks.push(task.id)
-            break
-          case 'inprogress':
-            updatedProgressTasks.push(task.id)
-            break
-          case 'done':
-            updatedDoneTasks.push(task.id)
-            break
-          default:
-            break
-        }
-
-        dispatch(
-          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-        )
-        dispatch(
-          updateProgressTasksInProject({
-            projectId,
-            tasks: updatedProgressTasks,
-          })
-        )
-        dispatch(
-          updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-        )
-      }
     }
+
+    // Обновить проект и секцию задачи в Redux
+    dispatch(
+      updateTaskProjects({
+        id: task.id,
+        project: projectId,
+      })
+    )
+    dispatch(
+      addTaskToSection({
+        taskId: task.id,
+        sectionId,
+        projectId,
+      })
+    )
   }
 
   const handleUserSelect = (userId) => {
@@ -242,13 +294,13 @@ const EditTaskModal = ({ onClose, task }) => {
     // console.log('EditTaskModal - newIdForTask:', newIdForTask)
     dispatch(addTask(newTask))
     newTask.projects.forEach((projectId) => {
-      dispatch(addTaskToProject({ projectId, taskId: newTask.id }))
+      // dispatch(addTaskToProject({ projectId, taskId: newTask.id }))
       const project = allProjects.find((proj) => proj.id === projectId)
       if (project) {
-        let updatedTodoTasks = [...project.todotasks]
-        dispatch(
-          updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-        )
+        // let updatedTodoTasks = [...project.todotasks]
+        // dispatch(
+        //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+        // )
       }
     })
     if (user) {
@@ -434,7 +486,9 @@ const EditTaskModal = ({ onClose, task }) => {
                 <div className='pl-1 pr-1 mb-2 py-2 rounded-[10px]'>
                   <div>
                     <div className='relative flex flex-row'>
-                      <ModalMenuButton
+                      <ProjectButton
+                        project={task.project}
+                        task={task}
                         svgLeft={<Folder />}
                         children={'Add project'}
                         onClick={handleOpenProjectModal}
@@ -442,19 +496,21 @@ const EditTaskModal = ({ onClose, task }) => {
                       />
                       <DropdownModal
                         children={
-                          <ProjectForm
-                            value={projects}
-                            onChange={(newProjects) =>
-                              dispatch(
-                                updateTaskProjects({
-                                  id: task.id,
-                                  projects: newProjects,
-                                })
-                              )
-                            }
+                          <NewProjectForm
+                            task={task}
+                            // value={project}
+                            allProjects={allProjects}
+                            // onChange={(newProjects) =>
+                            //   dispatch(
+                            //     updateTaskProjects({
+                            //       id: task.id,
+                            //       project: newProject,
+                            //     })
+                            //   )
+                            // }
                             isNewTask={false}
                             handleProjectSelect={handleProjectSelect}
-                            taskId={id}
+                            // taskId={id}
                             onClose={handleCloseProjectModal}
                           />
                         }
@@ -545,9 +601,7 @@ const EditTaskModal = ({ onClose, task }) => {
                       <ModalMenuButton
                         svgLeft={<Priority />}
                         children={
-                          task.priority
-                            ? `Priority: ${task.priority}`
-                            : 'Set priority'
+                          task.priority ? `${task.priority}` : 'Set priority'
                         }
                         onClick={handleOpenPriorityModal}
                         onClose={handleClosePriorityModal}
@@ -577,7 +631,7 @@ const EditTaskModal = ({ onClose, task }) => {
                     </div>
                     <div className='relative flex flex-row mr-2'>
                       <ModalMenuButton
-                        svgLeft={<Status />}
+                        svgLeft={<StatusMenu />}
                         onClick={handleOpenStatusModal}
                         onClose={handleCloseStatusModal}
                         status={task.status}
@@ -641,10 +695,12 @@ const EditTaskModal = ({ onClose, task }) => {
                       <ModalMenuButton
                         svgLeft={<Deligate />}
                         children={
-                          task.users &&
-                          `Deligated to: ${
-                            selectUserById(users, task.users) || ''
-                          }`
+                          task.users
+                            ? `Deligated to: ${selectUserById(
+                                users,
+                                task.users
+                              )}`
+                            : 'Deligate'
                         }
                         onClick={handleOpenDeligateModal}
                         onClose={handleCloseDeligateModal}

@@ -5,6 +5,7 @@ import styles from './Dropdown.module.scss'
 import Modal from '../Modal/Modal'
 import EditTaskModal from '../TaskModal/EditTaskModal'
 import { getTaskById } from '../../helpers/getTaskById'
+import ArrowSmall from '../svgs/ArrowSmall'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -58,7 +59,8 @@ const DropdownFavorites = ({ children, items = [], svg }) => {
                 ? '-rotate-120 transition-all duration-200 ease-in-out'
                 : '-rotate-90 transition-all duration-200 ease-in-out'
             }>
-            {<Arrow />}
+            {/* {<Arrow />} */}
+            {<ArrowSmall />}
           </div>
         </div>
       </button>

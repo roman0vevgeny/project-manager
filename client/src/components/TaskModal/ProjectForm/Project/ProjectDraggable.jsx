@@ -3,7 +3,7 @@ import styles from './ProjectDraggable.module.scss'
 import Delete from '../../../svgs/Delete'
 import Folder from '../../../svgs/Folder'
 import { useNavigate } from 'react-router-dom'
-import FolderClosed from '../../../svgs/FolderClosed'
+// import FolderClosed from '../../../svgs/FolderClosed'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -25,8 +25,8 @@ const ProjectDraggable = ({
           styles.withDelete +
           ' ' +
           (isDragging
-            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover'
-            : 'border-1 border-transparent border-b-borderMain')
+            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover rounded-[8px] py-[8px]'
+            : 'border-1 border-transparent rounded-[8px] py-[8px]')
         }>
         <div className='flex items-center'>
           <div className={styles.folder}>
@@ -38,7 +38,7 @@ const ProjectDraggable = ({
           </div>
         </div>
 
-        <div className='flex min-w-[15px] justify-center items-center'>
+        <div className='flex min-w-[15px] text-12 rounded-[6px] justify-center items-center'>
           {tasks}
         </div>
       </div>

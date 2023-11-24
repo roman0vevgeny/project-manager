@@ -8,7 +8,7 @@ if (!view) {
 
 const Home = () => {
   return (
-    <div className='h-[calc(100vh-50px)] w-full flex justify-center pt-10 '>
+    <div className='h-[calc(100vh-50px)] w-full flex justify-center pt-5 '>
       <Outlet />
     </div>
   )

@@ -7,7 +7,7 @@ import Star from '../svgs/Star'
 import styles from './Navbar.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateTaskIsFavorite } from '../../features/tasksSlice'
-import Dropdown from '../Dropdown/Dropdown'
+// import Dropdown from '../Dropdown/Dropdown'
 import TagSvg from '../svgs/TagSvg'
 import DropdownFavorites from '../Dropdown/DropdownFavorites'
 import { createSelector } from '@reduxjs/toolkit'
@@ -21,6 +21,9 @@ import DropdownProjects from '../Dropdown/DropdownProjects'
 import Archive from '../svgs/Archive'
 import DropdownUsers from '../Dropdown/DropdownUsers'
 import Deligate from '../svgs/Deligate'
+import DropdownTags from '../Dropdown/DropdownTags'
+import DropdownStatuses from '../Dropdown/DropdownStatuses'
+import StatusMenu from '../svgs/StatusMenu'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -68,13 +71,26 @@ const Navbar = () => {
         onRemoveFavorite={handleRemoveFavorite}
         svg={<Star />}
       />
-      <Dropdown children={'Tags'} svg={<TagSvg />} className='m-0 p-0' />
+      <DropdownTags
+        children={'Tags'}
+        svg={<TagSvg />}
+        className='m-0 p-0 rounded-[5px]'
+      />
       <DropdownProjects
         children={'Projects'}
         svg={<Projects />}
-        className='m-0 p-0'
+        className='m-0 p-0 rounded-[5px]'
       />
-      <DropdownUsers children={'Team'} svg={<Deligate />} className='m-0 p-0' />
+      <DropdownUsers
+        children={'Team'}
+        svg={<Deligate />}
+        className='m-0 p-0 rounded-[5px]'
+      />
+      <DropdownStatuses
+        children={'Statuses'}
+        svg={<StatusMenu />}
+        className='m-0 p-0 rounded-[5px]'
+      />
     </div>
   )
 }

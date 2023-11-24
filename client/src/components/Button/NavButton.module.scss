@@ -1,7 +1,7 @@
 .main {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  @apply flex flex-row w-full 
   h-[30px] min-w-[25px] 
-  items-center px-[7px] py-1 rounded-[5px] 
+  items-center px-[7px] py-1 rounded-[8px] 
   font-bold text-14 text-grayHover my-1
   justify-between transition-all duration-200 ease-in-out;
 
@@ -11,16 +11,15 @@
 }
 
 .active {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  @apply flex flex-row w-full 
   h-[30px] min-w-[25px] 
-  items-center px-[7px] py-1 rounded-[5px] 
+  items-center px-[7px] py-1 rounded-[8px] 
   font-bold text-14 text-task my-1
   justify-between bg-grayHover transition-all duration-200 ease-in-out;
 }
 
 .icon {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-2 auto-rows-fr 
-  items-center;
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-2 auto-rows-fr items-center;
 }
 
 .counter {

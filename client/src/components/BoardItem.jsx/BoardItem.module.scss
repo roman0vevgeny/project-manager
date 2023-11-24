@@ -1,5 +1,5 @@
 .body {
-  @apply flex flex-col pt-1 pb-2 border-1 border-stroke items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
+  @apply flex flex-col pt-1 pb-[6px] border-1 border-stroke items-start rounded-[15px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
   transition-all duration-200 ease-in-out h-fit;
   // max-h-[400px];
 
@@ -9,12 +9,12 @@
 }
 
 .dragging {
-  @apply flex flex-col pt-1 pb-2 border-1 border-borderHover items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
+  @apply flex flex-col pt-1 pb-[6px] border-1 border-borderHover items-start rounded-[15px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden shadow-lg
   transition-all duration-200 ease-in-out;
 }
 
 .bodyChecked {
-  @apply flex flex-col pt-1 pb-2 border-1 border-stroke items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
+  @apply flex flex-col pt-1 pb-[6px] border-1 border-stroke items-start rounded-[10px] max-w-[350px] relative cursor-pointer bg-mainBg overflow-hidden
   transition-all duration-200 ease-in-out;
 
   &:hover {

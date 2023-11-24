@@ -7,17 +7,17 @@
 }
 
 .textBig {
-  @apply min-w-[250px] font-bold pt-[3px] text-task text-start leading-1.5 flex-grow mr-10 break-words;
+  @apply min-w-[250px] font-bold pt-[3px] text-task text-start leading-1.5 flex-grow mr-10 break-words transition-colors duration-200 ease-in-out;
 }
 
 .textSmall {
-  @apply min-w-[250px] text-14  pt-[5px] text-task text-start leading-1.5 flex-grow mr-10 break-words;
+  @apply min-w-[250px] text-14  pt-[5px] text-task text-start leading-1.5 flex-grow mr-10 break-words transition-colors duration-200 ease-in-out;
 }
 
 .textBoards {
-  @apply w-[257px] text-14 pt-[5px] text-task text-start leading-1.5 flex-grow break-words;
+  @apply w-[257px] text-14 pt-[5px] text-task text-start leading-1.5 flex-grow break-words transition-colors duration-200 ease-in-out;
 }
 
 .textCal {
-  @apply pt-[1px] text-13 items-center text-task text-start leading-1;
+  @apply pt-[1px] text-13 items-center text-task text-start leading-1 transition-colors duration-200 ease-in-out;
 }

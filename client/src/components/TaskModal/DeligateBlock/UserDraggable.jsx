@@ -66,10 +66,10 @@ const UserDraggable = ({ userName, isDragging, userId, userColor, tasks }) => {
           styles.main +
           ' ' +
           (isDragging
-            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover'
-            : 'border-1 border-transparent border-b-borderMain')
+            ? 'shadow-lg bg-gray text-grayHover border-1 border-grayHover rounded-[8px] py-[5px]'
+            : 'border-1 border-transparent rounded-[8px] py-[5px]')
         }>
-        <div className='flex items-center'>
+        <div className='flex items-center w-full'>
           <div
             className={
               styles.user +
@@ -83,7 +83,7 @@ const UserDraggable = ({ userName, isDragging, userId, userColor, tasks }) => {
           <p className='leading-0'>{capitalizeFirstLetter(userName)}</p>
         </div>
 
-        <div className='flex min-w-[15px] justify-center items-center'>
+        <div className='flex min-w-[15px] text-12 justify-center items-center'>
           {tasks}
         </div>
       </div>

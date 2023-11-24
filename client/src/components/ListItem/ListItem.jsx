@@ -17,11 +17,11 @@ import {
 import InfoExpiration from '../Info/InfoExpiration'
 import { selectTaskById } from '../../helpers/selectTaskById'
 import Folder from '../svgs/Folder'
-import {
-  updateDoneTasksInProject,
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-} from '../../features/projectSlice'
+// import {
+//   updateDoneTasksInProject,
+//   updateTodoTasksInProject,
+//   updateProgressTasksInProject,
+// } from '../../features/projectSlice'
 import PrioritySmall from '../svgs/PrioritySmall'
 import Priority from '../svgs/Priority'
 import CalSmall from '../svgs/CalSmall'
@@ -57,90 +57,76 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
     dispatch(updateTaskChecked(taskId))
 
     const currentStatus = task.status
-    const newStatus = currentStatus === 'done' ? 'todo' : 'done'
+    const newStatus = currentStatus === 'Done' ? 'To-do' : 'Done'
     dispatch(updateTaskStatus({ id: taskId, status: newStatus }))
 
     if (task.projects.length > 0) {
       task.projects.forEach((projectId) => {
         const project = allProjects.find((proj) => proj.id === projectId)
         if (project) {
-          let updatedTodoTasks = [...project.todotasks]
-          let updatedProgressTasks = [...project.progresstasks]
-          let updatedDoneTasks = [...project.donetasks]
-
-          switch (currentStatus) {
-            case 'todo':
-              updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks = updatedProgressTasks.filter(
-                (id) => id !== taskId
-              )
-              break
-            case 'done':
-              updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
-              break
-            default:
-              break
-          }
-
-          switch (newStatus) {
-            case 'todo':
-              updatedTodoTasks.push(taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks.push(taskId)
-              break
-            case 'done':
-              updatedDoneTasks.push(taskId)
-              break
-            default:
-              break
-          }
-
-          dispatch(
-            updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-          )
-          dispatch(
-            updateProgressTasksInProject({
-              projectId,
-              tasks: updatedProgressTasks,
-            })
-          )
-          dispatch(
-            updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-          )
+          // let updatedTodoTasks = [...project.todotasks]
+          // let updatedProgressTasks = [...project.progresstasks]
+          // let updatedDoneTasks = [...project.donetasks]
+          // switch (currentStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks = updatedProgressTasks.filter(
+          //       (id) => id !== taskId
+          //     )
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // switch (newStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks.push(taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks.push(taskId)
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks.push(taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // dispatch(
+          //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+          // )
+          // dispatch(
+          //   updateProgressTasksInProject({
+          //     projectId,
+          //     tasks: updatedProgressTasks,
+          //   })
+          // )
+          // dispatch(
+          //   updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+          // )
         }
       })
     }
   }
 
   const renderProjects = () => {
-    return (
-      <>
-        {task.projects && task.projects.length > 0 && (
+    if (task.projects.length > 0) {
+      return (
+        <>
           <div className={styles.projectContainer}>
-            {task && task.projects.length === 1 ? (
-              <InfoCardSmall
-                svg={<FolderSmall />}
-                children={
-                  allProjects.find((project) => project.id === task.projects[0])
-                    .name
-                }
-              />
-            ) : task.projects.length > 1 ? (
-              <InfoCardSmall
-                svg={<FolderSmall />}
-                children={`${
-                  allProjects.find((project) => project.id === task.projects[0])
-                    .name
-                } ...+${task.projects.length - 1}`}
-              />
-            ) : null}
+            <InfoCardSmall
+              svg={<FolderSmall />}
+              children={
+                allProjects.find((project) => project.id === task.projects).name
+              }
+            />
           </div>
-        )}
-      </>
-    )
+        </>
+      )
+    }
   }
 
   // const renderProjects = () => {
@@ -234,6 +220,16 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
     return name.charAt(0).toUpperCase()
   }
 
+  const hasValues = () => {
+    const { tags, subtasks, projects, expirationDate } = task
+    return (
+      tags.length > 0 ||
+      subtasks.length > 0 ||
+      projects.length > 0 ||
+      expirationDate
+    )
+  }
+
   return (
     <>
       {task && (
@@ -250,13 +246,18 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
               />
             </button>
             <div className={styles.clickable}>
-              <div className='flex flex-raw justify-between items-start w-full mb-1'>
+              <div
+                className={
+                  hasValues()
+                    ? 'flex flex-raw justify-between items-start w-full mb-1'
+                    : 'flex flex-raw justify-between items-start w-full'
+                }>
                 <div className='flex flex-grow'>
                   <TaskName name={task.name} checked={task.checked} />
                 </div>
                 <div className='flex mt-[2px] items-center'>
                   {/* {task.projects && renderProjects()} */}
-                  {task.priority && (
+                  {/* {task.priority && (
                     <div
                       className={
                         'flex items-center justify-center w-[25px] h-[25px] ml-2 mr-1 rounded-[5px] pt-[1px]' +
@@ -267,7 +268,7 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
                         <Priority />
                       </div>
                     </div>
-                  )}
+                  )} */}
                   {/* {task.subtasks && task.subtasks.length > 0 && (
                     <InfoCard svg={<Subtasks />} children={subtasksCounter} />
                   )} */}
@@ -307,25 +308,26 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
                   </button> */}
                 </div>
               </div>
-              <div className='flex items-center mt-1 flex-wrap'>
-                {task.tags.length > 0 && (
-                  <div className='flex max-w-[600px]'>
-                    {task.tags.map((tagId, index) => {
-                      const tag = allTags.find((tag) => tag.id === tagId)
-                      return (
-                        tag && (
-                          <TagSecond
-                            color={tag.color}
-                            tagName={tag.name}
-                            key={index}
-                            checked={checked}
-                          />
+              {hasValues() && (
+                <div className='flex items-center my-1 flex-wrap'>
+                  {task.tags.length > 0 && (
+                    <div className='flex max-w-[600px]'>
+                      {task.tags.map((tagId, index) => {
+                        const tag = allTags.find((tag) => tag.id === tagId)
+                        return (
+                          tag && (
+                            <TagSecond
+                              color={tag.color}
+                              tagName={tag.name}
+                              key={index}
+                              checked={checked}
+                            />
+                          )
                         )
-                      )
-                    })}
-                  </div>
-                )}
-                {/* {task.priority && (
+                      })}
+                    </div>
+                  )}
+                  {/* {task.priority && (
                   <div
                     className={
                       'flex items-center justify-center w-[15px] rounded-[5px] mr-[10px]' +
@@ -337,34 +339,35 @@ const ListItem = ({ taskId, onClick, isDragging }) => {
                     </div>
                   </div>
                 )} */}
-                {task.expirationDate && (
+                  {task.expirationDate && (
+                    <div className='flex items-center justify-center rounded-[5px]'>
+                      <InfoDateSmall
+                        svg={<CalSmall />}
+                        children={new Date(
+                          task.expirationDate
+                        ).toLocaleDateString(navigator.language, {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: '2-digit',
+                        })}
+                        expirationDate={task.expirationDate}
+                        checked={task.checked}
+                      />
+                    </div>
+                  )}
+                  {task.subtasks && task.subtasks.length > 0 && (
+                    <div className='flex items-center justify-center rounded-[5px]'>
+                      <InfoCardSmall
+                        svg={<SubtasksSmall />}
+                        children={subtasksCounter}
+                      />
+                    </div>
+                  )}
                   <div className='flex items-center justify-center rounded-[5px]'>
-                    <InfoDateSmall
-                      svg={<CalSmall />}
-                      children={new Date(
-                        task.expirationDate
-                      ).toLocaleDateString(navigator.language, {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: '2-digit',
-                      })}
-                      expirationDate={task.expirationDate}
-                      checked={task.checked}
-                    />
+                    {task.projects && renderProjects()}
                   </div>
-                )}
-                {task.subtasks && task.subtasks.length > 0 && (
-                  <div className='flex items-center justify-center rounded-[5px]'>
-                    <InfoCardSmall
-                      svg={<SubtasksSmall />}
-                      children={subtasksCounter}
-                    />
-                  </div>
-                )}
-                <div className='flex items-center justify-center rounded-[5px]'>
-                  {task.projects && renderProjects()}
                 </div>
-              </div>
+              )}
             </div>
             <div className='flex mt-[2px] items-center'>
               {user && (

@@ -12,8 +12,8 @@
 }
 
 .inputProject {
-  @apply flex items-center text-24 font-bold mr-2 px-2 bg-mainBg text-task rounded-[5px]
-  transition-colors duration-200 ease-in-out border-0 min-w-[80px] max-w-[290px];
+  @apply flex items-center text-24 font-bold mr-2 px-2 py-[1px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 min-w-[80px] max-w-[290px] leading-1;
 
   &::placeholder {
     @apply text-placeholder border-0;
@@ -21,6 +21,50 @@
 
   &:focus {
     @apply outline-none bg-inputFocus text-inputFocus border-0;
+  }
+}
+
+.inputSection {
+  @apply flex items-center text-14 font-bold mr-2 px-2 py-[4px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 w-full leading-1;
+
+  &::placeholder {
+    @apply text-placeholder border-0;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus border-0;
+  }
+}
+
+.inputNewSection {
+  @apply flex items-center text-14 font-bold px-2 py-[4px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 w-full leading-1;
+
+  &::placeholder {
+    @apply text-placeholder border-0;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus border-0;
+  }
+}
+
+.button {
+  @apply flex items-center text-14 font-bold mr-2 px-2 py-[6px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 max-w-[350px] leading-1 cursor-pointer truncate;
+
+  &:hover {
+    @apply bg-gray transition-all duration-200 ease-in-out;
+  }
+}
+
+.bigButton {
+  @apply flex items-center text-24 font-bold mr-2 px-2 py-[4px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 max-w-[350px] leading-1 cursor-pointer truncate;
+
+  &:hover {
+    @apply bg-gray transition-all duration-200 ease-in-out;
   }
 }
 
@@ -34,8 +78,26 @@
 }
 
 .iconBlock {
-  @apply relative mr-2 text-task transition-all duration-200 ease-in-out p-2 rounded-[6px] cursor-pointer;
+  @apply relative mr-2 text-task transition-all duration-200 ease-in-out p-2 rounded-[10px] cursor-pointer;
   &:hover {
     @apply bg-gray;
+  }
+}
+
+.sectionStatusButton {
+  @apply flex items-center text-14 font-bold px-[5px] py-[5px] bg-mainBg text-gray rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 max-w-[350px] leading-1 cursor-pointer truncate;
+
+  &:hover {
+    @apply bg-gray transition-all duration-200 ease-in-out;
+  }
+}
+
+.sectionStatusButtonWithStatus {
+  @apply flex items-center text-14 font-bold px-[5px] py-[5px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 max-w-[350px] leading-1 cursor-pointer truncate;
+
+  &:hover {
+    @apply bg-gray transition-all duration-200 ease-in-out;
   }
 }

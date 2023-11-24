@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const ProjectPage = () => {
   return (
-    <div className='h-[calc(100vh-50px)] w-full flex justify-center pt-10'>
+    <div className='w-full pt-5'>
       <Outlet />
     </div>
   )

@@ -1,9 +1,13 @@
 import React from 'react'
 import styles from './CheckBox.module.scss'
-import Inprogress from '../svgs/Inprogress'
-import Progress from '../svgs/Progress'
+import { getStatusBigIcon } from '../Status/returnStatusIcons'
+import { useSelector } from 'react-redux'
 
 const CheckBox = ({ checked, priority, status }) => {
+  const statuses = useSelector((state) => state.statuses)
+  const taskStatus = statuses.find((stat) => stat.name === status)
+  // console.log('taskStatus: ', taskStatus)
+
   const priorityColor = (priority) => {
     if (priority === 'Low') {
       return 'border-[var(--priority-blue)] text-[var(--priority-blue)]'
@@ -37,12 +41,12 @@ const CheckBox = ({ checked, priority, status }) => {
           </svg>
         </div>
       )}
-      {!checked && status === 'inprogress' && (
+      {!checked && taskStatus && (
         <div
           className={
             'flex items-center rounded-full' + ' ' + priorityColor(priority)
           }>
-          <Inprogress />
+          {getStatusBigIcon(taskStatus.icon)}
           {/* <Progress /> */}
         </div>
       )}

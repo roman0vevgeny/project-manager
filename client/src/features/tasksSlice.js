@@ -16,7 +16,7 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: null,
-      status: 'todo',
+      status: 'In progress',
       documents: [],
       subtasks: [
         { id: 1, name: 'Подзадача 1', checked: false },
@@ -42,7 +42,7 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: new Date().toISOString(),
-      status: 'todo',
+      status: 'To-do',
       subtasks: [],
       documents: [],
       favorite: false,
@@ -65,7 +65,7 @@ const initialState = {
         second: '2-digit',
       }),
       expirationDate: null,
-      status: 'todo',
+      status: 'To-do',
       subtasks: [
         { id: 1, name: 'Первая подзадача', checked: false },
         { id: 2, name: 'Вторая подзадача', checked: false },
@@ -101,22 +101,22 @@ const tasksSlice = createSlice({
       console.log('action.payload addTask: ', action.payload)
     },
 
-    addFastTask(state, action) {
-      state.tasks.push({
-        ...action.payload,
-        id: Date.now(),
-        creationDate: new Date().toLocaleString('us-US', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-        }),
-        expirationDate: action.payload.expirationDate,
-      })
-      console.log('action.payload addTask: ', action.payload)
-    },
+    // addFastTask(state, action) {
+    //   state.tasks.push({
+    //     ...action.payload,
+    //     id: Date.now(),
+    //     creationDate: new Date().toLocaleString('us-US', {
+    //       year: 'numeric',
+    //       month: '2-digit',
+    //       day: '2-digit',
+    //       hour: '2-digit',
+    //       minute: '2-digit',
+    //       second: '2-digit',
+    //     }),
+    //     expirationDate: action.payload.expirationDate,
+    //   })
+    //   console.log('action.payload addTask: ', action.payload)
+    // },
 
     deleteTask(state, action) {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload)
@@ -234,14 +234,14 @@ const tasksSlice = createSlice({
       }
     },
 
-    updateTask(state, action) {
-      const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id
-      )
-      if (index > -1) {
-        state.tasks[index] = action.payload
-      }
-    },
+    // updateTask(state, action) {
+    //   const index = state.tasks.findIndex(
+    //     (task) => task.id === action.payload.id
+    //   )
+    //   if (index > -1) {
+    //     state.tasks[index] = action.payload
+    //   }
+    // },
     updateTaskTags(state, action) {
       const { id, tags } = action.payload
       const task = state.tasks.find((task) => task.id === id)
@@ -258,14 +258,14 @@ const tasksSlice = createSlice({
       }
     },
 
-    addTaskProject(state, action) {
-      const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id
-      )
-      if (index > -1) {
-        state.tasks[index].projects.push(action.payload.projectId)
-      }
-    },
+    // addTaskProject(state, action) {
+    //   const index = state.tasks.findIndex(
+    //     (task) => task.id === action.payload.id
+    //   )
+    //   if (index > -1) {
+    //     state.tasks[index].projects.push(action.payload.projectId)
+    //   }
+    // },
 
     deleteTaskProject(state, action) {
       const index = state.tasks.findIndex(
@@ -293,10 +293,11 @@ const tasksSlice = createSlice({
     },
 
     updateTaskProjects(state, action) {
-      const { id, projects } = action.payload
+      const { id, project } = action.payload
+      console.log('action.payload updateTaskProjects: ', action.payload)
       const task = state.tasks.find((task) => task.id === id)
       if (task) {
-        task.projects = projects
+        task.project = project
       }
     },
 

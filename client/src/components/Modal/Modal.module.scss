@@ -1,6 +1,23 @@
 .modal {
-  @apply relative flex justify-center bg-mainBg rounded-[10px] shadow-card z-[9001] overflow-y-auto overflow-x-hidden h-[calc(100vh-140px)] 
-  max-w-[1100px];
+  @apply relative flex justify-center bg-mainBg rounded-[20px] shadow-card z-[9001] overflow-y-auto overflow-x-hidden h-[calc(100vh-140px)] 
+  max-w-[1100px] cursor-default;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+  }
+}
+
+.fit {
+  @apply relative flex justify-center bg-mainBg rounded-[20px] shadow-card z-[9001] overflow-y-auto overflow-x-hidden 
+  max-w-[1100px] cursor-default min-h-[250px];
 
   &::-webkit-scrollbar {
     @apply w-[10px] absolute right-0;
@@ -16,5 +33,5 @@
 }
 
 .overlay {
-  @apply fixed inset-0 flex items-center justify-center z-[200] bg-black/20;
+  @apply fixed inset-0 flex items-center justify-center z-[200] bg-black/20 cursor-default;
 }

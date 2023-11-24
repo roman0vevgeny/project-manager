@@ -9,6 +9,7 @@ const DropdownModal = ({
   stopPropagation,
   onEscapePress,
   icon,
+  grid,
 }) => {
   useEffect(() => {
     const handleEscapePress = (e) => {
@@ -37,15 +38,21 @@ const DropdownModal = ({
   }
 
   return (
-    <div className={styles.container} onMouseDown={onEscapePress}>
+    <>
       <div className={styles.overlay} onClick={handleOverlayClick}></div>
       <div
         className={
-          icon ? styles.icon : !noBorder ? styles.modal : styles.modalNoBorder
+          icon
+            ? styles.icon
+            : grid
+            ? styles.grid
+            : !noBorder
+            ? styles.modal
+            : styles.modalNoBorder
         }>
         {children}
       </div>
-    </div>
+    </>
   )
 }
 

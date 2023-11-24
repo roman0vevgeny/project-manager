@@ -18,11 +18,11 @@ import { selectTaskById } from '../../helpers/selectTaskById'
 import TaskDescription from '../TaskDescription/TaskDescription'
 import TaskSubtasks from '../TaskSubtasks/TaskSubtasks'
 import Folder from '../svgs/Folder'
-import {
-  updateDoneTasksInProject,
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-} from '../../features/projectSlice'
+// import {
+//   updateDoneTasksInProject,
+//   updateTodoTasksInProject,
+//   updateProgressTasksInProject,
+// } from '../../features/projectSlice'
 
 const CardItem = ({ taskId, onClick, isDragging }) => {
   const task = useSelector((state) => selectTaskById(state, taskId))
@@ -32,6 +32,9 @@ const CardItem = ({ taskId, onClick, isDragging }) => {
 
   const allTags = useSelector((state) => state.tags)
   const allProjects = useSelector((state) => state.projects)
+  const allUsers = useSelector((state) => state.users.users)
+
+  const user = allUsers.find((user) => user.id === task.users)
 
   const handleToggleFavorite = (e) => {
     dispatch(updateTaskIsFavorite({ id: task.id, favorite: !task.favorite }))
@@ -54,55 +57,102 @@ const CardItem = ({ taskId, onClick, isDragging }) => {
       task.projects.forEach((projectId) => {
         const project = allProjects.find((proj) => proj.id === projectId)
         if (project) {
-          let updatedTodoTasks = [...project.todotasks]
-          let updatedProgressTasks = [...project.progresstasks]
-          let updatedDoneTasks = [...project.donetasks]
-
-          switch (currentStatus) {
-            case 'todo':
-              updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks = updatedProgressTasks.filter(
-                (id) => id !== taskId
-              )
-              break
-            case 'done':
-              updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
-              break
-            default:
-              break
-          }
-
-          switch (newStatus) {
-            case 'todo':
-              updatedTodoTasks.push(taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks.push(taskId)
-              break
-            case 'done':
-              updatedDoneTasks.push(taskId)
-              break
-            default:
-              break
-          }
-
-          dispatch(
-            updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-          )
-          dispatch(
-            updateProgressTasksInProject({
-              projectId,
-              tasks: updatedProgressTasks,
-            })
-          )
-          dispatch(
-            updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-          )
+          // let updatedTodoTasks = [...project.todotasks]
+          // let updatedProgressTasks = [...project.progresstasks]
+          // let updatedDoneTasks = [...project.donetasks]
+          // switch (currentStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks = updatedProgressTasks.filter(
+          //       (id) => id !== taskId
+          //     )
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // switch (newStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks.push(taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks.push(taskId)
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks.push(taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // dispatch(
+          //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+          // )
+          // dispatch(
+          //   updateProgressTasksInProject({
+          //     projectId,
+          //     tasks: updatedProgressTasks,
+          //   })
+          // )
+          // dispatch(
+          //   updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+          // )
         }
       })
     }
+  }
+
+  const getUserBgColor = (color) => {
+    switch (color) {
+      case 'blue':
+        return styles.blue
+      case 'green':
+        return styles.green
+      case 'pink':
+        return styles.pink
+      case 'purple':
+        return styles.purple
+      case 'red':
+        return styles.red
+      case 'yellow':
+        return styles.yellow
+      case 'sea':
+        return styles.sea
+      case 'gray':
+        return styles.gray
+      default:
+        return styles.blue
+    }
+  }
+
+  const getUserTextColor = (color) => {
+    switch (color) {
+      case 'blue':
+        return styles.blueText
+      case 'green':
+        return styles.greenText
+      case 'pink':
+        return styles.pinkText
+      case 'purple':
+        return styles.purpleText
+      case 'red':
+        return styles.redText
+      case 'yellow':
+        return styles.yellowText
+      case 'sea':
+        return styles.seaText
+      case 'gray':
+        return styles.grayText
+      default:
+        return styles.blueText
+    }
+  }
+
+  const getUserFirstLetter = (name) => {
+    return name.charAt(0).toUpperCase()
   }
 
   const renderProjects = () => {
@@ -164,11 +214,27 @@ const CardItem = ({ taskId, onClick, isDragging }) => {
                   checked={task.checked}
                 />
               )}
-              <button
+              {/* <button
                 className={favorite ? styles.favorite : styles.notFavorite}
                 onClick={handleToggleFavorite}>
                 <Star />
-              </button>
+              </button> */}
+              <div className='flex items-center'>
+                {user && (
+                  <div className='flex items-center justify-center mx-2'>
+                    <div
+                      className={
+                        styles.user +
+                        ' ' +
+                        getUserBgColor(user.color) +
+                        ' ' +
+                        getUserTextColor(user.color)
+                      }>
+                      {getUserFirstLetter(user.name)}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           {task.description ? (

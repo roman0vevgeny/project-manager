@@ -1,0 +1,27 @@
+.main {
+  @apply w-[177px] h-[170px] overflow-y-auto overflow-x-hidden;
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-scroll rounded-md;
+  }
+}
+
+.icon {
+  @apply flex items-center w-fit justify-start m-1 px-1 py-[3px] rounded-[5px] text-grayHover bg-mainBg hover:bg-gray hover:text-task cursor-pointer overflow-x-hidden;
+}
+
+.iconSticky {
+  @apply flex w-fit items-center justify-start m-1 px-1 py-[3px] rounded-[5px] text-task bg-gray hover:bg-gray hover:text-task cursor-default overflow-x-hidden;
+}
+
+.body {
+  @apply flex w-[20px] h-[20px] rounded-full justify-center items-center mx-2 box-border border-2 cursor-pointer
+  text-[var(--checkbox)] border-[var(--checkbox)] mb-1 mt-[5px] transition-all duration-200 ease-in-out;
+}

@@ -209,11 +209,11 @@ import Subtasks from '../svgs/Subtasks'
 import InfoExpiration from '../Info/InfoExpiration'
 import { selectTaskById } from '../../helpers/selectTaskById'
 import Folder from '../svgs/Folder'
-import {
-  updateDoneTasksInProject,
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-} from '../../features/projectSlice'
+// import {
+//   updateDoneTasksInProject,
+//   updateTodoTasksInProject,
+//   updateProgressTasksInProject,
+// } from '../../features/projectSlice'
 import TagSecond from '../Tag/TagSecond'
 import InfoDateSmall from '../Info/InfoDateSmall'
 import InfoCardSmall from '../Info/InfoCardSmall'
@@ -253,68 +253,64 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
     console.log('currentStatus, newStatus: ', currentStatus, newStatus)
     dispatch(updateTaskStatus({ id: taskId, status: newStatus }))
 
-    let updatedTodoTasks = []
-    let updatedProgressTasks = []
-    let updatedDoneTasks = []
+    // let updatedTodoTasks = []
+    // let updatedProgressTasks = []
+    // let updatedDoneTasks = []
 
-    console.log('updatedTodoTasks: ', updatedTodoTasks)
-    console.log('updatedProgressTasks: ', updatedProgressTasks)
-    console.log('updatedDoneTasks: ', updatedDoneTasks)
+    // console.log('updatedTodoTasks: ', updatedTodoTasks)
+    // console.log('updatedProgressTasks: ', updatedProgressTasks)
+    // console.log('updatedDoneTasks: ', updatedDoneTasks)
 
     if (task.projects.length > 0) {
       task.projects.forEach((projectId) => {
         const project = projects.find((proj) => proj.id === projectId)
         if (project) {
-          let updatedTodoTasks = [...project.todotasks]
-          let updatedProgressTasks = [...project.progresstasks]
-          let updatedDoneTasks = [...project.donetasks]
-
-          console.log('updatedTodoTasks: ', updatedTodoTasks)
-          console.log('updatedProgressTasks: ', updatedProgressTasks)
-          console.log('updatedDoneTasks: ', updatedDoneTasks)
-
-          switch (currentStatus) {
-            case 'todo':
-              updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks = updatedProgressTasks.filter(
-                (id) => id !== taskId
-              )
-              break
-            case 'done':
-              updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
-              break
-            default:
-              break
-          }
-
-          switch (newStatus) {
-            case 'todo':
-              updatedTodoTasks.push(taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks.push(taskId)
-              break
-            case 'done':
-              updatedDoneTasks.push(taskId)
-              break
-            default:
-              break
-          }
-
-          dispatch(
-            updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-          )
-          dispatch(
-            updateProgressTasksInProject({
-              projectId,
-              tasks: updatedProgressTasks,
-            })
-          )
-          dispatch(
-            updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-          )
+          // let updatedTodoTasks = [...project.todotasks]
+          // let updatedProgressTasks = [...project.progresstasks]
+          // let updatedDoneTasks = [...project.donetasks]
+          // console.log('updatedTodoTasks: ', updatedTodoTasks)
+          // console.log('updatedProgressTasks: ', updatedProgressTasks)
+          // console.log('updatedDoneTasks: ', updatedDoneTasks)
+          // switch (currentStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks = updatedProgressTasks.filter(
+          //       (id) => id !== taskId
+          //     )
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // switch (newStatus) {
+          //   case 'todo':
+          //     updatedTodoTasks.push(taskId)
+          //     break
+          //   case 'inprogress':
+          //     updatedProgressTasks.push(taskId)
+          //     break
+          //   case 'done':
+          //     updatedDoneTasks.push(taskId)
+          //     break
+          //   default:
+          //     break
+          // }
+          // dispatch(
+          //   updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+          // )
+          // dispatch(
+          //   updateProgressTasksInProject({
+          //     projectId,
+          //     tasks: updatedProgressTasks,
+          //   })
+          // )
+          // dispatch(
+          //   updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+          // )
         }
       })
     }
@@ -353,7 +349,7 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
               <InfoCardSmall
                 svg={<FolderSmall />}
                 children={
-                  allProjects.find((project) => project.id === task.projects[0])
+                  allProjects.find((project) => project.id === task.projects)
                     .name
                 }
               />
@@ -361,7 +357,7 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
               <InfoCardSmall
                 svg={<FolderSmall />}
                 children={`${
-                  allProjects.find((project) => project.id === task.projects[0])
+                  allProjects.find((project) => project.id === task.projects)
                     .name
                 } ...+${task.projects.length - 1}`}
               />
@@ -422,8 +418,18 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
     return name.charAt(0).toUpperCase()
   }
 
+  const hasValues = () => {
+    const { tags, subtasks, projects, expirationDate } = task
+    return (
+      tags.length > 0 ||
+      subtasks.length > 0 ||
+      projects.length > 0 ||
+      expirationDate
+    )
+  }
+
   return (
-    <div className='relative flex flex-col w-[350px] p-2'>
+    <div className='relative flex flex-col w-[350px] px-2 py-1'>
       <div
         className={isDragging ? styles.dragging : styles.body}
         onClick={onClick}>
@@ -488,7 +494,12 @@ const BoardItem = ({ taskId, onClick, isDragging }) => {
           )}
         </div> */}
 
-        <div className='flex items-center mb-1 flex-wrap ml-10 space-y-1'>
+        <div
+          className={
+            hasValues()
+              ? 'flex items-center mb-1 flex-wrap ml-10 space-y-1'
+              : 'flex items-center flex-wrap ml-10 space-y-1'
+          }>
           {/* {task.priority && (
                   <div
                     className={

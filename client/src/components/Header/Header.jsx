@@ -26,7 +26,9 @@ const Header = ({ toggleNavbar, showNavbar, currentPath }) => {
   return (
     <div className={styles.main}>
       <div className='flex flex-raw min-w-[292px] max-w-[292px]'>
-        <MenuButton svg={<Burger />} onClick={toggleNavbar} />
+        <button className={styles.button} onClick={toggleNavbar}>
+          <Burger />
+        </button>
         {!accountLocation && <SearchBar />}
       </div>
       <div

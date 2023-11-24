@@ -1,28 +1,23 @@
-import React, { useRef, useState } from 'react'
-import styles from './SortMenu.module.scss'
-
-const capitalizeFirstLetter = (string) => {
-  return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
-}
+import React, { useState } from 'react'
 
 const SortMenu = ({ name, onSortChange, onClose }) => {
   const [text, setText] = useState(name)
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
+  // const handleChange = (e) => {
+  //   setText(e.target.value)
+  // }
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      inputRef.current.blur()
-    }
-  }
+  // const handleKeyDown = (e) => {
+  //   if (e.key === 'Enter') {
+  //     inputRef.current.blur()
+  //   }
+  // }
 
-  const handleBlur = () => {
-    if (text.trim() === '') {
-      setText(name)
-    }
-  }
+  // const handleBlur = () => {
+  //   if (text.trim() === '') {
+  //     setText(name)
+  //   }
+  // }
 
   const items = [
     { id: 1, name: 'Sort by name' },
@@ -32,12 +27,12 @@ const SortMenu = ({ name, onSortChange, onClose }) => {
   ]
 
   return (
-    <div className='flex flex-col w-fit mt-[1px] bg-mainBg text-start rounded-b-md overflow-hidden transition-all duration-200 ease-in-out max-h-screen opacity-100 rounded-[5px]'>
-      <ul className='py-1 w-fit transition-all duration-200 ease-in-out'>
+    <div className='flex flex-col w-fit mt-[1px] bg-mainBg text-start rounded-[8px] overflow-hidden transition-all duration-200 ease-in-out max-h-screen opacity-100'>
+      <ul className='py-1 w-fit transition-all duration-200 ease-in-out px-1'>
         {items.map((item) => (
           <li
             key={item.id}
-            className='text-grayHover hover:bg-gray cursor-pointer text-12 py-1 px-2 w-full'
+            className='text-grayHover hover:bg-gray cursor-pointer text-12 py-1 px-2 w-full rounded-[8px]'
             onClick={() => {
               onSortChange(item.name)
               onClose()

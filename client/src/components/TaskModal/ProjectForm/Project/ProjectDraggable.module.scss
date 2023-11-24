@@ -1,6 +1,14 @@
 .withDelete {
-  @apply flex flex-row items-center w-full py-[7px] pl-[25px] pr-[7px] text-14 leading-[11px] cursor-pointer 
-  justify-between transition-colors duration-200 ease-in-out;
+  @apply flex flex-row items-center py-[7px] pl-[25px] pr-[7px] text-14 leading-[11px] cursor-pointer 
+  justify-between transition-colors duration-200 ease-in-out rounded-[5px];
+}
+
+.withDeleteStatus {
+  @apply flex flex-row items-center py-[7px] pl-[25px] pr-[7px] text-14 leading-[11px] cursor-pointer 
+  justify-between transition-colors duration-200 ease-in-out rounded-[5px];
+  &:hover {
+    @apply bg-gray;
+  }
 }
 
 .svg {

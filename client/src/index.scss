@@ -39,6 +39,7 @@ body {
 }
 
 .light {
+  --color-bg-sidebar: #eff0ff;
   --color-text-gray: #929292;
   --color-text-gray-hover: #868686;
   --color-bg-gray: #f0f0f0;
@@ -103,6 +104,7 @@ body {
 }
 
 .dark {
+  --color-bg-sidebar: #424242;
   --color-text-gray: #aaaaaa;
   --color-text-gray-hover: #aaaaaa;
   --color-bg-gray: #4f4f4f;

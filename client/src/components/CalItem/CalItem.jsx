@@ -5,11 +5,11 @@ import styles from './CalItem.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateTaskChecked, updateTaskStatus } from '../../features/tasksSlice'
 import { selectTaskById } from '../../helpers/selectTaskById'
-import {
-  updateDoneTasksInProject,
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-} from '../../features/projectSlice'
+// import {
+//   updateDoneTasksInProject,
+//   updateTodoTasksInProject,
+//   updateProgressTasksInProject,
+// } from '../../features/projectSlice'
 
 const CalItem = ({ taskId, onClick, isDragging }) => {
   const task = useSelector((state) => selectTaskById(state, taskId))
@@ -28,54 +28,54 @@ const CalItem = ({ taskId, onClick, isDragging }) => {
     if (task.projects.length > 0) {
       task.projects.forEach((projectId) => {
         const project = allProjects.find((proj) => proj.id === projectId)
-        if (project) {
-          let updatedTodoTasks = [...project.todotasks]
-          let updatedProgressTasks = [...project.progresstasks]
-          let updatedDoneTasks = [...project.donetasks]
+        // if (project) {
+        //   let updatedTodoTasks = [...project.todotasks]
+        //   let updatedProgressTasks = [...project.progresstasks]
+        //   let updatedDoneTasks = [...project.donetasks]
 
-          switch (currentStatus) {
-            case 'todo':
-              updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks = updatedProgressTasks.filter(
-                (id) => id !== taskId
-              )
-              break
-            case 'done':
-              updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
-              break
-            default:
-              break
-          }
+        //   switch (currentStatus) {
+        //     case 'todo':
+        //       updatedTodoTasks = updatedTodoTasks.filter((id) => id !== taskId)
+        //       break
+        //     case 'inprogress':
+        //       updatedProgressTasks = updatedProgressTasks.filter(
+        //         (id) => id !== taskId
+        //       )
+        //       break
+        //     case 'done':
+        //       updatedDoneTasks = updatedDoneTasks.filter((id) => id !== taskId)
+        //       break
+        //     default:
+        //       break
+        //   }
 
-          switch (newStatus) {
-            case 'todo':
-              updatedTodoTasks.push(taskId)
-              break
-            case 'inprogress':
-              updatedProgressTasks.push(taskId)
-              break
-            case 'done':
-              updatedDoneTasks.push(taskId)
-              break
-            default:
-              break
-          }
+        //   switch (newStatus) {
+        //     case 'todo':
+        //       updatedTodoTasks.push(taskId)
+        //       break
+        //     case 'inprogress':
+        //       updatedProgressTasks.push(taskId)
+        //       break
+        //     case 'done':
+        //       updatedDoneTasks.push(taskId)
+        //       break
+        //     default:
+        //       break
+        //   }
 
-          dispatch(
-            updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
-          )
-          dispatch(
-            updateProgressTasksInProject({
-              projectId,
-              tasks: updatedProgressTasks,
-            })
-          )
-          dispatch(
-            updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
-          )
-        }
+        //   dispatch(
+        //     updateTodoTasksInProject({ projectId, tasks: updatedTodoTasks })
+        //   )
+        //   dispatch(
+        //     updateProgressTasksInProject({
+        //       projectId,
+        //       tasks: updatedProgressTasks,
+        //     })
+        //   )
+        //   dispatch(
+        //     updateDoneTasksInProject({ projectId, tasks: updatedDoneTasks })
+        //   )
+        // }
       })
     }
   }

@@ -1,0 +1,42 @@
+.input {
+  @apply flex items-center text-18 font-bold mr-2 px-2 pt-[2px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 min-w-[80px] w-full cursor-pointer leading-1;
+
+  &:hover {
+    @apply bg-gray;
+  }
+
+  &::placeholder {
+    @apply text-gray border-0;
+  }
+
+  &:focus {
+    @apply outline-none bg-inputFocus text-inputFocus border-0 cursor-text;
+    &::placeholder {
+      @apply text-inputFocus border-0;
+    }
+  }
+}
+
+.name {
+  @apply flex items-center text-18 font-bold mr-2 px-2 pt-[2px] bg-mainBg text-task rounded-[8px]
+  transition-colors duration-200 ease-in-out border-0 min-w-[80px] w-full cursor-pointer;
+
+  &:hover {
+    @apply bg-gray;
+  }
+}
+
+.devider {
+  @apply flex items-center flex-grow;
+
+  &::after {
+    @apply flex-grow h-[1px] bg-devider transition-all duration-200 ease-in-out;
+    content: '';
+  }
+}
+
+.body {
+  @apply flex w-[20px] h-[20px] rounded-full justify-center items-center mx-2 box-border border-2 
+  text-[var(--checkbox)] border-[var(--checkbox)] mb-1 mt-[5px] transition-all duration-200 ease-in-out;
+}

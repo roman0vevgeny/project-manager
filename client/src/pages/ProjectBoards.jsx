@@ -5,39 +5,48 @@ import CreateButton from '../components/Button/CreateButton'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import ScrollButton from '../components/Button/ScrollButton'
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import Modal from '../components/Modal/Modal'
 import EditTaskModal from '../components/TaskModal/EditTaskModal'
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
+import InfoBlock from '../components/Info/IndoBlock'
 import {
-  updateTodoTasksInProject,
-  updateProgressTasksInProject,
-  updateDoneTasksInProject,
-} from '../features/projectSlice'
-import { updateTaskChecked, updateTaskStatus } from '../features/tasksSlice'
+  moveTaskBetweenSections,
+  updateTaskOrder,
+} from '../features/sectionSlice'
+import { updateSectionsOrder } from '../features/projectSlice'
 import { useParams } from 'react-router-dom'
 import { selectTaskById } from '../helpers/selectTaskById'
 import BoardItem from '../components/BoardItem.jsx/BoardItem'
+import SectionSectionName from '../components/SectionName/SectionSectionName'
+import Plus from '../components/svgs/Plus'
+import SectionIcon from '../components/svgs/SectionIcon'
+import SectionInputName from '../components/SectionName/SectionInputName'
 
 const ProjectBoards = () => {
   const [isShowButton, setIsShowButton] = useState(false)
   const [open, setOpen] = useState(false)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
+  const [hoveredSection, setHoveredSection] = useState(null)
+  const [showAddSectionInput, setShowAddSectionInput] = useState(false)
 
   let location = useLocation()
   const dispatch = useDispatch()
   const { projectId } = useParams()
-
-  const tasks = useSelector((state) => state.tasks.tasks)
+  const allSections = useSelector((state) => state.sections)
   const project = useSelector((state) =>
     state.projects.find((project) => project.id === projectId)
   )
-  // console.log('Project: ', project)
 
-  const sections = [
-    { name: 'To-do', tasks: project && project.todotasks },
-    { name: 'In progress', tasks: project && project.progresstasks },
-    { name: 'Done', tasks: project && project.donetasks },
-  ]
+  const findSectionsFromProject = (projectSections) => {
+    const sections = []
+    for (let sectionId of projectSections) {
+      const section = allSections.find((section) => section.id === sectionId)
+      if (section) {
+        sections.push(section)
+      }
+    }
+    return sections
+  }
 
   const handleSelectTask = (task) => {
     setSelectedTaskId(task)
@@ -69,172 +78,347 @@ const ProjectBoards = () => {
   }, [sectionRef])
 
   const onDragEnd = (result) => {
-    const { source, destination } = result
+    const { source, destination, type } = result
     if (!destination) {
       return
     }
-
-    const sourceSectionName = source.droppableId
-    const destinationSectionName = destination.droppableId
-
-    const updateFunctions = {
-      'To-do': (tasks) =>
-        dispatch(
-          updateTodoTasksInProject({
-            projectId: projectId,
-            tasks: tasks,
-          })
-        ),
-      'In progress': (tasks) =>
-        dispatch(
-          updateProgressTasksInProject({
-            projectId: projectId,
-            tasks: tasks,
-          })
-        ),
-      'Done': (tasks) =>
-        dispatch(
-          updateDoneTasksInProject({
-            projectId: projectId,
-            tasks: tasks,
-          })
-        ),
-    }
-
-    if (sourceSectionName === destinationSectionName) {
-      const section = sections.find(
-        (section) => section.name === sourceSectionName
+    const sourceId = source.droppableId
+    console.log('sourceId: ', sourceId)
+    const destinationId = destination.droppableId
+    console.log('destinationId: ', destinationId)
+    if (type === 'section') {
+      // Двигаю секции
+      const newSections = [...project.sections]
+      console.log('newSections: ', newSections)
+      const [movedSection] = newSections.splice(source.index, 1)
+      console.log('movedSection: ', movedSection)
+      newSections.splice(destination.index, 0, movedSection)
+      console.log('newSections after splice: ', newSections)
+      dispatch(
+        updateSectionsOrder({
+          projectId: project.id,
+          sections: newSections,
+        })
       )
-      const newTasks = [...section.tasks]
-      const [movedTask] = newTasks.splice(source.index, 1)
-      newTasks.splice(destination.index, 0, movedTask)
-
-      updateFunctions[sourceSectionName](newTasks)
+      // } else {
+      //   // Moving sections between different projects
+      //   const sourceProject = allSections.find(
+      //     (project) => project.id === Number(sourceId)
+      //   )
+      //   const destinationProject = allSections.find(
+      //     (project) => project.id === Number(destinationId)
+      //   )
+      //   const movedSection = sourceProject.sections[source.index]
+      //   const newDestinationSections = [...destinationProject.sections]
+      //   newDestinationSections.splice(destination.index, 0, movedSection)
+      //   const destinationIndex = parseInt(destination.index, 10)
+      //   dispatch(
+      //     moveSectionBetweenProjects({
+      //       sourceProjectId: Number(sourceId),
+      //       destinationProjectId: Number(destinationId),
+      //       sectionId: movedSection,
+      //       destinationIndex: destinationIndex,
+      //     })
+      //   )
+      // }
     } else {
-      const movedTask = sections.find(
-        (section) => section.name === sourceSectionName
-      ).tasks[source.index]
+      // Перемещение задач
+      if (sourceId === destinationId) {
+        // Двигаю задачу внутри одной секции
+        const section = allSections.find((section) => section.id === sourceId)
+        const newTasks = [...section.tasks]
+        const [movedTask] = newTasks.splice(source.index, 1)
+        newTasks.splice(destination.index, 0, movedTask)
+        dispatch(
+          updateTaskOrder({
+            sectionId: sourceId,
+            sourceIndex: source.index,
+            destinationIndex: destination.index,
+          })
+        )
+      } else {
+        // Двигаю между секциями задачу
+        const sourceSection = allSections.find(
+          (section) => section.id === sourceId
+        )
+        const destinationSection = allSections.find(
+          (section) => section.id === destinationId
+        )
+        const movedTask = sourceSection.tasks[source.index]
+        const newDestinationTasks = [...destinationSection.tasks]
+        newDestinationTasks.splice(destination.index, 0, movedTask)
 
-      const newSourceTasks = sections
-        .find((section) => section.name === sourceSectionName)
-        .tasks.filter((task, index) => index !== source.index)
-
-      const newDestinationTasks = [
-        ...sections.find((section) => section.name === destinationSectionName)
-          .tasks,
-      ]
-      newDestinationTasks.splice(destination.index, 0, movedTask)
-
-      updateFunctions[sourceSectionName](newSourceTasks)
-      updateFunctions[destinationSectionName](newDestinationTasks)
-      const task = tasks.find((task) => task.id === movedTask)
-      if (destinationSectionName === 'Done') {
-        if (task.status !== 'done' && task.checked === false) {
-          dispatch(updateTaskStatus({ id: task.id, status: 'done' }))
-          dispatch(updateTaskChecked(task.id))
-        }
-      } else if (destinationSectionName === 'In progress') {
-        if (task.status !== 'inprogress') {
-          dispatch(updateTaskStatus({ id: task.id, status: 'inprogress' }))
-          if (task.checked === true) {
-            dispatch(updateTaskChecked(task.id))
-          }
-        }
-      } else if (destinationSectionName === 'To-do') {
-        if (task.status !== 'todo') {
-          dispatch(updateTaskStatus({ id: task.id, status: 'todo' }))
-          if (task.checked === true) {
-            dispatch(updateTaskChecked(task.id))
-          }
-        }
+        dispatch(
+          moveTaskBetweenSections({
+            projectId: projectId,
+            sourceSectionId: sourceId,
+            destinationSectionId: destinationId,
+            taskId: movedTask,
+            destinationIndex: destination.index,
+          })
+        )
       }
     }
-  }
-
-  const renderCreateButton = (bigButton, projectId) => {
-    return <CreateButton bigButton={bigButton} projectId={projectId} />
   }
 
   const handleOpenModal = () => {
     setOpen(true)
   }
 
+  const renderSectionName = (section, isDragging) => {
+    return (
+      <SectionSectionName
+        projectId={projectId}
+        section={section}
+        noSvg={true}
+        editable={true}
+        isDragging={isDragging}
+      />
+    )
+  }
+
+  const countAllSectionsTasks = (sections) => {
+    let count = 0
+    for (let section of sections) {
+      count += section.tasks.length
+    }
+    return count
+  }
+
+  const renderSections = () => {
+    return (
+      <div className='flex mx-8'>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId={`${project.id}`}
+            type='section'
+            direction='horizontal'>
+            {(provided, snapshot) => {
+              const { droppableProps, innerRef, ...rest } = provided
+              return (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  {...rest}
+                  className={snapshot.isDraggingOver ? 'flex' : 'flex'}>
+                  {project.sections.map((sectionId, index) => {
+                    const section = allSections.find(
+                      (section) => section.id === sectionId
+                    )
+                    if (section) {
+                      return (
+                        <>
+                          <Draggable
+                            key={section.id}
+                            draggableId={`${section.id}`}
+                            index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className={
+                                  snapshot.isDragging
+                                    ? 'flex border-1 border-checkbox rounded-[13px] bg-mainBg mx-2 outline-none overflow-hidden transition-colors duration-200 ease-in-out'
+                                    : 'flex bg-mainBg mx-2 outline-none rounded-[10px] h-[calc(100vh-300px)] transition-colors duration-200 ease-in-out'
+                                }>
+                                <div>
+                                  <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out rounded-[15px]'>
+                                    {renderSectionName(
+                                      section,
+                                      snapshot.isDragging
+                                    )}
+                                  </div>
+                                  <section>
+                                    <div>
+                                      <div>
+                                        <Droppable
+                                          droppableId={`${section.id}`}>
+                                          {(provided, snapshot) => {
+                                            const {
+                                              droppableProps,
+                                              innerRef,
+                                              ...rest
+                                            } = provided
+                                            return (
+                                              <div
+                                                className={
+                                                  snapshot.isDraggingOver
+                                                    ? styles.draggingOverBoards
+                                                    : styles.notDraggingOverBoards
+                                                }
+                                                ref={provided.innerRef}
+                                                {...provided.droppableProps}
+                                                {...rest}>
+                                                {section.tasks.map(
+                                                  (task, index) => (
+                                                    <Draggable
+                                                      key={task}
+                                                      draggableId={`${task}`}
+                                                      index={index}>
+                                                      {(provided, snapshot) => (
+                                                        <div
+                                                          ref={
+                                                            provided.innerRef
+                                                          }
+                                                          {...provided.draggableProps}
+                                                          {...provided.dragHandleProps}>
+                                                          <div
+                                                            onClick={
+                                                              handleOpenModal
+                                                            }>
+                                                            <BoardItem
+                                                              taskId={task}
+                                                              onSelectTask={
+                                                                handleSelectTask
+                                                              }
+                                                              onClick={() =>
+                                                                handleSelectTask(
+                                                                  task
+                                                                )
+                                                              }
+                                                              isDragging={
+                                                                snapshot.isDragging
+                                                              }
+                                                            />
+                                                          </div>
+                                                        </div>
+                                                      )}
+                                                    </Draggable>
+                                                  )
+                                                )}
+                                                {!snapshot.isDraggingOver && (
+                                                  <div>
+                                                    <div className='flex items-center justify-start mx-2 my-1 cursor-pointer py-2 hover:bg-nav rounded-[15px] space-x-2 text-blueTag hover:text-task'>
+                                                      <div className='ml-3'>
+                                                        <Plus />
+                                                      </div>
+                                                      <div className='text-13'>
+                                                        Add task
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                )}
+                                                {provided.placeholder}
+                                              </div>
+                                            )
+                                          }}
+                                        </Droppable>
+                                        <div className='flex justify-between mr-5 mt-5'>
+                                          <div></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                          {!snapshot.isDraggingOver && !showAddSectionInput && (
+                            <div
+                              className='relative w-0 h-[calc(100vh-200px)]'
+                              onMouseEnter={() => setHoveredSection(section.id)}
+                              onMouseLeave={() => setHoveredSection(null)}
+                              key={`section.id` + 1}>
+                              <div
+                                className={`absolute top-0 left-[-15px] w-[15px] h-[calc(100vh-183px)] items-center justify-start mx-2 my-1 cursor-pointer py-2 rounded-[15px] space-x-3 text-grayHover ${
+                                  hoveredSection === section.id
+                                    ? 'opacity-100 transition-all duration-500 ease-in-out delay-200'
+                                    : 'opacity-0 transition-all duration-500 ease-in-out delay-200'
+                                }`}
+                                onClick={() => setShowAddSectionInput(true)}>
+                                {hoveredSection === section.id && (
+                                  <div className='relative w-0 h-[calc(100vh-200px)]'>
+                                    <div className={styles.after}></div>
+                                    <div className='absolute top-[50%] left-[-47px] flex flex-row items-center p-1 bg-mainBg'>
+                                      <div className='flex mr-1 text-blueTag'>
+                                        <Plus />
+                                      </div>
+                                      <div className='flex text-13 w-[80px] text-blueTag'>
+                                        Add section
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                          {!snapshot.isDraggingOver &&
+                            showAddSectionInput &&
+                            hoveredSection === section.id && (
+                              <div>
+                                <div className='flex w-[369px] items-center justify-start px-2 cursor-pointer rounded-[10px] text-grayHover'>
+                                  {showAddSectionInput && (
+                                    <SectionInputName
+                                      project={project}
+                                      sectionId={section.id}
+                                      showAddSectionInput={() =>
+                                        setShowAddSectionInput(false)
+                                      }
+                                      hoveredSection={() =>
+                                        setHoveredSection(null)
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                        </>
+                      )
+                    }
+
+                    return null
+                  })}
+                  {!snapshot.isDraggingOver && (
+                    <div>
+                      <div className='flex w-[353px] items-center justify-start mx-2 my-1 cursor-pointer py-2 bg-nav rounded-[15px] space-x-3 text-grayHover hover:bg-navButtonHover'>
+                        <div className='ml-5'>
+                          <SectionIcon />
+                        </div>
+                        <div className='text-14 font-bold'>Add section</div>
+                      </div>
+                    </div>
+                  )}
+                  {provided.placeholder}
+                </div>
+              )
+            }}
+          </Droppable>
+        </DragDropContext>
+      </div>
+    )
+  }
+
   return (
     <>
       {project ? (
-        <div className={styles.main}>
-          <div className='flex flex-row justify-center w-full'>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {sections.map((section) => (
-                <div className='mx-4 w-[350px]' key={section.name}>
-                  <div className='sticky top-0 z-[1] bg-mainBg transition-all duration-200 ease-in-out'>
-                    <SectionProjectName
-                      name={section.name}
-                      projectId={projectId}
-                      noSvg={true}
-                      editable={true}
-                    />
-                  </div>
-                  <section ref={sectionRef} className={styles.scrollableBlock}>
-                    <div className='mb-[50px]'>
-                      <div className='z-[0]'>
-                        <Droppable droppableId={section.name} className='z-[0]'>
-                          {(provided, snapshot) => {
-                            const { droppableProps, innerRef, ...rest } =
-                              provided
-                            return (
-                              <div
-                                className={
-                                  snapshot.isDraggingOver
-                                    ? styles.draggingOver
-                                    : styles.notDraggingOver
-                                }
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                {...rest}>
-                                {section.tasks.map((task, index) => (
-                                  <Draggable
-                                    key={task}
-                                    draggableId={`${task}`}
-                                    index={index}>
-                                    {(provided, snapshot) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}>
-                                        <div onClick={handleOpenModal}>
-                                          <BoardItem
-                                            taskId={task}
-                                            onSelectTask={handleSelectTask}
-                                            onClick={() =>
-                                              handleSelectTask(task)
-                                            }
-                                            isDragging={snapshot.isDragging}
-                                          />
-                                        </div>
-                                      </div>
-                                    )}
-                                  </Draggable>
-                                ))}
-
-                                {provided.placeholder}
-                              </div>
-                            )
-                          }}
-                        </Droppable>
-                        <div className='flex justify-between mr-5 mt-5'>
-                          <div></div>
-                          {renderCreateButton(true, projectId)}
-                        </div>
-                      </div>
-                    </div>
-                    {isShowButton && <ScrollButton sectionRef={sectionRef} />}
-                  </section>
+        <div>
+          {countAllSectionsTasks(findSectionsFromProject(project.sections)) ===
+          0 ? (
+            <div className='text-task m-0 p-0 transition-all duration-200 ease-in-out'>
+              <InfoBlock location={location.pathname} />
+              <p>Project is empty</p>
+              <p className='text-gray'>Add tasks to it</p>
+            </div>
+          ) : (
+            <div className='m-0 space-y-0'>
+              <div className='sticky top-0 z-[2] bg-mainBg transition-all duration-200 ease-in-out mx-8'>
+                <div className='flex w-full'>
+                  <SectionProjectName
+                    name={project.name}
+                    projectId={project.id}
+                    noSvg={false}
+                    editable={true}
+                  />
                 </div>
-              ))}
-            </DragDropContext>
-          </div>
-          {renderCreateButton(true, projectId)}
+              </div>
+              <div className={styles.mainBoards} ref={sectionRef}>
+                {renderSections()}
+              </div>
+            </div>
+          )}
+          {isShowButton && <ScrollButton sectionRef={sectionRef} />}
+
           <Modal
             open={selectedTaskId !== null}
             onClose={() => handleSelectTask(null)}
@@ -251,8 +435,10 @@ const ProjectBoards = () => {
           />
         </div>
       ) : (
-        <div className='m-2 px-4 py-1 bg-yellowTag text-yellowTag text-14 flex justify-center h-fit rounded-md'>
-          Project not found or deleted
+        <div className='m-2 flex h-fit justify-center'>
+          <div className='flex px-4 py-1 bg-yellowTag text-yellowTag text-14 rounded-md w-fit'>
+            Project not found or deleted
+          </div>
         </div>
       )}
     </>

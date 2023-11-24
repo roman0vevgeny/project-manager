@@ -272,12 +272,29 @@ const usersSlice = createSlice({
     //   state.users.splice(0, state.length, ...action.payload.users)
     // },
 
+    // updateUsersOrder(state, action) {
+    //   const { sourceIndex, destinationIndex } = action.payload
+    //   const updatedUsers = [...state.users]
+    //   const [movedUser] = updatedUsers.splice(sourceIndex, 1)
+    //   updatedUsers.splice(destinationIndex, 0, movedUser)
+    //   state.users = updatedUsers
+    // },
+
+    // updateUsersOrder(state, action) {
+    //   const { sourceIndex, destinationIndex } = action.payload
+    //   const newUsers = [...state]
+    //   const [removed] = newUsers.splice(sourceIndex, 1)
+    //   newUsers.splice(destinationIndex, 0, removed)
+    //   return newUsers
+    // },
+
     updateUsersOrder(state, action) {
       const { sourceIndex, destinationIndex } = action.payload
-      const updatedUsers = [...state.users]
-      const [movedUser] = updatedUsers.splice(sourceIndex, 1)
-      updatedUsers.splice(destinationIndex, 0, movedUser)
-      state.users = updatedUsers
+      const newUsers = [...state.users]
+      const [removed] = newUsers.splice(sourceIndex, 1)
+      newUsers.splice(destinationIndex, 0, removed)
+      state.users = newUsers
+      console.log('action.payload updateUsersOrder: ', action.payload)
     },
 
     updateTasksInUser(state, action) {

@@ -8,7 +8,8 @@
 }
 
 .button {
-  @apply flex w-[33px] h-[30px] rounded-[5px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
+  @apply flex w-[33px] h-[30px] rounded-[8px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out
+  outline-none;
 
   &:hover {
     @apply bg-menu transition-all duration-200 ease-in-out;
@@ -16,7 +17,7 @@
 }
 
 .active {
-  @apply bg-menu shadow-button flex w-[33px] h-[30px] rounded-[5px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
+  @apply bg-menu shadow-button flex w-[33px] h-[30px] rounded-[8px] text-menu items-center justify-center mx-[5px] transition-all duration-200 ease-in-out;
 }
 
 .account {

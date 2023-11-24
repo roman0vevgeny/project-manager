@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { updateUsersOrder } from '../../features/usersSlice'
 import UserDraggable from '../TaskModal/DeligateBlock/UserDraggable'
-import { updateTaskUsers } from '../../features/tasksSlice'
 import { useNavigate, NavLink } from 'react-router-dom'
+import ArrowSmall from '../svgs/ArrowSmall'
 
 const capitalizeFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
@@ -18,7 +18,7 @@ const DropdownUsers = ({ children, svg }) => {
 
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users.users)
-  console.log('users: ', users)
+  // console.log('users: ', users)
 
   const navigate = useNavigate()
 
@@ -76,7 +76,8 @@ const DropdownUsers = ({ children, svg }) => {
                 ? '-rotate-120 transition-all duration-200 ease-in-out'
                 : '-rotate-90 transition-all duration-200 ease-in-out'
             }>
-            {<Arrow />}
+            {/* {<Arrow />} */}
+            {<ArrowSmall />}
           </div>
         </div>
       </button>
@@ -89,9 +90,9 @@ const DropdownUsers = ({ children, svg }) => {
             {(provided, snapshot) => (
               <div
                 className={
-                  snapshot.isDraggingOver
-                    ? 'pb-[7px] pt-[7px] w-full'
-                    : 'pb-[7px] pt-[7px] w-full'
+                  snapshot.isDragging
+                    ? 'pb-[7px] pt-[7px] px-1'
+                    : 'pb-[7px] pt-[7px] px-1'
                 }
                 ref={provided.innerRef}
                 {...provided.droppableProps}>
@@ -103,7 +104,9 @@ const DropdownUsers = ({ children, svg }) => {
                       index={index}>
                       {(provided, snapshot) => (
                         <li
-                          className='flex flex-row'
+                          className={
+                            snapshot.isDragging ? 'flex w-full' : 'flex w-full'
+                          }
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}>

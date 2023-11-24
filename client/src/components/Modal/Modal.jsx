@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import styles from './Modal.module.scss'
 
-const Modal = ({ open, onClose, children }) => {
+const Modal = ({ open, onClose, children, fit }) => {
+  // console.log('children modal: ', children)
   useEffect(() => {
     const handleEscapePress = (e) => {
       if (e.key === 'Escape') {
@@ -27,7 +28,7 @@ const Modal = ({ open, onClose, children }) => {
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modal}>{children}</div>
+      <div className={!fit ? styles.modal : styles.fit}>{children}</div>
     </div>
   )
 }

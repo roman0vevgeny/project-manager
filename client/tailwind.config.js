@@ -188,6 +188,7 @@ export default {
         grayHover: 'var(--color-bg-gray-hover)',
         menu: 'var(--menu-button-hover)',
         nav: 'var(--nav-bg)',
+        sidebar: 'var(--color-bg-sidebar)',
         navButtonHover: 'var(--navbutton-bg-hover)',
         checkmark: "url('/src/assets/Checkmark.svg')",
         checkboxActive: 'var(--checkbox-active)',

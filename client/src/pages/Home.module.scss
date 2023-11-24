@@ -1,10 +1,5 @@
 .main {
-  @apply relative h-[calc(100vh-50px)] w-full flex justify-center transition-all duration-200 ease-in-out;
-}
-
-.scrollable {
-  @apply flex flex-col items-center overflow-y-auto h-[calc(100vh-100px)] w-full pb-10 transition-all duration-200 ease-in-out;
-
+  @apply relative h-[calc(100vh-70px)] w-full flex justify-center transition-all duration-200 ease-in-out overflow-y-auto overflow-x-hidden;
   &::-webkit-scrollbar {
     @apply w-[10px] absolute right-0;
   }
@@ -20,12 +15,92 @@
   }
 }
 
+.mainBoards {
+  @apply relative h-[calc(100vh-120px)] w-full flex justify-start transition-all duration-200 ease-in-out overflow-x-auto overflow-y-auto;
+  &::-webkit-scrollbar {
+    @apply h-[10px] w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-[5px];
+    scroll-behavior: smooth;
+    transition: all 200ms ease-in-out;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-checkboxActive rounded-[5px];
+  }
+}
+
+.mainBoardsSidebar {
+  @apply relative h-[calc(100vh-70px)] flex justify-start;
+  // //  transition-all duration-200 ease-in-out;
+  // width: calc(100% - 300px);
+  // &::-webkit-scrollbar:horizontal {
+  //   height: 10px;
+  //   width: 10px;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   @apply bg-transparent rounded-[5px];
+  //   // scroll-behavior: smooth;
+  //   // transition: all 200ms ease-in-out;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   @apply bg-checkboxActive rounded-[5px];
+  // }
+}
+
+// .newScrollable {
+//   @apply flex flex-col items-center min-w-[500px] max-w-[900px] mx-4;
+//   // &::-webkit-scrollbar {
+//   //   @apply w-[10px] absolute right-0;
+//   // }
+
+//   // &::-webkit-scrollbar-track {
+//   //   @apply bg-transparent rounded-[5px];
+//   //   scroll-behavior: smooth;
+//   //   transition: all 200ms ease-in-out;
+//   // }
+
+//   // &::-webkit-scrollbar-thumb {
+//   //   @apply bg-checkboxActive rounded-[5px];
+//   // }
+// }
+
+.scrollable {
+  @apply flex flex-col items-center overflow-y-auto h-[calc(100vh-100px)] w-full pb-10 transition-all duration-200 ease-in-out;
+
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-[5px];
+    // scroll-behavior: smooth;
+    // transition: all 200ms ease-in-out;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-checkboxActive rounded-[5px];
+  }
+}
+
 .scrollableBlock {
-  @apply flex flex-col items-center justify-center pb-10 transition-all duration-200 ease-in-out;
+  @apply flex flex-col w-full transition-all duration-200 ease-in-out;
+}
+
+.scrollableBlockList {
+  @apply flex w-full transition-all duration-200 ease-in-out;
 }
 
 .draggingOver {
-  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-[355px] h-[calc(100vh-150px)] overflow-y-scroll overflow-x-hidden;
+  @apply flex border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-[357px] overflow-y-scroll overflow-x-hidden;
 
   &::-webkit-scrollbar {
     @apply w-[10px] absolute right-0;
@@ -46,6 +121,88 @@
   }
 }
 
+.draggingOverBoards {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke min-h-[calc(100vh-200px)] w-[353px] transition-all duration-200 ease-in-out;
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent my-2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-md scroll-smooth hover:scroll-auto;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    }
+  }
+}
+
+.draggingOverBoards > div {
+  @apply flex justify-center w-full;
+}
+
+.draggingOverBoards > div > div {
+  @apply w-full;
+}
+
+.notDraggingOverBoards {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain w-[353px] min-h-[calc(100vh-200px)] transition-all duration-200 ease-in-out;
+  &::-webkit-scrollbar {
+    @apply w-[10px] absolute right-0;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent my-2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-md scroll-smooth hover:scroll-auto;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-scroll rounded-md scroll-smooth hover:scroll-auto;
+    }
+  }
+}
+
+.notDraggingOverBoards > div {
+  @apply flex justify-center w-full;
+}
+
+.notDraggingOverBoards > div > div {
+  @apply w-full;
+}
+
+.draggingOverList {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-stroke w-full min-h-[80px] transition-all duration-200 ease-in-out overflow-hidden;
+}
+
+.draggingOverList > div {
+  @apply flex justify-center w-full;
+}
+
+.draggingOverList > div > div {
+  @apply w-full;
+}
+
+.notDraggingOverList {
+  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain w-full min-h-[80px] transition-all duration-200 ease-in-out overflow-hidden;
+}
+
+.notDraggingOverList > div {
+  @apply flex justify-center w-full;
+}
+
+.notDraggingOverList > div > div {
+  @apply w-full;
+}
+
 .draggingOver > div {
   @apply flex justify-center w-full;
 }
@@ -55,7 +212,7 @@
 }
 
 .notDraggingOver {
-  @apply border-b-1 border-dashed border-x-1 pb-[3px] pt-[2px] border-borderMain w-[355px] h-[calc(100vh-150px)] transition-all duration-200 ease-in-out  
+  @apply flex border-b-1 border-dashed border-x-1 border-borderMain w-[357px] h-[calc(100vh-185px)] transition-all duration-200 ease-in-out  
   overflow-y-auto overflow-x-hidden;
 
   &::-webkit-scrollbar {
@@ -83,4 +240,12 @@
 
 .notDraggingOver > div > div {
   @apply w-full;
+}
+
+.after {
+  @apply absolute top-0 left-[7px] transition-colors delay-500 ease-in-out;
+  &::after {
+    @apply flex w-[1px] h-[calc(100vh-200px)] bg-[--color-text-blue-tag] z-[-1];
+    content: '';
+  }
 }

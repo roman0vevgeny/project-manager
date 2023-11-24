@@ -12,17 +12,17 @@ const Subtask = ({ subtask, onDelete, onChange, checked, onTransform }) => {
 
   const [hovered, setHovered] = useState(false)
 
-  const handleFocus = () => {
-    inputRef.current.focus()
+  // const handleFocus = () => {
+  //   inputRef.current.focus()
 
-    const range = document.createRange()
-    range.selectNodeContents(inputRef.current)
-    range.collapse(false)
+  //   const range = document.createRange()
+  //   range.selectNodeContents(inputRef.current)
+  //   range.collapse(false)
 
-    const selection = window.getSelection()
-    selection.removeAllRanges()
-    selection.addRange(range)
-  }
+  //   const selection = window.getSelection()
+  //   selection.removeAllRanges()
+  //   selection.addRange(range)
+  // }
 
   const handleBlur = () => {
     if (text.trim() === '') {
@@ -77,7 +77,10 @@ const Subtask = ({ subtask, onDelete, onChange, checked, onTransform }) => {
         <div className='flex'>
           {(hovered || inputRef.current === document.activeElement) && (
             <div className='flex flex-row mt-[1px]'>
-              <ModalButton svg={<Transform />} onClick={onTransform} />
+              <ModalButton
+                svg={<Transform />}
+                // onClick={onTransform}
+              />
             </div>
           )}
           {(hovered || inputRef.current === document.activeElement) && (

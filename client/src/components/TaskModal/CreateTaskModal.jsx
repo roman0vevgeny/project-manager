@@ -5,7 +5,7 @@ import TagForm from './TagForm/TagForm'
 import Calend from './Calendar/Calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTask } from '../../features/tasksSlice'
-import { addTaskToProject } from '../../features/projectSlice'
+// import { addTaskToProject } from '../../features/projectSlice'
 import Plus from '../svgs/Plus'
 import Tag from '../Tag/Tag'
 import TaskHeader from './TaskHeader/TaskHeader'
@@ -30,7 +30,7 @@ const CreateTaskModal = ({ onClose, today, projectId, userId, date }) => {
     subtasks: [],
     checked: false,
     favorite: false,
-    status: 'todo',
+    status: 'To-do',
     projects: [],
     documents: [],
     users: [],
@@ -81,7 +81,7 @@ const CreateTaskModal = ({ onClose, today, projectId, userId, date }) => {
       setError(null)
       dispatch(addTask(task))
       task.projects.forEach((projectId) => {
-        dispatch(addTaskToProject({ projectId, taskId: task.id }))
+        // dispatch(addTaskToProject({ projectId, taskId: task.id }))
       })
       onClose()
     }
@@ -169,12 +169,6 @@ const CreateTaskModal = ({ onClose, today, projectId, userId, date }) => {
               name={task.name}
               setName={(newName) => setTask({ ...task, name: newName })}
             />
-            {/* <CreateBangle
-              description={task.description}
-              setDescription={(newDescription) =>
-                setTask({ ...task, description: newDescription })
-              }
-            /> */}
             {task.tags.length > 0 && (
               <div className='flex flex-wrap ml-4 mt-1 mb-1 max-w-[530px]'>
                 {task.tags.map((tagId) => {

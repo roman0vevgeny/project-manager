@@ -1,7 +1,7 @@
 .main {
   @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
   h-[30px] min-w-[25px] 
-  items-center px-[7px] py-1 rounded-[5px] 
+  items-center px-[7px] py-1 rounded-[8px] 
   font-bold text-14 text-grayHover mt-1
   justify-between transition-all duration-200 ease-in-out;
 
@@ -15,9 +15,9 @@
 }
 
 .open {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
+  @apply flex flex-row w-full  
   h-[30px] min-w-[25px] bg-mainBg
-  items-center px-[7px] py-1 rounded-t-[5px] 
+  items-center px-[7px] py-1 rounded-t-[8px] 
   font-bold text-14 text-grayHover mt-1
   justify-between transition-all duration-200 ease-in-out;
 
@@ -40,7 +40,7 @@
 }
 
 .dropdown {
-  @apply flex flex-col content-start justify-start w-full mt-[1px] rounded-md max-h-0 
+  @apply flex flex-col content-start justify-start w-full mt-[1px] rounded-[8px] max-h-0 
   origin-top transition-all duration-200 ease-in-out;
 }
 
@@ -53,11 +53,11 @@
 }
 
 .active {
-  @apply w-full bg-navButtonHover items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out;
+  @apply w-full bg-navButtonHover items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out rounded-[8px];
 }
 
 .nav {
-  @apply w-full bg-mainBg items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out;
+  @apply w-full bg-mainBg items-center text-14 text-grayHover justify-between transition-all duration-200 ease-in-out rounded-[8px];
 
   &:hover {
     @apply bg-gray;

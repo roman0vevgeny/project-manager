@@ -50,7 +50,7 @@ const BubbleMenuComponent = ({
         }>
         {CodeIcon()}
       </button>
-      <div className='flex w-[1px] mx-[10px] h-[30px] bg-grayHover'></div>
+      <div className='flex w-[1px] mx-[10px] h-[30px] bg-[var(--stroke)]'></div>
       <button
         onClick={setLink}
         className={

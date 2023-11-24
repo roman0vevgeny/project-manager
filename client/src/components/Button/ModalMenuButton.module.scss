@@ -1,6 +1,6 @@
 .main {
   @apply flex flex-row grid-cols-2 auto-cols-fr gap-1 auto-rows-fr 
-  h-[30px] w-[227px] items-center px-[7px] rounded-[5px] 
+  h-[30px] w-[227px] items-center px-[7px] rounded-[8px] 
   text-13 text-grayHover my-[4px] justify-between;
 
   &:hover {
@@ -9,12 +9,18 @@
 }
 
 .icon {
-  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-3 auto-rows-fr 
-  leading-0 items-center;
+  @apply flex flex-row w-full grid-cols-2 auto-cols-fr gap-3 auto-rows-fr items-center truncate;
 }
 
 .counter {
   @apply flex items-center mr-1;
+}
+
+.goTo {
+  @apply flex items-center rounded-[5px] p-[5px];
+  &:hover {
+    @apply text-grayHover bg-grayHover;
+  }
 }
 
 .history {

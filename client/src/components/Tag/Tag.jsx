@@ -49,9 +49,7 @@ const Tag = ({ tagName, color, deleteTag, onDelete, checked, isDragging }) => {
         <SmallTag />
       </div>
 
-      <p className='mr-[3px]'>
-        {typeof tagName === 'string' ? capitalizeFirstLetter(tagName) : tagName}
-      </p>
+      <p className='mr-[5px]'>{capitalizeFirstLetter(tagName)}</p>
       {deleteTag && (
         <div
           className={`${styles[tagType]} ${styles.delete}`}

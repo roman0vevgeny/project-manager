@@ -1,11 +1,11 @@
 .main {
-  @apply flex flex-row flex-nowrap items-center w-fit h-[25px] mx-2 pt-[6px] pb-[5px] px-[5px] rounded-[5px] text-12 leading-[11px] cursor-pointer bg-gray
-  text-grayHover transition-all duration-200 ease-in-out;
+  @apply flex flex-row flex-nowrap items-center w-fit h-[25px] mx-2 pt-[6px] pb-[5px] px-[5px] rounded-[8px] text-12 leading-[11px] cursor-pointer bg-blueTag
+  text-blueTag transition-all duration-200 ease-in-out;
 }
 
 .svg {
   @apply flex flex-row items-center w-fit ml-[8px] mr-[2px] pt-[1px] rounded-[3px] cursor-pointer
-  text-grayHover transition-all duration-200 ease-in-out;
+  text-blueTag transition-all duration-200 ease-in-out;
   &:hover {
     @apply text-tagDelete rotate-90;
   }

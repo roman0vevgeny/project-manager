@@ -28,7 +28,7 @@ const Layout = () => {
   }, [location.pathname])
 
   return (
-    <div className='relative overflow-hidden transition-all duration-200 ease-in-out'>
+    <div className='relative transition-all duration-200 ease-in-out'>
       <Header
         toggleNavbar={toggleNavbar}
         showNavbar={showNavbar}
@@ -37,10 +37,10 @@ const Layout = () => {
       <div className='relative flex snap-y flex-raw transition-all duration-200 ease-in-out'>
         {showNavbar && (
           <nav className={styles.navbar}>
-            <Navbar className='sticky top-0' />
+            <Navbar />
           </nav>
         )}
-        <main className='flex relative justify-center h-[calc(100vh-50px)] w-full transition-all duration-200 ease-in-out'>
+        <main className={styles.outlet}>
           <Outlet />
         </main>
       </div>
